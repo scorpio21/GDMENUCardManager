@@ -66,10 +66,10 @@
         <Grid Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
             <StackPanel Orientation="Horizontal">
                 <Button Click="ButtonSpanish_Click" Padding="2" Background="Transparent" BorderThickness="0" ToolTip="Español">
-                    <Image Source="pack://application:,,,/Assets/banderas/espana.png" Width="24" Height="16"/>
+                    <Image Source="pack://application:,,,/Assets/banderas/es.svg" Width="24" Height="16"/>
                 </Button>
                 <Button Click="ButtonEnglish_Click" Padding="2" Background="Transparent" BorderThickness="0" ToolTip="English" Margin="5 0 0 0">
-                    <Image Source="pack://application:,,,/Assets/banderas/ingles.png" Width="24" Height="16"/>
+                    <Image Source="pack://application:,,,/Assets/banderas/gb.svg" Width="24" Height="16"/>
                 </Button>
             </StackPanel>
         </Grid>

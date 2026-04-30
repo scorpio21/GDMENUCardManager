@@ -6,7 +6,6 @@
   <sys:String x:Key="StringTempFolder">Temporary folder</sys:String>
   <sys:String x:Key="StringSearch">Search</sys:String>
   <sys:String x:Key="StringGamesList">Games List</sys:String>
-  <x:Static x:Key="StringGamesListPrefix" Member="sys:String.Empty"/>
   <sys:String x:Key="StringLocation">Location</sys:String>
   <sys:String x:Key="StringSdNumber">Sd Number</sys:String>
   <sys:String x:Key="StringSdNumberTooltip">Current item folder on SD Card</sys:String>

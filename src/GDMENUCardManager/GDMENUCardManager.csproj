@@ -4,6 +4,7 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <UseRuntimeGraph>true</UseRuntimeGraph>
     <DefineConstants>TRACE;UNMANAGED</DefineConstants>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <ApplicationIcon>Assets\GDMENUCardManager.ico</ApplicationIcon>

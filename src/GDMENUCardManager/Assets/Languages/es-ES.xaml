@@ -3,10 +3,9 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
   <sys:String x:Key="StringSettings">Configuración</sys:String>
   <sys:String x:Key="StringSDDrive">Unidad SD</sys:String>
-  <sys:String x:Key="StringTempFolder">Carpeta temporal</x:String>
+  <sys:String x:Key="StringTempFolder">Carpeta temporal</sys:String>
   <sys:String x:Key="StringSearch">Buscar</sys:String>
   <sys:String x:Key="StringGamesList">Lista de juegos</sys:String>
-  <x:Static x:Key="StringGamesListPrefix" Member="sys:String.Empty"/>
   <sys:String x:Key="StringLocation">Ubicación</sys:String>
   <sys:String x:Key="StringSdNumber">Nº SD</sys:String>
   <sys:String x:Key="StringSdNumberTooltip">Carpeta actual del elemento en la tarjeta SD</sys:String>
