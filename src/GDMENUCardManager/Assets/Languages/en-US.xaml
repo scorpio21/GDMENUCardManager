@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <sys:String x:Key="StringSettings">Settings</sys:String>
+  <sys:String x:Key="StringSDDrive">SD Drive</sys:String>
+  <sys:String x:Key="StringTempFolder">Temporary folder</sys:String>
+  <sys:String x:Key="StringSearch">Search</sys:String>
+  <sys:String x:Key="StringGamesList">Games List</sys:String>
+  <x:Static x:Key="StringGamesListPrefix" Member="sys:String.Empty"/>
+  <sys:String x:Key="StringLocation">Location</sys:String>
+  <sys:String x:Key="StringSdNumber">Sd Number</sys:String>
+  <sys:String x:Key="StringSdNumberTooltip">Current item folder on SD Card</sys:String>
+  <sys:String x:Key="StringLength">Length</sys:String>
+  <sys:String x:Key="StringTitle">Title</sys:String>
+  <sys:String x:Key="StringSerial">Serial</sys:String>
+  <sys:String x:Key="StringDisc">Disc</sys:String>
+  <sys:String x:Key="StringSaveChanges">Save Changes</sys:String>
+  <sys:String x:Key="StringPreload">Preload</sys:String>
+  <sys:String x:Key="StringPreloadTooltip">Load info from files that are already on sd card</sys:String>
+  <sys:String x:Key="StringSortList">Sort List</sys:String>
+  <sys:String x:Key="StringBatchRename">Batch Rename</sys:String>
+  <sys:String x:Key="StringAbout">About</sys:String>
+  <sys:String x:Key="StringSelectFolder">Select Folder</sys:String>
+  <sys:String x:Key="StringRefreshDrive">Refresh Drive List</sys:String>
+  <sys:String x:Key="StringRename">Rename</sys:String>
+  <sys:String x:Key="StringSentenceCase">Sentence Case</sys:String>
+  <sys:String x:Key="StringAutoRename">Automatically Rename</sys:String>
+  <sys:String x:Key="StringUsingIP">Using IP.BIN _info</sys:String>
+  <sys:String x:Key="StringUsingFolder">Using Folder name</sys:String>
+  <sys:String x:Key="StringUsingFile">Using File name</sys:String>
+  <sys:String x:Key="StringViewFileInfo">View File Info</sys:String>
+  <sys:String x:Key="StringAddGames">Add game(s)</sys:String>
+  <sys:String x:Key="StringRemoveGame">Remove selected game(s)</sys:String>
+  <sys:String x:Key="StringGDIShrink">GDI Shrink</sys:String>
+  <sys:String x:Key="StringEnableGDIShrink">Enable GDI Shrink for new games</sys:String>
+  <sys:String x:Key="StringGDIShrinkDesc">Games can use less space on SD Card</sys:String>
+  <sys:String x:Key="StringAlsoShrinkCompressed">Also shrink compressed games</sys:String>
+  <sys:String x:Key="StringAlsoShrinkCompressedDesc">Games will be extracted to temp folder prior to shrinking</sys:String>
+  <sys:String x:Key="StringUseBlacklist">Use Blacklist</sys:String>
+  <sys:String x:Key="StringUseBlacklistDesc">Skips incompatible games</sys:String>
+</ResourceDictionary>

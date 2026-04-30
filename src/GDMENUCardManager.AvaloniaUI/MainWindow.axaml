@@ -129,7 +129,13 @@
     </HeaderedContentControl>
 
 
-    <HeaderedContentControl Grid.Row="2" Margin="10 0 10 10" Header="{Binding Path=TotalFilesLength, Mode=OneWay, StringFormat='Games List [{0}]'}">
+    <HeaderedContentControl Grid.Row="2" Margin="10 0 10 10">
+      <HeaderedContentControl.Header>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Text="{DynamicResource StringGamesList}"/>
+          <TextBlock Text="{Binding TotalFilesLength, Mode=OneWay, StringFormat=' [{0}]'}"/>
+        </StackPanel>
+      </HeaderedContentControl.Header>
       <DockPanel>
         <Grid DockPanel.Dock="Top" Width="500" HorizontalAlignment="Left" Margin="0 5">
           <Grid.ColumnDefinitions>
@@ -137,9 +143,9 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
-          <Label Margin="0 3 0 0">Search</Label>
+          <Label Margin="0 3 0 0" Content="{DynamicResource StringSearch}"/>
           <TextBox Grid.Column="1" Name="tbFilter" Width="260" MaxLength="39" Text="{Binding Filter, Mode=TwoWay}" />
-          <Button Grid.Column="2" Width="30" ToolTip.Tip="Search" IsDefault="{Binding Path=IsFocused, ElementName=tbFilter, Mode=OneWay}" Click="ButtonSearch_Click">
+          <Button Grid.Column="2" Width="30" ToolTip.Tip="{DynamicResource StringSearch}" IsDefault="{Binding Path=IsFocused, ElementName=tbFilter, Mode=OneWay}" Click="ButtonSearch_Click">
             <ContentControl Content="{StaticResource ViewMagnify}" />
           </Button>
         </Grid>
@@ -159,12 +165,12 @@
                   </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Rename" Click="MenuItemRename_Click" CommandParameter="{Binding}"/>
-                <MenuItem Header="Sentence Case" Click="MenuItemRenameSentence_Click" CommandParameter="{Binding}"/>
-                <MenuItem Header="Automatically Rename">
-                  <MenuItem Header="Using IP.BIN _info" Click="MenuItemRenameIP_Click" CommandParameter="{Binding}"/>
-                  <MenuItem Header="Using Folder name" Click="MenuItemRenameFolder_Click" CommandParameter="{Binding}"/>
-                  <MenuItem Header="Using File name" Click="MenuItemRenameFile_Click" CommandParameter="{Binding}"/>
+                <MenuItem Header="{DynamicResource StringRename}" Click="MenuItemRename_Click" CommandParameter="{Binding}"/>
+                <MenuItem Header="{DynamicResource StringSentenceCase}" Click="MenuItemRenameSentence_Click" CommandParameter="{Binding}"/>
+                <MenuItem Header="{DynamicResource StringAutoRename}">
+                  <MenuItem Header="{DynamicResource StringUsingIP}" Click="MenuItemRenameIP_Click" CommandParameter="{Binding}"/>
+                  <MenuItem Header="{DynamicResource StringUsingFolder}" Click="MenuItemRenameFolder_Click" CommandParameter="{Binding}"/>
+                  <MenuItem Header="{DynamicResource StringUsingFile}" Click="MenuItemRenameFile_Click" CommandParameter="{Binding}"/>
                 </MenuItem>
               </ContextMenu.Items>
             </ContextMenu>
@@ -179,7 +185,7 @@
             <DataGridTemplateColumn Width="Auto">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                  <Button Click="ButtonInfo_Click" ToolTip.Tip="View File Info" CommandParameter="{Binding}">
+                  <Button Click="ButtonInfo_Click" ToolTip.Tip="{DynamicResource StringViewFileInfo}" CommandParameter="{Binding}">
                     <!--<ContentControl Content="{StaticResource ViewInfo}"/>-->
                     <!--until this issue is fixed https://github.com/AvaloniaUI/Avalonia/issues/2735-->
                     <Viewbox Width="18" Height="18">
@@ -191,16 +197,16 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTextColumn Header="Location" Width="Auto" IsReadOnly="True" Binding="{Binding Location, Mode=OneWay}"/>
+            <DataGridTextColumn Header="{DynamicResource StringLocation}" Width="Auto" IsReadOnly="True" Binding="{Binding Location, Mode=OneWay}"/>
             <DataGridTextColumn Width="Auto" IsReadOnly="True" Binding="{Binding SdNumber, Mode=OneWay}">
               <DataGridTextColumn.Header>
-                <TextBlock Text="Sd Number" ToolTip.Tip="Current item folder on SD Card"/>
+                <TextBlock Text="{DynamicResource StringSdNumber}" ToolTip.Tip="{DynamicResource StringSdNumberTooltip}"/>
               </DataGridTextColumn.Header>
             </DataGridTextColumn>
-            <DataGridTextColumn Header="Length" Width="Auto" IsReadOnly="True" Binding="{Binding Length, Mode=OneWay, Converter={StaticResource ByteSizeToString}}"/>
-            <DataGridTextColumn Header="Title" Width="1*" Binding="{Binding Name}"/>
-            <DataGridTextColumn Header="Serial" Width="Auto" Binding="{Binding ProductNumber}"/>
-            <DataGridTextColumn Header="Disc" Width="Auto" IsReadOnly="True" Binding="{Binding Ip.Disc, Mode=OneWay}"/>
+            <DataGridTextColumn Header="{DynamicResource StringLength}" Width="Auto" IsReadOnly="True" Binding="{Binding Length, Mode=OneWay, Converter={StaticResource ByteSizeToString}}"/>
+            <DataGridTextColumn Header="{DynamicResource StringTitle}" Width="1*" Binding="{Binding Name}"/>
+            <DataGridTextColumn Header="{DynamicResource StringSerial}" Width="Auto" Binding="{Binding ProductNumber}"/>
+            <DataGridTextColumn Header="{DynamicResource StringDisc}" Width="Auto" IsReadOnly="True" Binding="{Binding Ip.Disc, Mode=OneWay}"/>
           </DataGrid.Columns>
         </DataGrid>
       </DockPanel>
@@ -242,11 +248,11 @@
           <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="0" Width="50" Margin="10 0" ToolTip.Tip="Add game(s)" Click="ButtonAddGames_Click" Content="{StaticResource ViewAdd}"/>
-        <Button Grid.Column="1" Width="50" Margin="0 0 10 0" ToolTip.Tip="Remove selected game(s)" Click="ButtonRemoveGame_Click" Content="{StaticResource ViewRemove}"/>
+        <Button Grid.Column="0" Width="50" Margin="10 0" ToolTip.Tip="{DynamicResource StringAddGames}" Click="ButtonAddGames_Click" Content="{StaticResource ViewAdd}"/>
+        <Button Grid.Column="1" Width="50" Margin="0 0 10 0" ToolTip.Tip="{DynamicResource StringRemoveGame}" Click="ButtonRemoveGame_Click" Content="{StaticResource ViewRemove}"/>
 
 
-        <Button Grid.Column="2" Width="50" Margin="10 0" ToolTip.Tip="Move selected game(s) up" Click="ButtonMoveUp_Click">
+        <Button Grid.Column="2" Width="50" Margin="10 0" ToolTip.Tip="{DynamicResource StringMoveUp}" Click="ButtonMoveUp_Click">
           <Button.Content>
           <Viewbox Width="24" Height="24">
               <Canvas Width="24" Height="24">
@@ -255,7 +261,7 @@
             </Viewbox>
           </Button.Content>
         </Button>
-        <Button Grid.Column="3" Width="50" Margin="0 0 10 0" ToolTip.Tip="Move selected game(s) down" Click="ButtonMoveDown_Click">
+        <Button Grid.Column="3" Width="50" Margin="0 0 10 0" ToolTip.Tip="{DynamicResource StringMoveDown}" Click="ButtonMoveDown_Click">
           <Button.Content>
             <Viewbox Width="24" Height="24">
               <Canvas Width="24" Height="24">
@@ -265,10 +271,10 @@
           </Button.Content>
         </Button>
 
-        <Button Grid.Column="4" Margin="10 0" Padding="0 10" FontWeight="Bold" Click="ButtonSaveChanges_Click">Save Changes</Button>
-        <Button Grid.Column="5" Margin="10 0" Padding="10 10" ToolTip.Tip="Load info from files that are already on sd card" Click="ButtonPreload_Click">Preload</Button>
-        <Button Grid.Column="6" Margin="10 0" Padding="10 10" Click="ButtonSort_Click">Sort List</Button>
-        <Button Grid.Column="7" Margin="10 0" Padding="10 10" Click="ButtonBatchRename_Click">Batch Rename</Button>
+        <Button Grid.Column="4" Margin="10 0" Padding="0 10" FontWeight="Bold" Click="ButtonSaveChanges_Click" Content="{DynamicResource StringSaveChanges}"/>
+        <Button Grid.Column="5" Margin="10 0" Padding="10 10" ToolTip.Tip="{DynamicResource StringPreloadTooltip}" Click="ButtonPreload_Click" Content="{DynamicResource StringPreload}"/>
+        <Button Grid.Column="6" Margin="10 0" Padding="10 10" Click="ButtonSort_Click" Content="{DynamicResource StringSortList}"/>
+        <Button Grid.Column="7" Margin="10 0" Padding="10 10" Click="ButtonBatchRename_Click" Content="{DynamicResource StringBatchRename}"/>
       </Grid>
     </Grid>
 

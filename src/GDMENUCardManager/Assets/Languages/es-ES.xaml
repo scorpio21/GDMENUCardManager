@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <sys:String x:Key="StringSettings">Configuración</sys:String>
+  <sys:String x:Key="StringSDDrive">Unidad SD</sys:String>
+  <sys:String x:Key="StringTempFolder">Carpeta temporal</x:String>
+  <sys:String x:Key="StringSearch">Buscar</sys:String>
+  <sys:String x:Key="StringGamesList">Lista de juegos</sys:String>
+  <x:Static x:Key="StringGamesListPrefix" Member="sys:String.Empty"/>
+  <sys:String x:Key="StringLocation">Ubicación</sys:String>
+  <sys:String x:Key="StringSdNumber">Nº SD</sys:String>
+  <sys:String x:Key="StringSdNumberTooltip">Carpeta actual del elemento en la tarjeta SD</sys:String>
+  <sys:String x:Key="StringLength">Tamaño</sys:String>
+  <sys:String x:Key="StringTitle">Título</sys:String>
+  <sys:String x:Key="StringSerial">Serie</sys:String>
+  <sys:String x:Key="StringDisc">Disco</sys:String>
+  <sys:String x:Key="StringSaveChanges">Guardar cambios</sys:String>
+  <sys:String x:Key="StringPreload">Precargar</sys:String>
+  <sys:String x:Key="StringPreloadTooltip">Cargar información de los archivos que ya están en la SD</sys:String>
+  <sys:String x:Key="StringSortList">Ordenar lista</sys:String>
+  <sys:String x:Key="StringBatchRename">Renombrado masivo</sys:String>
+  <sys:String x:Key="StringAbout">Acerca de</sys:String>
+  <sys:String x:Key="StringSelectFolder">Seleccionar carpeta</sys:String>
+  <sys:String x:Key="StringRefreshDrive">Actualizar lista de unidades</sys:String>
+  <sys:String x:Key="StringRename">Renombrar</sys:String>
+  <sys:String x:Key="StringSentenceCase">Primera letra en mayúscula</sys:String>
+  <sys:String x:Key="StringAutoRename">Renombrado automático</sys:String>
+  <sys:String x:Key="StringUsingIP">Usando info de IP.BIN</sys:String>
+  <sys:String x:Key="StringUsingFolder">Usando nombre de carpeta</sys:String>
+  <sys:String x:Key="StringUsingFile">Usando nombre de archivo</sys:String>
+  <sys:String x:Key="StringViewFileInfo">Ver info del archivo</sys:String>
+  <sys:String x:Key="StringAddGames">Añadir juego(s)</sys:String>
+  <sys:String x:Key="StringRemoveGame">Eliminar juego(s) seleccionado(s)</sys:String>
+  <sys:String x:Key="StringGDIShrink">Encogimiento GDI</sys:String>
+  <sys:String x:Key="StringEnableGDIShrink">Activar encogimiento GDI para juegos nuevos</sys:String>
+  <sys:String x:Key="StringGDIShrinkDesc">Los juegos pueden ocupar menos espacio en la tarjeta SD</sys:String>
+  <sys:String x:Key="StringAlsoShrinkCompressed">También encoger juegos comprimidos</sys:String>
+  <sys:String x:Key="StringAlsoShrinkCompressedDesc">Los juegos se extraerán a la carpeta temporal antes de encogerlos</sys:String>
+  <sys:String x:Key="StringUseBlacklist">Usar lista negra</sys:String>
+  <sys:String x:Key="StringUseBlacklistDesc">Omite juegos incompatibles</sys:String>
+</ResourceDictionary>

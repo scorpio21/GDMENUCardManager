@@ -153,6 +153,26 @@ namespace GDMENUCardManager
                 this.Icon = BitmapFrame.Create(new Uri("./Assets/GDMENUCardManagerPAL.ico", UriKind.RelativeOrAbsolute));
         }
 
+        private void ButtonSpanish_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            SetLanguage("es-ES");
+        }
+
+        private void ButtonEnglish_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            SetLanguage("en-US");
+        }
+
+        private void SetLanguage(string langCode)
+        {
+            var dictionaries = App.Current.Resources.MergedDictionaries;
+            dictionaries.Clear();
+            dictionaries.Add(new System.Windows.ResourceDictionary()
+            {
+                Source = new Uri($"pack://application:,,,/Assets/Languages/{langCode}.xaml")
+            });
+        }
+
         private async void MainWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(SelectedDrive) && SelectedDrive != null)
