@@ -113,21 +113,35 @@ namespace GDMENUCardManager.Core
 
         private async ValueTask loadIP(IEnumerable<GdItem> items)
         {
-            var query = items.Where(x => x.Ip == null);
+            var query = items.Where(x => x.Ip == null).ToList();
             if (!query.Any())
+            {
+                // Optionally notify the user that everything is already loaded
                 return;
+            }
 
             var progress = Helper.DependencyManager.CreateAndShowProgressWindow();
-            progress.TotalItems = items.Count();
+            progress.TotalItems = query.Count;
             progress.TextContent = "Loading file info...";
 
-            do { await Task.Delay(50); } while (!progress.IsInitialized);
+            int timeout = 100; // ~5 seconds
+            while (!progress.IsInitialized && timeout-- > 0)
+            {
+                await Task.Delay(50);
+            }
 
             try
             {
                 foreach (var item in query)
                 {
-                    await LoadIP(item);
+                    try
+                    {
+                        await LoadIP(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error loading IP for {item.Name}: {ex.Message}");
+                    }
                     progress.ProcessedItems++;
                     if (!progress.IsVisible)//user closed window
                         throw new ProgressWindowClosedException();
@@ -159,6 +173,11 @@ namespace GDMENUCardManager.Core
                 item.CanApplyGDIShrink = i.CanApplyGDIShrink;
                 item.ImageFiles.Clear();
                 item.ImageFiles.AddRange(i.ImageFiles);
+
+                if (string.IsNullOrWhiteSpace(item.Name))
+                    item.Name = i.Name;
+                if (string.IsNullOrWhiteSpace(item.ProductNumber))
+                    item.ProductNumber = i.ProductNumber;
 
                 //if current productnumber is empty, copy over from the now loaded ip.bin
                 //should not happen
@@ -406,7 +425,7 @@ namespace GDMENUCardManager.Core
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         throw;//todo check?
 
@@ -1122,6 +1141,4 @@ namespace GDMENUCardManager.Core
     public class ProgressWindowClosedException : Exception
     {
     }
-
-
 }

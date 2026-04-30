@@ -104,7 +104,7 @@ namespace GDMENUCardManager
                     }
                 }
             }
-            catch(System.Exception ex)
+            catch(System.Exception)
             {
                 LatestVersion = "Error";
             }

@@ -54,7 +54,18 @@
 
     <ProgressBar Grid.Row="0" Height="5" IsIndeterminate="{Binding IsBusy, Mode=OneWay}"/>
 
-    <HeaderedContentControl Grid.Row="1" Header="Settings" Margin="10" IsEnabled="{Binding !IsBusy, Mode=OneWay}">
+    <Grid Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+      <StackPanel Orientation="Horizontal">
+        <Button Click="ButtonSpanish_Click" Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Español">
+          <Image Source="avares://GDMENUCardManager/Assets/banderas/espana.png" Width="24" Height="16"/>
+        </Button>
+        <Button Click="ButtonEnglish_Click" Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="English" Margin="5 0 0 0">
+          <Image Source="avares://GDMENUCardManager/Assets/banderas/ingles.png" Width="24" Height="16"/>
+        </Button>
+      </StackPanel>
+    </Grid>
+
+    <HeaderedContentControl Grid.Row="1" Header="{DynamicResource StringSettings}" Margin="10" IsEnabled="{Binding !IsBusy, Mode=OneWay}">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="1*"/>
@@ -71,9 +82,9 @@
 
           </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Column="0" Margin="0 3 0 0">SD Drive</TextBlock>
+          <TextBlock Grid.Column="0" Margin="0 3 0 0" Text="{DynamicResource StringSDDrive}"/>
           <ComboBox Grid.Column="1" Items="{Binding DriveList, Mode=OneWay}" SelectedItem="{Binding SelectedDrive}" ToolTip.Tip="{Binding Path=SelectedDrive.VolumeLabel, Mode=OneWay}" />
-          <Button Grid.Column="2" Width="30" Margin="10 0 0 0" ToolTip.Tip="Refresh Drive List" Click="ButtonRefreshDrive_Click">
+          <Button Grid.Column="2" Width="30" Margin="10 0 0 0" ToolTip.Tip="{DynamicResource StringRefreshDrive}" Click="ButtonRefreshDrive_Click">
             <ContentControl Content="{StaticResource ViewRefresh}"/>
           </Button>
         </Grid>
@@ -84,14 +95,14 @@
             <ColumnDefinition Width="1*"/>
           </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Column="0" Margin="0 3 0 0">Temporary folder</TextBlock>
+          <TextBlock Grid.Column="0" Margin="0 3 0 0" Text="{DynamicResource StringTempFolder}"/>
 
           <Grid Grid.Column="1" Margin="10 0 0 0">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto"/>
               <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Width="30" Click="ButtonFolder_Click" ToolTip.Tip="Select Folder">
+            <Button Width="30" Click="ButtonFolder_Click" ToolTip.Tip="{DynamicResource StringSelectFolder}">
               <ContentControl Content="{StaticResource ViewOpenFolder}"/>
             </Button>
             <TextBox Grid.Column="1" Watermark="Inform temporary folder" Text="{Binding TempFolder}"/>

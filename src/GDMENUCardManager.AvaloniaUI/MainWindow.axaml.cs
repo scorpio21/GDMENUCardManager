@@ -2,6 +2,7 @@
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.Models;
 using System;
@@ -26,7 +27,7 @@ namespace GDMENUCardManager
 
         private readonly bool showAllDrives = false;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<DriveInfo> DriveList { get; } = new ObservableCollection<DriveInfo>();
 
@@ -127,6 +128,9 @@ namespace GDMENUCardManager
             //showAllDrives = true;
 
             DataContext = this;
+
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["PALVersion"]) == true)
+                this.Icon = new WindowIcon(new Bitmap("./Assets/GDMENUCardManagerPAL.ico"));
         }
 
         private void InitializeComponent()
@@ -134,6 +138,26 @@ namespace GDMENUCardManager
             AvaloniaXamlLoader.Load(this);
             this.AddHandler(DragDrop.DropEvent, WindowDrop);
             dg1 = this.FindControl<DataGrid>("dg1");
+        }
+
+        private void ButtonSpanish_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            SetLanguage("es-ES");
+        }
+
+        private void ButtonEnglish_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            SetLanguage("en-US");
+        }
+
+        private void SetLanguage(string langCode)
+        {
+            var dictionaries = App.Current.Resources.MergedDictionaries;
+            dictionaries.Clear();
+            dictionaries.Add(new Avalonia.Markup.Xaml.MarkupExtensions.ResourceInclude()
+            {
+                Source = new Uri($"avares://GDMENUCardManager/Assets/Languages/{langCode}.axaml")
+            });
         }
 
 

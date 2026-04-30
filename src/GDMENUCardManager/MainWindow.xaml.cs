@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using GDMENUCardManager.Core;
 using GongSolutions.Wpf.DragDrop;
 
@@ -147,6 +148,9 @@ namespace GDMENUCardManager
             //showAllDrives = true;
 
             DataContext = this;
+
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["PALVersion"]) == true)
+                this.Icon = BitmapFrame.Create(new Uri("./Assets/GDMENUCardManagerPAL.ico", UriKind.RelativeOrAbsolute));
         }
 
         private async void MainWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -361,7 +365,17 @@ namespace GDMENUCardManager
         private async void ButtonPreload_Click(object sender, RoutedEventArgs e)
         {
             if (Manager.ItemList.Count == 0)
+            {
+                MessageBox.Show("No items in the list. Please load a card first.", "Preload", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
+            }
+
+            var itemsToLoad = Manager.ItemList.Where(x => x.Ip == null).ToList();
+            if (itemsToLoad.Count == 0)
+            {
+                MessageBox.Show("All items are already loaded.", "Preload", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
             IsBusy = true;
             try

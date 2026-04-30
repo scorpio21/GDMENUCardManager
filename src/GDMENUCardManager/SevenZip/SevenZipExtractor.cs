@@ -227,7 +227,6 @@ namespace SevenZip
         /// <summary>
         /// Gets the number of files in the archive
         /// </summary>
-        [CLSCompliant(false)]
         public uint FilesCount
         {
             get

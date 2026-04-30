@@ -181,8 +181,6 @@ namespace SevenZip
         /// <param name="format">Archive format</param>
         public static void FreeLibrary(object user, Enum format)
         {
-            var sp = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
-            sp.Demand();
 
             lock (_syncRoot)
 			{
@@ -254,8 +252,6 @@ namespace SevenZip
             {
                 if (_inArchives[user][format] == null)
                 {
-                    var sp = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
-                    sp.Demand();
 
                     if (_modulePtr == IntPtr.Zero)
                     {
@@ -309,8 +305,6 @@ namespace SevenZip
             {
                 if (_outArchives[user][format] == null)
                 {
-                    var sp = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
-                    sp.Demand();
                     if (_modulePtr == IntPtr.Zero)
                     {
                         throw new SevenZipLibraryException();

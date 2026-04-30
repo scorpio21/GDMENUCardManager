@@ -20,8 +20,9 @@ This program will save the files the proper way so you console will boot super f
 * Show cover image (0GDTEX.PVR)
 * If using a CodeBreaker image it can detect if it's the correct one.
 * Saves name.txt on each folder to keep compatibility with other managers.
-* Menu is built in GDI format. Compatible with consoles that cant boot MIL-CD.
-* GDI Shrinking. Can reduce file size by removing dummy data without reducing the quality.
+*   Menu is built in GDI format. Compatible with consoles that cant boot MIL-CD.
+*   GDI Shrinking. Can reduce file size by removing dummy data without reducing the quality.
+*   **PAL Version Branding**: Toggle between NTSC (orange) and PAL (blue) branding via configuration.
 
 ### GDI Shrinking
 Can reduce the size of the game but some games won't work properly.
@@ -36,8 +37,8 @@ openMenu will display customized icon, box art and text info for each title, but
 openMenu DAT files should go to this app's subfolder `tools\openMenu\menu_data`.<br/>
 Grab the DAT files from mrneo240's repos: [imagedb](https://github.com/mrneo240/openMenu_imagedb) and [metadb](https://github.com/mrneo240/openMenu_metadb)
 
-### Windows version requires the .Net 6 Desktop Runtime
-Download and install the [Desktop Runtime installer](https://dotnet.microsoft.com/download/dotnet/6.0/runtime) for your system.
+### Windows version requires the .Net 8 Desktop Runtime
+Download and install the [Desktop Runtime installer](https://dotnet.microsoft.com/download/dotnet/8.0/runtime) for your system.
 ![Dot Net Runtime](docs/dotnetruntime.png)
 
 ### Limitations
@@ -47,21 +48,21 @@ On Linux version it's not possible to use drag-and-drop.
 
 ### Building
 - Linux x64 via CLI
-  - ensure dotnet sdk 6.0 is installed via  [Install .NET on Linux](https://learn.microsoft.com/en-us/dotnet/core/install/linux)
+  - ensure dotnet sdk 8.0 is installed via  [Install .NET on Linux](https://learn.microsoft.com/en-us/dotnet/core/install/linux)
   - clone repository
   - Build & Publish
     - Simple
       - execute `dotnet publish GDMENUCardManager.AvaloniaUI/GDMENUCardManager.AvaloniaUI.csproj -c Release`
     - Single File Self Contained (more portable, includes dotnet runtime bundled in)
       - execute `dotnet publish GDMENUCardManager.AvaloniaUI/GDMENUCardManager.AvaloniaUI.csproj -c Release --self-contained true -r linux-x64  -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true`
-  - Execute `GDMENUCardManager` in `GDMENUCardManager/src/GDMENUCardManager.AvaloniaUI/bin/Release/net6.0/linux-x64/publish`
+  - Execute `GDMENUCardManager` in `GDMENUCardManager/src/GDMENUCardManager.AvaloniaUI/bin/Release/net8.0/linux-x64/publish`
     -via double click or by running `./GDMENUCardManager` or by `dotnet ./GDMENUCardManager`
 
 ### Building for MacOS
   #### Install dependencies
   ##### Runtime is required to run the application and dotnet is required to build the application.
 
-  - install .NET Runtime 6.0 from [here](https://dotnet.microsoft.com/download/dotnet/6.0/runtime)
+  - install .NET Runtime 8.0 from [here](https://dotnet.microsoft.com/download/dotnet/8.0/runtime)
   - `brew install dotnet`
   #### Build
   ##### Navigate to the `src` folder and build the project using dotnet publish.
@@ -72,7 +73,7 @@ On Linux version it's not possible to use drag-and-drop.
   #### Run
   ##### Navigate to the publish folder and run the application.
   ```bash
-  $ cd GDMENUCardManager.AvaloniaUI/bin/Release/net6.0/publish/
+  $ cd GDMENUCardManager.AvaloniaUI/bin/Release/net8.0/publish/
   $ ./GDMENUCardManager
   ```
 

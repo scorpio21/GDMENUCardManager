@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:String x:Key="StringSettings">Settings</x:String>
+  <x:String x:Key="StringSDDrive">SD Drive</x:String>
+  <x:String x:Key="StringTempFolder">Temporary folder</x:String>
+  <x:String x:Key="StringSearch">Search</x:String>
+  <x:String x:Key="StringGamesList">Games List</x:String>
+  <x:String x:Key="StringLocation">Location</x:String>
+  <x:String x:Key="StringSdNumber">Sd Number</x:String>
+  <x:String x:Key="StringLength">Length</x:String>
+  <x:String x:Key="StringTitle">Title</x:String>
+  <x:String x:Key="StringSerial">Serial</x:String>
+  <x:String x:Key="StringDisc">Disc</x:String>
+  <x:String x:Key="StringSaveChanges">Save Changes</x:String>
+  <x:String x:Key="StringPreload">Preload</x:String>
+  <x:String x:Key="StringSortList">Sort List</x:String>
+  <x:String x:Key="StringBatchRename">Batch Rename</x:String>
+  <x:String x:Key="StringAbout">About</x:String>
+  <x:String x:Key="StringSelectFolder">Select Folder</x:String>
+  <x:String x:Key="StringRefreshDrive">Refresh Drive List</x:String>
+</ResourceDictionary>

@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <IsPackable>False</IsPackable>
+    <UseRuntimeGraph>true</UseRuntimeGraph>
     <AssemblyName>GDMENUCardManager</AssemblyName>
     <ApplicationIcon>Assets\GDMENUCardManager.ico</ApplicationIcon>
     <FileUpgradeFlags>
@@ -30,5 +31,8 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+    <None Update="Assets\GDMENUCardManagerPAL.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

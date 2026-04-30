@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <DefineConstants>TRACE;UNMANAGED</DefineConstants>
@@ -30,6 +30,9 @@
     </None>
     <None Update="7z64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\GDMENUCardManagerPAL.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\gdishrink.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
