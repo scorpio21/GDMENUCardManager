@@ -59,7 +59,7 @@ namespace GDMENUCardManager.Core
             if (itemImageFile == null && files.Any(Helper.CompressedFileExpression))
             {
                 string compressedFile = files.First(Helper.CompressedFileExpression);
-                
+
                 var filesInsideArchive = await Task.Run(() => Helper.DependencyManager.GetArchiveFiles(compressedFile));
 
                 foreach (var file in filesInsideArchive.Keys)
@@ -98,7 +98,137 @@ namespace GDMENUCardManager.Core
             if (itemImageFile == null)
                 throw new Exception("Cant't read data from file");
 
-            if (item.FileFormat == FileFormat.Uncompressed)
+            // Special handling for CUE/BIN format (only for uncompressed files)
+            // Compressed CUE/BIN will be handled during extraction in Manager.cs
+            if (item.FileFormat == FileFormat.Uncompressed &&
+                Path.GetExtension(itemImageFile).Equals(".cue", StringComparison.OrdinalIgnoreCase))
+            {
+                var cueParser = new CueSheetParser();
+                cueParser.Parse(itemImageFile);
+
+                // Check if there's a data track and try to read Dreamcast IP.BIN
+                var dataTrack = cueParser.GetPrimaryDataTrack();
+                if (dataTrack != null)
+                    ip = cueParser.TryParseIpBin();
+
+                if (ip != null)
+                {
+                    // Dreamcast disc
+
+                    item.FileFormat = FileFormat.RedumpCueBin;
+                }
+                else
+                {
+                    // Not a Dreamcast disc, will convert to CCD
+                    item.FileFormat = FileFormat.CueBinNonGame;
+
+                    var itemName = Path.GetFileNameWithoutExtension(itemImageFile);
+                    var m = RegularExpressions.TosecnNameRegexp.Match(itemName);
+                    if (m.Success)
+                        itemName = itemName.Substring(0, m.Index);
+
+                    // Check if it's a PSX disc
+                    if (dataTrack != null)
+                    {
+                        var binPath = Path.Combine(cueParser.CueDirectory, dataTrack.BinFilename);
+                        if (File.Exists(binPath) && IsPlayStationDisc(binPath))
+                        {
+                            // it's a PSX disc, try to get serial from SYSTEM.CNF
+                            var serial = TryExtractPlayStationSerial(binPath);
+
+                            ip = new IpBin
+                            {
+                                ProductNumber = serial ?? string.Empty,
+                                Region = "JUE",
+                                CRC = string.Empty,
+                                Version = string.Empty,
+                                Vga = true,
+                                Disc = "PS1",
+                                SpecialDisc = SpecialDisc.BleemGame
+                            };
+
+                            if (!string.IsNullOrEmpty(serial))
+                            {
+                                var psEntry = PlayStationDB.FindBySerial(serial);
+                                if (psEntry != null)
+                                {
+                                    ip.Name = psEntry.name;
+                                    if (DateOnly.TryParse(psEntry.releaseDate, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateOnly releaseDate))
+                                        ip.ReleaseDate = releaseDate.ToString("yyyyMMdd");
+                                    else
+                                        ip.ReleaseDate = "19990909";
+                                }
+                                else
+                                {
+                                    ip.Name = serial;
+                                    ip.ReleaseDate = "19990909";
+                                }
+                            }
+                            else
+                            {
+                                ip.Name = itemName;
+                                ip.ReleaseDate = "19990909";
+                            }
+
+                            item.DiscType = "PSX";
+                        }
+                    }
+
+                    // not PSX, not Dreamcast
+                    if (ip == null)
+                    {
+                        ip = new IpBin
+                        {
+                            Name = itemName,
+                            Disc = "1/1",
+                            ProductNumber = string.Empty
+                        };
+
+                        item.DiscType = "Other";
+                    }
+                }
+
+                item.ImageFiles.Add(Path.GetFileName(itemImageFile));
+
+                foreach (var binFile in cueParser.GetAllBinFiles())
+                {
+                    if (!item.ImageFiles.Any(x => x.Equals(binFile, StringComparison.OrdinalIgnoreCase)))
+                        item.ImageFiles.Add(binFile);
+                }
+
+                // Calculate total size of CUE + all BIN files
+                long totalSize = new FileInfo(itemImageFile).Length;
+                totalSize += cueParser.GetTotalBinSize();
+                item.Length = ByteSizeLib.ByteSize.FromBytes(totalSize);
+
+                item.CanApplyGDIShrink = false;
+            }
+            else if (item.FileFormat == FileFormat.Uncompressed &&
+                     Path.GetExtension(itemImageFile).Equals(".chd", StringComparison.OrdinalIgnoreCase))
+            {
+                using var chd = new ChdReader(itemImageFile);
+                if (!chd.IsGdRom)
+                    throw new Exception("This CHD contains a CD-ROM image, which is not supported. Only GD-ROM CHD files are supported. Please use the original CDI or CUE/BIN files instead.");
+
+                var ipData = chd.GetIpBin();
+                // CHD returns raw 2352-byte sectors. Try parsing as-is first,
+                // then try at offset 16 (MODE1_RAW: 12 sync + 4 header bytes)
+                ip = GetIpData(ipData);
+                if (ip == null && ipData.Length >= 16 + 256)
+                {
+                    var userData = new byte[ipData.Length - 16];
+                    Array.Copy(ipData, 16, userData, 0, userData.Length);
+                    ip = GetIpData(userData);
+                }
+                if (ip == null)
+                    throw new Exception("Cannot read Dreamcast IP.BIN from CHD image");
+
+                item.FileFormat = FileFormat.Chd;
+                item.ImageFiles.Add(Path.GetFileName(itemImageFile));
+                item.Length = ByteSizeLib.ByteSize.FromBytes(chd.Header.LogicalBytes);
+                item.CanApplyGDIShrink = chd.IsGdRom;
+            }
+            else if (item.FileFormat == FileFormat.Uncompressed)
             {
                 var filtersList = new FiltersList();
                 IFilter inputFilter = null;
@@ -203,7 +333,7 @@ namespace GDMENUCardManager.Core
                                                 Disc = "PS1",
                                                 SpecialDisc = SpecialDisc.BleemGame
                                             };
-                                            
+
                                             var psEntry = PlayStationDB.FindBySerial(serial);
                                             if (psEntry == null)
                                             {
@@ -299,6 +429,8 @@ namespace GDMENUCardManager.Core
 
 
             item.Ip = ip;
+            if (ip.SpecialDisc == SpecialDisc.BleemGame)
+                item.DiscType = "PSX";
             item.Name = ip.Name;
             item.ProductNumber = ip.ProductNumber;
 
@@ -311,7 +443,6 @@ namespace GDMENUCardManager.Core
                 item.ProductNumber = await Helper.ReadAllTextAsync(itemSerialPath);
 
             item.Name = item.Name.Trim();
-            item.ProductNumber = item.ProductNumber.Trim();
 
             if (item.FullFolderPath.StartsWith(Manager.sdPath, StringComparison.InvariantCultureIgnoreCase) && int.TryParse(Path.GetFileName(Path.GetDirectoryName(itemImageFile)), out int number))
                 item.SdNumber = number;
@@ -381,6 +512,118 @@ namespace GDMENUCardManager.Core
         }
 
 
+        /// <summary>
+        /// Parses IP.BIN directly from the disc image file on-the-fly.
+        /// Returns a fresh IpBin object without modifying any cached data.
+        /// </summary>
+        public static async Task<IpBin> GetIpBinFromImage(string itemImageFile)
+        {
+            // Special handling for Redump CUE/BIN format
+            if (Path.GetExtension(itemImageFile).Equals(".cue", StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    var cueParser = new CueSheetParser();
+                    cueParser.Parse(itemImageFile);
+                    return cueParser.TryParseIpBin();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            // Special handling for CHD format
+            if (Path.GetExtension(itemImageFile).Equals(".chd", StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    using var chd = new ChdReader(itemImageFile);
+                    if (!chd.IsGdRom)
+                        return null;
+
+                    var ipData = chd.GetIpBin();
+                    // CHD returns raw 2352-byte sectors; try as-is, then at offset 16
+                    var ip = GetIpData(ipData);
+                    if (ip == null && ipData.Length >= 16 + 256)
+                    {
+                        var userData = new byte[ipData.Length - 16];
+                        Array.Copy(ipData, 16, userData, 0, userData.Length);
+                        ip = GetIpData(userData);
+                    }
+                    return ip;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            var filtersList = new FiltersList();
+            IFilter inputFilter = null;
+            try
+            {
+                inputFilter = filtersList.GetFilter(itemImageFile);
+                if (inputFilter == null)
+                    return null;
+
+                IOpticalMediaImage opticalImage;
+
+                switch (Path.GetExtension(itemImageFile).ToLower())
+                {
+                    case ".gdi":
+                        opticalImage = new Aaru.DiscImages.Gdi();
+                        break;
+                    case ".cdi":
+                        opticalImage = new Aaru.DiscImages.DiscJuggler();
+                        break;
+                    case ".mds":
+                        opticalImage = new Aaru.DiscImages.Alcohol120();
+                        break;
+                    case ".ccd":
+                        opticalImage = new Aaru.DiscImages.CloneCd();
+                        break;
+                    default:
+                        return null;
+                }
+
+                try
+                {
+                    if (!await Task.Run(() => opticalImage.Open(inputFilter)))
+                        return null;
+
+                    Partition partition;
+                    if (Path.GetExtension(itemImageFile).Equals(".gdi", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        // For GDI: skip audio tracks, then skip first data track
+                        partition = opticalImage.Partitions.Where(x => x.Type != "Audio").Skip(1).First();
+                        return await GetIpData(opticalImage, partition);
+                    }
+                    else
+                    {
+                        // For CDI/MDS/CCD: iterate backwards through partitions to find IP.BIN
+                        for (int i = opticalImage.Partitions.Count - 1; i >= 0; i--)
+                        {
+                            partition = opticalImage.Partitions[i];
+                            var ip = await GetIpData(opticalImage, partition);
+                            if (ip != null)
+                                return ip;
+                        }
+                    }
+                    return null;
+                }
+                finally
+                {
+                    opticalImage?.Close();
+                }
+            }
+            finally
+            {
+                if (inputFilter != null && inputFilter.IsOpened())
+                    inputFilter.Close();
+            }
+        }
+
         //returns null if file not exists on image. throw on any error
         public static async Task<byte[]> GetGdText(string itemImageFile)
         {
@@ -419,8 +662,8 @@ namespace GDMENUCardManager.Core
 
                 try
                 {
-                    if (! await Task.Run(() => opticalImage.Open(inputFilter)))
-                        throw new Exception("Can't load game file");
+                    if (!await Task.Run(() => opticalImage.Open(inputFilter)))
+                        throw new Exception("Unable to find or read file");
 
                     Partition partition;
                     string filename = "0GDTEX.PVR";
@@ -497,6 +740,7 @@ namespace GDMENUCardManager.Core
 
             var ext = Path.GetExtension(filePath).ToLower();
             string itemImageFile = null;
+            string dataFile = null;
 
             item.ImageFiles.Add(Path.GetFileName(filePath));
 
@@ -519,10 +763,9 @@ namespace GDMENUCardManager.Core
             else
             {
                 var imageNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-                string dataFile;
                 if (ext == ".ccd")
                 {
-                    
+
                     var img = Path.ChangeExtension(filePath, ".img");
                     if (!File.Exists(img))
                         throw new Exception("Missing file: " + img);
@@ -553,10 +796,30 @@ namespace GDMENUCardManager.Core
 
 
             if (ip == null)
-                throw new Exception("Cant't read data from file");
+            {
+                if (ext == ".gdi")
+                    throw new Exception("Cant't read data from file");
+
+                // No KATANA header, not a DC game. Use filename as display name.
+                ip = new IpBin
+                {
+                    Name = Path.GetFileNameWithoutExtension(filePath),
+                    Disc = "1/1",
+                    ProductNumber = string.Empty
+                };
+
+                // Distinguish PSX from other non-DC discs (audio CDs, data discs, etc.)
+                // by searching for the ISO9660 PVD System Identifier "PLAYSTATION" at CD001+7.
+                if (dataFile != null && IsPlayStationDisc(dataFile))
+                    item.DiscType = "PSX";
+                else
+                    item.DiscType = "Other";
+            }
 
 
             item.Ip = ip;
+            if (ip.SpecialDisc == SpecialDisc.BleemGame)
+                item.DiscType = "PSX";
             item.Name = ip.Name;
             item.ProductNumber = ip.ProductNumber;
 
@@ -569,7 +832,6 @@ namespace GDMENUCardManager.Core
                 item.ProductNumber = await Helper.ReadAllTextAsync(itemSerialPath);
 
             item.Name = item.Name.Trim();
-            item.ProductNumber = item.ProductNumber.Trim();
 
             if (item.FullFolderPath.StartsWith(Manager.sdPath, StringComparison.InvariantCultureIgnoreCase) && int.TryParse(new DirectoryInfo(item.FullFolderPath).Name, out int number))
                 item.SdNumber = number;
@@ -579,10 +841,170 @@ namespace GDMENUCardManager.Core
             return item;
         }
 
+        /// <summary>
+        /// Scans a raw BIN file for the "CD001" + "PLAYSTATION" PVD pattern.
+        /// </summary>
+        private static bool IsPlayStationDisc(string dataFilePath)
+        {
+            const long searchLimit = 50L * 1024 * 1024;
+            const int bufferSize = 65536;
+            const int overlap = 17; // pattern spans 18 bytes max (i..i+17), so overlap = 17
+
+            try
+            {
+                using var fs = new FileStream(dataFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var buf = new byte[bufferSize];
+                long pos = 0;
+
+                while (pos < searchLimit)
+                {
+                    fs.Position = pos;
+                    int read = fs.Read(buf, 0, bufferSize);
+                    if (read < 18) break; // not enough bytes for the full pattern
+
+                    for (int i = 0; i <= read - 18; i++)
+                    {
+                        // "CD001" at i, then version+unused at i+5,i+6, then System Identifier at i+7
+                        if (buf[i] == 'C' && buf[i + 1] == 'D' && buf[i + 2] == '0' &&
+                            buf[i + 3] == '0' && buf[i + 4] == '1' &&
+                            buf[i + 7] == 'P' && buf[i + 8] == 'L' && buf[i + 9] == 'A' &&
+                            buf[i + 10] == 'Y' && buf[i + 11] == 'S' && buf[i + 12] == 'T' &&
+                            buf[i + 13] == 'A' && buf[i + 14] == 'T' && buf[i + 15] == 'I' &&
+                            buf[i + 16] == 'O' && buf[i + 17] == 'N')
+                            return true;
+                    }
+
+                    if (read < bufferSize) break; // reached end of file
+                    pos += bufferSize - overlap;   // slide window with overlap
+                }
+            }
+            catch { }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Parses ISO9660 from a raw BIN file to read SYSTEM.CNF and extract the PSX serial.
+        /// Returns null if not found.
+        /// </summary>
+        private static string TryExtractPlayStationSerial(string dataFilePath)
+        {
+            try
+            {
+                using var fs = new FileStream(dataFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                // Check for CD sync pattern to detect raw sectors
+                var syncCheck = new byte[12];
+                fs.Read(syncCheck, 0, 12);
+                bool isRawSector = syncCheck[0] == 0x00 && syncCheck[1] == 0xFF && syncCheck[2] == 0xFF &&
+                                   syncCheck[10] == 0xFF && syncCheck[11] == 0x00;
+
+                // User data offset: MODE2/2352=24, MODE1/2352=16, cooked 2048=0
+                int sectorSize, dataOffset;
+                if (isRawSector)
+                {
+                    sectorSize = 2352;
+                    // mode byte at offset 15
+                    fs.Position = 15;
+                    int mode = fs.ReadByte();
+                    dataOffset = (mode == 2) ? 24 : 16;
+                }
+                else
+                {
+                    sectorSize = 2048;
+                    dataOffset = 0;
+                }
+
+                // PVD is at sector 16, root directory record at PVD offset 156
+                var pvdData = new byte[2048];
+                fs.Position = (long)16 * sectorSize + dataOffset;
+                if (fs.Read(pvdData, 0, 2048) < 2048)
+                    return null;
+
+                // Verify PVD
+                if (pvdData[0] != 1 || pvdData[1] != 'C' || pvdData[2] != 'D' ||
+                    pvdData[3] != '0' || pvdData[4] != '0' || pvdData[5] != '1')
+                    return null;
+
+                int rootSector = BitConverter.ToInt32(pvdData, 156 + 2);  // extent location (LE)
+                int rootLength = BitConverter.ToInt32(pvdData, 156 + 10); // data length (LE)
+
+                // Read the root directory
+                int rootSectors = (rootLength + 2047) / 2048;
+                var rootData = new byte[rootSectors * 2048];
+                for (int s = 0; s < rootSectors; s++)
+                {
+                    fs.Position = (long)(rootSector + s) * sectorSize + dataOffset;
+                    fs.Read(rootData, s * 2048, 2048);
+                }
+
+                // Find SYSTEM.CNF in the root directory
+                int pos = 0;
+                while (pos < rootLength)
+                {
+                    int recordLen = rootData[pos];
+                    if (recordLen == 0)
+                    {
+                        // Skip to next sector boundary
+                        pos = ((pos / 2048) + 1) * 2048;
+                        if (pos >= rootLength) break;
+                        continue;
+                    }
+
+                    int nameLen = rootData[pos + 32];
+                    if (nameLen >= 10 && pos + 33 + nameLen <= rootData.Length)
+                    {
+                        var name = Encoding.ASCII.GetString(rootData, pos + 33, nameLen);
+                        // filenames may have ";1" version suffix
+                        if (name.Equals("SYSTEM.CNF;1", StringComparison.OrdinalIgnoreCase) ||
+                            name.Equals("SYSTEM.CNF", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // read the file content
+                            int fileSector = BitConverter.ToInt32(rootData, pos + 2);
+                            int fileLength = BitConverter.ToInt32(rootData, pos + 10);
+                            if (fileLength > 4096) fileLength = 4096; // sanity cap
+
+                            var fileData = new byte[fileLength];
+                            fs.Position = (long)fileSector * sectorSize + dataOffset;
+                            fs.Read(fileData, 0, fileLength);
+
+                            // first line: "BOOT = cdrom:\SLPS_010.91;1"
+                            string firstLine;
+                            using (var ms = new MemoryStream(fileData))
+                            using (var sr = new StreamReader(ms))
+                            {
+                                firstLine = sr.ReadLine();
+                            }
+
+                            if (string.IsNullOrEmpty(firstLine))
+                                return null;
+
+                            // parse serial from boot path
+                            var serial = firstLine.Substring(firstLine.LastIndexOf('\\') + 1);
+                            var lastIndex = serial.LastIndexOf(';');
+                            if (lastIndex != -1)
+                                serial = serial.Substring(0, lastIndex);
+
+                            serial = serial.Replace('_', '-');
+                            serial = serial.Replace(".", string.Empty);
+
+                            if (serial.Length >= 7)
+                                return serial;
+                        }
+                    }
+
+                    pos += recordLen;
+                }
+            }
+            catch { }
+
+            return null;
+        }
+
         private static async Task<string[]> GetGdiFileListAsync(string gdiFilePath)
         {
             var tracks = new List<string>();
-            
+
             var files = await File.ReadAllLinesAsync(gdiFilePath);
             foreach (var item in files.Skip(1))
             {
@@ -598,6 +1020,9 @@ namespace GDMENUCardManager.Core
             using (FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read))
             {
                 long headerOffset = GetHeaderOffset(fs);
+
+                if (headerOffset == -1)
+                    return null; // no KATANA header
 
                 fs.Seek(headerOffset, SeekOrigin.Begin);
 

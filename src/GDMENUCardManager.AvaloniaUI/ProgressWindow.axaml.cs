@@ -22,6 +22,8 @@ namespace GDMENUCardManager
 {
     public class ProgressWindow : Window, INotifyPropertyChanged, IProgressWindow
     {
+        private bool _allowClose = false;
+
         private int _TotalItems;
         public int TotalItems
         {
@@ -60,6 +62,23 @@ namespace GDMENUCardManager
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            // Prevent closing unless explicitly allowed
+            if (!_allowClose)
+                e.Cancel = true;
+
+            base.OnClosing(e);
+        }
+
+        /// <summary>
+        /// Allow the window to be closed (call before Close()).
+        /// </summary>
+        public void AllowClose()
+        {
+            _allowClose = true;
         }
 
         private void RaisePropertyChanged([CallerMemberName] string propertyName = "")

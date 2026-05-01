@@ -1,13 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
+    <!-- Read and parse version from version.txt (supports v1.5-ateam and v1.5.1-ateam formats) -->
+    <VersionFileContent>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)\..\version.txt').Trim())</VersionFileContent>
+    <NumericVersion>$([System.Text.RegularExpressions.Regex]::Match('$(VersionFileContent)', '\d+\.\d+(\.\d+)?').Value)</NumericVersion>
+    <HasPatch>$([System.Text.RegularExpressions.Regex]::IsMatch('$(NumericVersion)', '\d+\.\d+\.\d+'))</HasPatch>
+    <Version Condition="'$(HasPatch)' == 'True'">$(NumericVersion).0</Version>
+    <Version Condition="'$(HasPatch)' != 'True'">$(NumericVersion).0.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <UseRuntimeGraph>true</UseRuntimeGraph>
     <DefineConstants>TRACE;UNMANAGED</DefineConstants>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <ApplicationIcon>Assets\GDMENUCardManager.ico</ApplicationIcon>
+    <!-- Suppress NuGet vulnerability warnings, obsolete Security API warnings, and CLSCompliant warnings -->
+    <NoWarn>$(NoWarn);NU1902;NU1903;SYSLIB0003;CS3021</NoWarn>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -32,11 +44,10 @@
     <None Update="7z64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\GDMENUCardManagerPAL.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\gdishrink.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Import Project="..\GDMENUCardManager.Core\libchdr.targets" />
 </Project>

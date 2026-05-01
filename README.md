@@ -13,16 +13,20 @@ This program will save the files the proper way so you console will boot super f
 * Multi platform. Windows/Linux/OSX
 * Supports both GDmenu and openMenu
 * Supports GDI, CDI, MDS and CCD files. Also compressed files inside zip/rar/7z
+* **Undo/Redo System**: Undo or redo any changes made to the list or metadata.
+* **Advanced Search & Filter**: Quickly find titles or serials, or filter the entire list.
 * Add/delete/rename items
-* Sort alphabetically
-* Sort manually by drag and drop
+* Sort alphabetically or manually by drag and drop
+* **Region & VGA Patching**: Apply patches directly to disc images.
+* **Custom Folder Support**: Assign custom folder paths and additional paths for openMenu.
 * Automatically rename based on folder name, file name or internal name (IP.BIN)
-* Show cover image (0GDTEX.PVR)
+* Show cover image (0GDTEX.PVR) and manage Box Art/Icons for openMenu.
 * If using a CodeBreaker image it can detect if it's the correct one.
 * Saves name.txt on each folder to keep compatibility with other managers.
-*   Menu is built in GDI format. Compatible with consoles that cant boot MIL-CD.
-*   GDI Shrinking. Can reduce file size by removing dummy data without reducing the quality.
-*   **PAL Version Branding**: Toggle between NTSC (orange) and PAL (blue) branding via configuration.
+* Menu is built in GDI format. Compatible with consoles that cant boot MIL-CD.
+* GDI Shrinking. Can reduce file size by removing dummy data without reducing the quality.
+* **Automatic Updates**: Built-in update checker to keep the program up to date.
+* **PAL Version Branding**: Toggle between NTSC (orange) and PAL (blue) branding via configuration.
 
 ### GDI Shrinking
 Can reduce the size of the game but some games won't work properly.

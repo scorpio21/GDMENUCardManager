@@ -46,12 +46,12 @@
         {
             private get
             {
-                return (VarEnum) _vt;
+                return (VarEnum)_vt;
             }
 
             set
             {
-                _vt = (ushort) value;
+                _vt = (ushort)value;
             }
         }
 
@@ -93,6 +93,9 @@
         {
             get
             {
+                var sp = new SecurityPermission(SecurityPermissionFlag.UnmanagedCode);
+                sp.Demand();
+
                 switch (VarType)
                 {
                     case VarEnum.VT_EMPTY:
@@ -829,7 +832,7 @@
         int GetStream(
             [MarshalAs(UnmanagedType.LPWStr)] string name,
             [Out, MarshalAs(UnmanagedType.Interface)] out IInStream inStream);
-    }    
+    }
 
     /// <summary>
     /// 7-zip ISequentialInStream imported interface
@@ -953,9 +956,9 @@
     /// <summary>
     /// 7-zip essential in archive interface
     /// </summary>
-    [ComImport]  
-	[Guid("23170F69-40C1-278A-0000-000600600000")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]	
+    [ComImport]
+    [Guid("23170F69-40C1-278A-0000-000600600000")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IInArchive
     {
         /// <summary>

@@ -9,7 +9,7 @@
   <StackPanel>
     <HeaderedContentControl Header="Rename all games located on" Margin="5">
       <StackPanel>
-        <CheckBox IsChecked="{Binding OnCard}">SD Card</CheckBox>
+        <CheckBox IsChecked="{Binding OnCard}">SD card</CheckBox>
         <CheckBox IsChecked="{Binding NotOnCard}">Other</CheckBox>
       </StackPanel>
     </HeaderedContentControl>

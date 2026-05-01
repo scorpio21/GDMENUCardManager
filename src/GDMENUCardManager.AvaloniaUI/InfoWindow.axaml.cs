@@ -14,7 +14,13 @@ namespace GDMENUCardManager
     public class InfoWindow : Window, INotifyPropertyChanged
     {
         public string FileInfo { get; }
-        public string IpInfo { get; }
+
+        private string _IpInfo = "Loading...";
+        public string IpInfo
+        {
+            get { return _IpInfo; }
+            private set { _IpInfo = value; RaisePropertyChanged(); }
+        }
 
         private string _LabelText = "Loading...";
         public string LabelText
@@ -47,33 +53,13 @@ namespace GDMENUCardManager
 
             this.item = item;
 
-            string vga = item.Ip.Vga ? "   VGA" : null;
-
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Folder:");
-            sb.AppendLine(Path.GetFileName(item.FullFolderPath));
-            sb.AppendLine();
-            sb.AppendLine("File:");
-            sb.AppendLine(Path.GetFileName(item.ImageFile));
+            sb.AppendLine($"Folder: {Path.GetFileName(item.FullFolderPath)}");
+            sb.Append($"File: {Path.GetFileName(item.ImageFile)}");
 
             FileInfo = sb.ToString();
 
-            if (item.FileFormat == FileFormat.Uncompressed)
-            {
-                sb.Clear();
-                sb.AppendLine(item.Ip.Name);
-                sb.AppendLine();
-                sb.AppendLine($"{item.Ip.Version}   DISC {item.Ip.Disc}{vga}");
-                sb.AppendLine($"CRC: {item.Ip.CRC}   Product: {item.Ip.ProductNumber}");
-
-                if (item.Ip.SpecialDisc != SpecialDisc.None)
-                {
-                    sb.AppendLine();
-                    sb.AppendLine("Detected as: " + item.Ip.SpecialDisc);
-                }
-                IpInfo = sb.ToString();
-            }
-            else
+            if (item.FileFormat != FileFormat.Uncompressed)
             {
                 IpInfo = "Compressed file";
             }
@@ -95,18 +81,55 @@ namespace GDMENUCardManager
         private async void InfoWindow_Opened(object sender, EventArgs e)
         {
             await Task.Delay(100);
+
+            if (item.FileFormat == FileFormat.SevenZip)
+            {
+                IpInfo = "Can't load from compressed files.";
+                LabelText = "Can't load from compressed files.";
+                return;
+            }
+
+            var filePath = Path.Combine(item.FullFolderPath, item.ImageFile);
+
+            // Load IP.BIN data
             try
             {
-                if (item.FileFormat == FileFormat.SevenZip)
-                    throw new Exception("Can't load from compressed files.");
+                var ip = await ImageHelper.GetIpBinFromImage(filePath);
+                if (ip != null)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine($"Title: {ip.Name}");
+                    sb.AppendLine($"Version: {ip.Version}");
+                    sb.AppendLine($"Disc: {ip.Disc}");
+                    sb.AppendLine($"VGA: {(ip.Vga ? "Yes" : "No")}");
+                    sb.AppendLine($"Serial: {ip.ProductNumber}");
+                    sb.Append($"Region: {ip.Region}");
 
-                var filePath = Path.Combine(item.FullFolderPath, item.ImageFile);
+                    if (ip.SpecialDisc != SpecialDisc.None)
+                    {
+                        sb.AppendLine();
+                        sb.Append("Detected as: " + ip.SpecialDisc);
+                    }
+                    IpInfo = sb.ToString();
+                }
+                else
+                {
+                    IpInfo = "Could not read IP.BIN";
+                }
+            }
+            catch (Exception ex)
+            {
+                IpInfo = $"Error: {ex.Message}";
+            }
 
+            // Load GDTEX texture
+            try
+            {
                 var gdtexture = await Task.Run(() => ImageHelper.GetGdText(filePath));
 
                 if (gdtexture == null)
                 {
-                    throw new Exception("File not found");
+                    LabelText = "Unable to find or read file";
                 }
                 else
                 {
@@ -128,9 +151,9 @@ namespace GDMENUCardManager
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                LabelText = ex.Message;
+                LabelText = "Unable to find or read file";
             }
         }
     }

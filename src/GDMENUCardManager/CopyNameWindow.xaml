@@ -10,7 +10,7 @@
     <StackPanel>
         <GroupBox Header="Rename all games located on" Margin="5">
             <StackPanel>
-                <CheckBox IsChecked="{Binding OnCard, Mode=TwoWay}">SD Card</CheckBox>
+                <CheckBox IsChecked="{Binding OnCard, Mode=TwoWay}">SD card</CheckBox>
                 <CheckBox IsChecked="{Binding NotOnCard, Mode=TwoWay}">Other</CheckBox>
             </StackPanel>
         </GroupBox>

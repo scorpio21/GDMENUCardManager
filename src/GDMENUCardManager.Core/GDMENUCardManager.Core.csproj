@@ -1,9 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <!-- Read and parse version from version.txt (supports v1.5-ateam and v1.5.1-ateam formats) -->
+    <VersionFileContent>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)\..\version.txt').Trim())</VersionFileContent>
+    <NumericVersion>$([System.Text.RegularExpressions.Regex]::Match('$(VersionFileContent)', '\d+\.\d+(\.\d+)?').Value)</NumericVersion>
+    <HasPatch>$([System.Text.RegularExpressions.Regex]::IsMatch('$(NumericVersion)', '\d+\.\d+\.\d+'))</HasPatch>
+    <Version Condition="'$(HasPatch)' == 'True'">$(NumericVersion).0</Version>
+    <Version Condition="'$(HasPatch)' != 'True'">$(NumericVersion).0.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+  </PropertyGroup>
 
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <OutputType>Library</OutputType>
     <IsPackable>False</IsPackable>
+    <!-- Suppress NuGet vulnerability warnings -->
+    <NoWarn>$(NoWarn);NU1902;NU1903</NoWarn>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -16,6 +28,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ByteSize" Version="2.0.0" />
+    <PackageReference Include="ClosedXML" Version="0.102.3" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
   </ItemGroup>
   <ItemGroup>
     <None Update="gamedb.json">
@@ -30,4 +44,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <!-- Native libchdr for dev builds (F5 / dotnet run on Windows).
+       Release publish uses libchdr.targets imported by the app projects. -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == ''">
+    <Content Include="runtimes\win-x64\native\libchdr.dll" Condition="Exists('runtimes\win-x64\native\libchdr.dll')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      <Link>libchdr.dll</Link>
+    </Content>
+  </ItemGroup>
+
+  <!-- Auto-update version from version.txt (Windows only; on Linux/macOS Constants.cs is pre-generated) -->
+  <Target Name="UpdateVersionFromFile" BeforeTargets="BeforeBuild;BeforeRebuild"
+          Condition="'$(OS)' == 'Windows_NT'">
+    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\UpdateVersion.ps1&quot;" />
+  </Target>
 </Project>
