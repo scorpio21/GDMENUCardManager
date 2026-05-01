@@ -469,26 +469,14 @@ namespace GDMENUCardManager
 
         private void UpdateFolderColumnVisibility()
         {
-            if (dg1?.Columns == null)
+            if (dg1?.Columns == null || dg1.Columns.Count < 10)
                 return;
 
-            // Find columns by iterating and checking their Header
-            DataGridColumn folderColumn = null;
-            DataGridColumn typeColumn = null;
-            DataGridColumn artColumn = null;
-            DataGridTemplateColumn discColumn = null;
-
-            foreach (var col in dg1.Columns)
-            {
-                if (col.Header?.ToString() == "Folder")
-                    folderColumn = col;
-                else if (col is DataGridTemplateColumn templateCol && templateCol.Header?.ToString() == "Type")
-                    typeColumn = col;
-                else if (col is DataGridTemplateColumn discTemplateCol && discTemplateCol.Header?.ToString() == "Disc")
-                    discColumn = discTemplateCol;
-                else if (col.Header?.ToString() == "Art")
-                    artColumn = col;
-            }
+            // Use fixed indices as defined in XAML (since reordering is disabled)
+            // 0: Info, 1: Location, 2: SdNumber, 3: Length, 4: Title, 5: Folder, 6: Serial, 7: Art, 8: Disc, 9: Type
+            DataGridColumn folderColumn = dg1.Columns[5];
+            DataGridColumn artColumn = dg1.Columns[7];
+            DataGridColumn typeColumn = dg1.Columns[9];
 
             if (folderColumn != null)
             {
@@ -505,25 +493,14 @@ namespace GDMENUCardManager
 
             if (typeColumn != null)
             {
-                if (MenuKindSelected == MenuKind.openMenu)
-                {
-                    typeColumn.IsVisible = true;
-                }
-                else
-                {
-                    typeColumn.IsVisible = false;
-                }
+                typeColumn.IsVisible = MenuKindSelected == MenuKind.openMenu;
             }
 
             // Art column: only visible in openMenu mode
             if (artColumn != null)
             {
-                bool showArt = MenuKindSelected == MenuKind.openMenu;
-                artColumn.IsVisible = showArt;
+                artColumn.IsVisible = MenuKindSelected == MenuKind.openMenu;
             }
-
-            // Disc column read-only handling is now done via BeginningEdit event
-            // since it's a template column
         }
 
         private void UpdateSortButtonTooltip()

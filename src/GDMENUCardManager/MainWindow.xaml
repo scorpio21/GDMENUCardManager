@@ -72,10 +72,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ProgressBar Grid.Row="0" Height="5" IsIndeterminate="{Binding IsBusy, Mode=OneWay}"/>
-
-        <Grid Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-            <StackPanel Orientation="Horizontal">
+        <DockPanel Grid.Row="0" LastChildFill="False">
+            <ProgressBar DockPanel.Dock="Top" Height="5" IsIndeterminate="{Binding IsBusy, Mode=OneWay}"/>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,10,5">
                 <Button Click="ButtonSpanish_Click" Padding="2" Background="Transparent" BorderThickness="0" ToolTip="Español">
                     <Image Source="pack://application:,,,/Assets/banderas/es.png" Width="24" Height="16"/>
                 </Button>
@@ -83,7 +82,7 @@
                     <Image Source="pack://application:,,,/Assets/banderas/gb.png" Width="24" Height="16"/>
                 </Button>
             </StackPanel>
-        </Grid>
+        </DockPanel>
 
         <GroupBox Grid.Row="1" Header="{DynamicResource StringSettings}" Margin="10" IsEnabled="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToInverseBool}}">
             <Grid>
