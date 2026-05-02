@@ -18,7 +18,7 @@
         </ResourceDictionary>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Assets/Languages/en-US.xaml"/>
+                <ResourceDictionary Source="pack://siteoforigin:,,,/Assets/Languages/en-US.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

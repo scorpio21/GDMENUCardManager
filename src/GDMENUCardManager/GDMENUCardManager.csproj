@@ -50,7 +50,10 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Resource Include="Assets\banderas\*" />
+    <Content Include="Assets\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Page Remove="Assets\Languages\*.xaml" />
   </ItemGroup>
 
   <Import Project="..\GDMENUCardManager.Core\libchdr.targets" />

@@ -21,7 +21,7 @@ namespace GDMENUCardManager
 
             var newLang = new ResourceDictionary
             {
-                Source = new Uri($"pack://application:,,,/Assets/Languages/{languageCode}.xaml")
+                Source = new Uri($"pack://siteoforigin:,,,/Assets/Languages/{languageCode}.xaml")
             };
             appResources.MergedDictionaries.Add(newLang);
         }
