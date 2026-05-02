@@ -1071,6 +1071,16 @@ namespace GDMENUCardManager
             await Save();
         }
 
+        private void ButtonLangEn_Click(object sender, RoutedEventArgs e)
+        {
+            App.ChangeLanguage("en-US");
+        }
+
+        private void ButtonLangEs_Click(object sender, RoutedEventArgs e)
+        {
+            App.ChangeLanguage("es-ES");
+        }
+
         private void ButtonAbout_Click(object sender, RoutedEventArgs e)
         {
             IsBusy = true;
