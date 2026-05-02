@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -251,7 +251,8 @@ namespace GDMENUCardManager
             Manager.ItemList.CollectionChanged += ItemList_CollectionChanged;
             Manager.MenuKindChanged += Manager_MenuKindChanged;
 
-            SevenZip.SevenZipExtractor.SetLibraryPath(Environment.Is64BitProcess ? "7z64.dll" : "7z.dll");
+            string sevenZipPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Environment.Is64BitProcess ? "7z64.dll" : "7z.dll");
+            SevenZip.SevenZipExtractor.SetLibraryPath(sevenZipPath);
 
             //config parsing. all settings are optional and must reverse to default values if missing
             bool.TryParse(ConfigurationManager.AppSettings["ShowAllDrives"], out showAllDrives);
