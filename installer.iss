@@ -1,8 +1,8 @@
-; Inno Setup script for GD MENU Card Manager
+﻿; Inno Setup script for GD MENU Card Manager
 ; Requires Inno Setup 6.x
 
 #define MyAppName "GD MENU Card Manager"
-#define MyAppVersion "1.5.3"
+#define MyAppVersion "2.0.0"
 #define MyAppPublisher "ATeam"
 #define MyAppExeName "GDMENUCardManager.exe"
 
@@ -38,7 +38,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "Crear icono en el escritorio"; GroupDescription: "Tareas adicionales:"; Flags: unchecked
 
 [Files]
-; Incluir los archivos de la aplicación
+; Incluir los archivos de la aplicaciÃ³n
 Source: "{#PublishDir}\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Icons]

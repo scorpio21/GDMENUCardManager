@@ -1,4 +1,4 @@
-name: build-and-release
+﻿name: build-and-release
 
 on:
   push:
@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Versión (ej. 1.5.3)'
+        description: 'VersiÃ³n (ej. 2.0.0)'
         required: true
-        default: '1.5.3'
+        default: '2.0.0'
 
 permissions:
   contents: write
@@ -20,7 +20,7 @@ jobs:
   build:
     runs-on: windows-latest
     env:
-      RELEASE_VERSION: ${{ github.event.inputs.version || '1.5.3' }}
+      RELEASE_VERSION: ${{ github.event.inputs.version || '2.0.0' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Determinar versión
+      - name: Determinar versiÃ³n
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -116,14 +116,14 @@ jobs:
           if-no-files-found: warn
           retention-days: 7
 
-      - name: Preparar texto del changelog para la versión
+      - name: Preparar texto del changelog para la versiÃ³n
         if: github.event_name == 'workflow_dispatch'
         shell: pwsh
         run: |
           $version = "${{ env.RELEASE_VERSION }}"
           $changelog = Get-Content CHANGELOG.md
           $match = $changelog | Select-String "## v$version" -SimpleMatch | Select-Object -First 1
-          if (-not $match) { throw "No se encontró entrada para v$version en CHANGELOG.md" }
+          if (-not $match) { throw "No se encontrÃ³ entrada para v$version en CHANGELOG.md" }
 
           $start = $match.LineNumber - 1
           $rest = $changelog[$start..($changelog.Length-1)]

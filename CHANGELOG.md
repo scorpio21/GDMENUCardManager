@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.5.3 - 2026-05-02
+## v2.0.0 - 2026-05-02
 
 ### Añadido
 - Flujo de trabajo en GitHub Actions (`build-and-release.yml`) para compilar y generar instaladores automáticamente en cada nuevo *release* o *push*.
