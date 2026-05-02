@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -1662,7 +1662,7 @@ namespace GDMENUCardManager.Core
                         var pathsToCheck = await CollectPathsToModify();
 
                         var lockCheckProgress = Helper.DependencyManager.CreateAndShowProgressWindow();
-                        lockCheckProgress.TextContent = "Checking for locked files and folders...";
+                        lockCheckProgress.TextContent = Helper.DependencyManager.GetString("StringCheckingLockedFiles");
                         do { await Task.Delay(50); } while (!lockCheckProgress.IsInitialized);
 
                         Dictionary<string, string> lockedFiles;

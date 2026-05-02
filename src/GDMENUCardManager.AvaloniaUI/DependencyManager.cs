@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.Enums;
@@ -20,6 +20,13 @@ namespace GDMENUCardManager
     public class DependencyManager : IDependencyManager
     {
         private Window getMainWindow() => ((IClassicDesktopStyleApplicationLifetime)App.Current.ApplicationLifetime).MainWindow;
+
+        public string GetString(string key)
+        {
+            if (App.Current.TryFindResource(key, out var value) && value is string str)
+                return str;
+            return key;
+        }
 
         public IProgressWindow CreateAndShowProgressWindow()
         {

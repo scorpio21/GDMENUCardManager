@@ -281,4 +281,6 @@
   <sys:String x:Key="StringCouldNotReadIpBin">No se pudo leer el IP.BIN</sys:String>
   <sys:String x:Key="StringError">Error</sys:String>
   <sys:String x:Key="StringUnableToFindOrReadFile">No se puede encontrar o leer el archivo</sys:String>
+  <sys:String x:Key="StringProgressWindow">Progreso</sys:String>
+  <sys:String x:Key="StringCheckingLockedFiles">Comprobando archivos y carpetas bloqueados...</sys:String>
 </ResourceDictionary>

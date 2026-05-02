@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -49,6 +49,7 @@ namespace GDMENUCardManager.Core.Interface
 
         public void ExtractArchive(string archivePath, string extractTo);
         public Dictionary<string, long> GetArchiveFiles(string archivePath);
+        public string GetString(string key);
     }
 
     public interface IProgressWindow

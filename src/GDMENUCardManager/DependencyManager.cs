@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,6 +14,11 @@ namespace GDMENUCardManager
     public class DependencyManager : IDependencyManager
     {
         private Window getMainWindow() => App.Current.MainWindow;
+
+        public string GetString(string key)
+        {
+            return MainWindow.GetString(key);
+        }
 
         public IProgressWindow CreateAndShowProgressWindow()
         {
