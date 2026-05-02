@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using GDMENUCardManager.Core;
 using GongSolutions.Wpf.DragDrop;
 
@@ -303,6 +304,12 @@ namespace GDMENUCardManager
             //showAllDrives = true;
 
             DataContext = this;
+
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["PALVersion"]) == true)
+            {
+                this.Icon = BitmapFrame.Create(new Uri("pack://siteoforigin:,,,/Assets/GDMENUCardManagerPAL.ico", UriKind.RelativeOrAbsolute));
+                Application.Current.Resources["BrandColor"] = new SolidColorBrush(Color.FromRgb(1, 32, 255));
+            }
         }
 
         private async void MainWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
