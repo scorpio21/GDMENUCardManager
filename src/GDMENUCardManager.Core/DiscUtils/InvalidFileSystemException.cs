@@ -63,9 +63,11 @@ namespace DiscUtils
         /// </summary>
         /// <param name="info">The serialization info.</param>
         /// <param name="context">The streaming context.</param>
+#pragma warning disable SYSLIB0051
         protected InvalidFileSystemException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
+#pragma warning restore SYSLIB0051
     }
 }
