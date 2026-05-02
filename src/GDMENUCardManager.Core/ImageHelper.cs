@@ -1,4 +1,4 @@
-﻿using Aaru.CommonTypes;
+using Aaru.CommonTypes;
 using Aaru.CommonTypes.Interfaces;
 using Aaru.Filesystems;
 using DiscUtils.Iso9660;
@@ -441,6 +441,25 @@ namespace GDMENUCardManager.Core
             var itemSerialPath = Path.Combine(item.FullFolderPath, Constants.SerialTextFile);
             if (await Helper.FileExistsAsync(itemSerialPath))
                 item.ProductNumber = await Helper.ReadAllTextAsync(itemSerialPath);
+
+            var itemFolderPath = Path.Combine(item.FullFolderPath, Constants.FolderTextFile);
+            if (await Helper.FileExistsAsync(itemFolderPath))
+            {
+                item.Folder = await Helper.ReadAllTextAsync(itemFolderPath);
+                item.Folder = item.Folder?.Trim() ?? string.Empty;
+            }
+
+            foreach (var altFileName in Constants.FolderAltTextFiles)
+            {
+                var altFilePath = Path.Combine(item.FullFolderPath, altFileName);
+                if (await Helper.FileExistsAsync(altFilePath))
+                {
+                    var altValue = await Helper.ReadAllTextAsync(altFilePath);
+                    altValue = altValue?.Trim() ?? string.Empty;
+                    if (!string.IsNullOrEmpty(altValue))
+                        item.AlternativeFolders.Add(altValue);
+                }
+            }
 
             item.Name = item.Name.Trim();
 
