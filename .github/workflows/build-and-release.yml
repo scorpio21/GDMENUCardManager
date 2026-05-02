@@ -50,7 +50,7 @@ jobs:
           choco install innosetup -y
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore src/GDMENUCardManager/GDMENUCardManager.csproj
 
       - name: Publish single-file win-x64
         run: >
