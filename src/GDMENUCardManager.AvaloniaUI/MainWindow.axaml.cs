@@ -1636,6 +1636,70 @@ namespace GDMENUCardManager
             }
         }
 
+        private async void ButtonBatchFolderRename_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsFilterActive)
+                return;
+            if (Manager.ItemList.Count == 0)
+                return;
+
+            try
+            {
+                var folderCounts = Manager.GetFolderCounts();
+
+                if (folderCounts.Count == 0)
+                {
+                    await MessageBoxManager.GetMessageBoxStandardWindow("Information", "No folders found in the current game list.", icon: MessageBox.Avalonia.Enums.Icon.Info).ShowDialog(this);
+                    return;
+                }
+
+                var window = new BatchFolderRenameWindow(folderCounts, Manager.ItemList.Count);
+                if (await window.ShowDialog<bool>(this) && window.FolderMappings != null)
+                {
+                    // snapshot before applying
+                    var snapshots = Manager.ItemList.Select(i => new BatchFolderRenameOperation.ItemSnapshot
+                    {
+                        Item = i,
+                        OldFolder = i.Folder,
+                        OldAltFolders = new List<string>(i.AlternativeFolders)
+                    }).ToList();
+
+                    var (updatedCount, conflictsRemoved) = Manager.ApplyFolderMappings(window.FolderMappings);
+
+                    if (updatedCount > 0 || conflictsRemoved > 0)
+                    {
+                        // fill in new values and filter to only changed items
+                        var undoOp = new BatchFolderRenameOperation();
+                        foreach (var s in snapshots)
+                        {
+                            s.NewFolder = s.Item.Folder;
+                            s.NewAltFolders = new List<string>(s.Item.AlternativeFolders);
+                            if (s.OldFolder != s.NewFolder || !s.OldAltFolders.SequenceEqual(s.NewAltFolders))
+                                undoOp.Snapshots.Add(s);
+                        }
+
+                        if (undoOp.Snapshots.Count > 0)
+                            Manager.UndoManager.RecordChange(undoOp);
+
+                        var msg = $"{updatedCount} disc image(s) updated across {window.FolderMappings.Count} folder(s).";
+                        if (conflictsRemoved > 0)
+                            msg += $"\n\n{conflictsRemoved} additional folder path(s) were automatically removed because they became duplicates of their disc image's primary folder path after renaming.";
+                        msg += "\n\nClick 'Save Changes' to write updates to SD card.";
+
+                        await MessageBoxManager.GetMessageBoxStandardWindow("Folders Renamed", msg, icon: MessageBox.Avalonia.Enums.Icon.Info).ShowDialog(this);
+                    }
+                    else
+                    {
+                        await MessageBoxManager.GetMessageBoxStandardWindow("Information", "No changes were made.", icon: MessageBox.Avalonia.Enums.Icon.Info).ShowDialog(this);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await MessageBoxManager.GetMessageBoxStandardWindow("Error", $"Error during batch folder rename: {ex.Message}", icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
+            }
+        }
+
         private async void ButtonDiscImageOptions_Click(object sender, RoutedEventArgs e)
         {
             var window = new DiscImageOptionsWindow(SaveDiscImageOptionsConfig);

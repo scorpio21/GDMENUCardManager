@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using GDMENUCardManager.Core;
 
-namespace GDMENUCardManager
+namespace GDMENUCardManager.Core
 {
     public class FolderTreeNode : INotifyPropertyChanged
     {
