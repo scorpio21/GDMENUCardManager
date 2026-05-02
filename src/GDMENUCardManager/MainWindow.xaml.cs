@@ -726,12 +726,12 @@ namespace GDMENUCardManager
                 {
                     SaveTempFolderConfig();
                     SaveLockCheckConfig();
-                    MessageBox.Show(this, "Done!", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(this, GetString("StringDone"), GetString("StringMessage"), MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, ex.Message, GetString("StringError"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

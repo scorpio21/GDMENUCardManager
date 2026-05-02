@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -23,6 +23,13 @@ namespace GDMENUCardManager
     {
         private GDMENUCardManager.Core.Manager _ManagerInstance;
         public GDMENUCardManager.Core.Manager Manager { get { return _ManagerInstance; } }
+
+        public static string GetString(string key)
+        {
+            if (Avalonia.Application.Current.TryFindResource(key, out var value) && value is string str)
+                return str;
+            return key;
+        }
 
         private readonly bool showAllDrives = false;
 
@@ -1126,12 +1133,12 @@ namespace GDMENUCardManager
                 {
                     SaveTempFolderConfig();
                     SaveLockCheckConfig();
-                    await MessageBoxManager.GetMessageBoxStandardWindow("Message", "Done!").ShowDialog(this);
+                    await MessageBoxManager.GetMessageBoxStandardWindow(GetString("StringMessage"), GetString("StringDone")).ShowDialog(this);
                 }
             }
             catch (Exception ex)
             {
-                await MessageBoxManager.GetMessageBoxStandardWindow("Error", ex.Message, icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
+                await MessageBoxManager.GetMessageBoxStandardWindow(GetString("StringError"), ex.Message, icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
             }
             finally
             {

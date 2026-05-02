@@ -3046,7 +3046,7 @@ namespace GDMENUCardManager.Core
                             break;
                     }
                 }
-                progress.TextContent = "Done!";
+                progress.TextContent = Helper.DependencyManager.GetString("StringDone");
                 progress.AllowClose();
                 progress.Close();
             }
