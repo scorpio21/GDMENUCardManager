@@ -1,4 +1,4 @@
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -61,19 +61,9 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <DockPanel Grid.Row="0" LastChildFill="False">
-      <ProgressBar DockPanel.Dock="Top" Height="5" IsIndeterminate="{Binding IsBusy, Mode=OneWay}"/>
-      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,10,5">
-        <Button Click="ButtonSpanish_Click" Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="Español">
-          <Image Source="avares://GDMENUCardManager/Assets/banderas/es.png" Width="24" Height="16"/>
-        </Button>
-        <Button Click="ButtonEnglish_Click" Padding="2" Background="Transparent" BorderThickness="0" ToolTip.Tip="English" Margin="5 0 0 0">
-          <Image Source="avares://GDMENUCardManager/Assets/banderas/gb.png" Width="24" Height="16"/>
-        </Button>
-      </StackPanel>
-    </DockPanel>
+    <ProgressBar Grid.Row="0" Height="5" IsIndeterminate="{Binding IsBusy, Mode=OneWay}"/>
 
-    <HeaderedContentControl Grid.Row="1" Header="{DynamicResource StringSettings}" Margin="10" IsEnabled="{Binding !IsBusy, Mode=OneWay}">
+    <HeaderedContentControl Grid.Row="1" Header="Settings" Margin="10" IsEnabled="{Binding !IsBusy, Mode=OneWay}">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
@@ -90,8 +80,8 @@
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{DynamicResource StringSDDrive}"/>
-          <Button Grid.Column="1" Width="30" Margin="10 0 0 0" Click="ButtonBrowseSdPath_Click" ToolTip.Tip="{DynamicResource StringBrowseSdTooltip}">
+          <TextBlock Grid.Column="0" VerticalAlignment="Center">SD Drive</TextBlock>
+          <Button Grid.Column="1" Width="30" Margin="10 0 0 0" Click="ButtonBrowseSdPath_Click" ToolTip.Tip="Browse for custom SD card folder">
             <Viewbox Width="18" Height="18">
               <Canvas Width="24" Height="24">
                 <Path Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z" Fill="{DynamicResource ThemeForegroundBrush}" />
@@ -108,7 +98,7 @@
           </ComboBox>
           <TextBox Grid.Column="2" Width="150" VerticalContentAlignment="Center" Text="{Binding CustomSdPath, Mode=OneWay}" IsReadOnly="True"
                    IsVisible="{Binding IsUsingCustomPath}"/>
-          <Button Grid.Column="3" Width="30" ToolTip.Tip="{DynamicResource StringRefreshDrive}" Click="ButtonRefreshDrive_Click">
+          <Button Grid.Column="3" Width="30" ToolTip.Tip="Refresh drive list and clear custom path" Click="ButtonRefreshDrive_Click">
             <Viewbox Width="18" Height="18"><Canvas Width="24" Height="24"><Path Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z" Fill="{DynamicResource ThemeForegroundBrush}" /></Canvas></Viewbox>
           </Button>
         </Grid>
@@ -119,7 +109,7 @@
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{DynamicResource StringTempFolder}"/>
+          <TextBlock Grid.Column="0" VerticalAlignment="Center">Temp. Folder</TextBlock>
 
           <Grid Grid.Column="1" Margin="10 0 0 0">
             <Grid.ColumnDefinitions>
@@ -127,11 +117,11 @@
               <ColumnDefinition Width="Auto"/>
               <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Width="30" Click="ButtonFolder_Click" ToolTip.Tip="{DynamicResource StringSelectFolder}">
+            <Button Width="30" Click="ButtonFolder_Click" ToolTip.Tip="Select temporary folder">
               <ContentControl Content="{StaticResource ViewOpenFolder}"/>
             </Button>
             <TextBox Grid.Column="1" Width="200" Watermark="Inform temporary folder" VerticalContentAlignment="Center" Text="{Binding TempFolder}" IsReadOnly="True"/>
-            <Button Grid.Column="2" Width="30" Click="ButtonResetTempFolder_Click" ToolTip.Tip="{DynamicResource StringResetTempTooltip}">
+            <Button Grid.Column="2" Width="30" Click="ButtonResetTempFolder_Click" ToolTip.Tip="Reset to system default">
               <Viewbox Width="18" Height="18"><Canvas Width="24" Height="24"><Path Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z" Fill="{DynamicResource ThemeForegroundBrush}" /></Canvas></Viewbox>
             </Button>
           </Grid>
@@ -142,7 +132,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
-          <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{DynamicResource StringMenuType}"/>
+          <TextBlock Grid.Column="0" VerticalAlignment="Center">Menu Type</TextBlock>
           <Grid Grid.Column="1" Margin="10 0 0 0">
             <Grid.RowDefinitions>
               <RowDefinition/>
@@ -153,7 +143,7 @@
           </Grid>
         </Grid>
 
-        <Button Grid.Column="3" Width="30" Margin="30 0 0 0" HorizontalAlignment="Right" ToolTip.Tip="{DynamicResource StringAbout}" Click="ButtonAbout_Click">
+        <Button Grid.Column="3" Width="30" Margin="30 0 0 0" HorizontalAlignment="Right" ToolTip.Tip="About" Click="ButtonAbout_Click">
           <Viewbox Width="18" Height="18">
             <Canvas Width="24" Height="24">
               <Path Data="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" Fill="{DynamicResource ThemeForegroundBrush}" />
@@ -164,13 +154,7 @@
     </HeaderedContentControl>
 
 
-    <HeaderedContentControl Grid.Row="2" Margin="10 0 10 10">
-      <HeaderedContentControl.Header>
-        <StackPanel Orientation="Horizontal">
-          <TextBlock Text="{DynamicResource StringGamesList}"/>
-          <TextBlock Text="{Binding TotalFilesLength, Mode=OneWay, StringFormat=' [{0}]'}"/>
-        </StackPanel>
-      </HeaderedContentControl.Header>
+    <HeaderedContentControl Grid.Row="2" Margin="10 0 10 10" Header="{Binding Path=TotalFilesLength, Mode=OneWay, StringFormat='Games List [{0}]'}">
       <DockPanel>
         <DockPanel DockPanel.Dock="Top" Margin="0 5">
           <Grid HorizontalAlignment="Left">
@@ -181,41 +165,32 @@
               <ColumnDefinition Width="Auto"/>
               <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label VerticalAlignment="Center" Content="{DynamicResource StringSearchFilter}"/>
+            <Label VerticalAlignment="Center">Search/Filter</Label>
             <TextBox Grid.Column="1" Name="tbFilter" Width="200" Margin="10 0 0 0" MaxLength="256" VerticalContentAlignment="Center" Text="{Binding Filter, Mode=TwoWay}" />
-            <Button Grid.Column="2" Width="30" ToolTip.Tip="{DynamicResource StringSearchTooltip}" IsDefault="{Binding Path=IsFocused, ElementName=tbFilter, Mode=OneWay}" Click="ButtonSearch_Click">
+            <Button Grid.Column="2" Width="30" ToolTip.Tip="Search by title or serial (navigate to next match)" IsDefault="{Binding Path=IsFocused, ElementName=tbFilter, Mode=OneWay}" Click="ButtonSearch_Click">
               <ContentControl Content="{StaticResource ViewMagnify}" />
             </Button>
-            <Button Grid.Column="3" Width="30" ToolTip.Tip="{DynamicResource StringFilterTooltip}" Click="ButtonFilter_Click">
+            <Button Grid.Column="3" Width="30" ToolTip.Tip="Filter by title or serial" Click="ButtonFilter_Click">
               <ContentControl Content="{StaticResource ViewFilter}" />
             </Button>
-            <Button Grid.Column="4" Width="30" ToolTip.Tip="{DynamicResource StringFilterResetTooltip}" Click="ButtonFilterReset_Click"
+            <Button Grid.Column="4" Width="30" ToolTip.Tip="Clear filter and show all items" Click="ButtonFilterReset_Click"
                     IsEnabled="{Binding IsFilterActive}">
               <Viewbox Width="18" Height="18"><Canvas Width="24" Height="24"><Path Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z" Fill="{DynamicResource ThemeForegroundBrush}" /></Canvas></Viewbox>
             </Button>
           </Grid>
-          <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Margin="10 0 0 0" Click="ButtonBatchFolderRename_Click"
-                  IsVisible="{Binding MenuKindSelected, Converter={StaticResource IsOpenMenuMode}}" ToolTip.Tip="{DynamicResource StringBatchFolderRenameTooltip}" Content="{DynamicResource StringBatchFolderRename}">
-            <Button.IsEnabled>
-              <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                <Binding Path="HasSdPath"/>
-                <Binding Path="IsNotFilterActive"/>
-              </MultiBinding>
-            </Button.IsEnabled>
-          </Button>
-          <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Click="ButtonDiscImageOptions_Click" ToolTip.Tip="{DynamicResource StringDiscOptionsTooltip}"
-                  IsEnabled="{Binding HasSdPath}" Content="{DynamicResource StringDiscOptions}"/>
+          <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Click="ButtonDiscImageOptions_Click" ToolTip.Tip="Various disc image modification options"
+                  IsEnabled="{Binding HasSdPath}">Disc Image Options</Button>
           <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Margin="0 0 10 0" Click="ButtonDatTools_Click"
-                  IsVisible="{Binding MenuKindSelected, Converter={StaticResource IsOpenMenuMode}}" ToolTip.Tip="{DynamicResource StringDatToolsTooltip}"
-                  IsEnabled="{Binding HasSdPath}" Content="{DynamicResource StringDatTools}"/>
-          <Button x:Name="ButtonSort" DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Margin="0 0 10 0" Click="ButtonSort_Click" ToolTip.Tip="{DynamicResource StringSortListTooltip}" Content="{DynamicResource StringSortList}">
+                  IsVisible="{Binding MenuKindSelected, Converter={StaticResource IsOpenMenuMode}}" ToolTip.Tip="Various DAT file maintenance tasks"
+                  IsEnabled="{Binding HasSdPath}">DAT Tools</Button>
+          <Button x:Name="ButtonSort" DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Margin="0 0 10 0" Click="ButtonSort_Click" ToolTip.Tip="Sort list by folder path + title">
             <Button.IsEnabled>
               <MultiBinding Converter="{StaticResource BoolAndConverter}">
                 <Binding Path="HasSdPath"/>
                 <Binding Path="IsNotFilterActive"/>
               </MultiBinding>
             </Button.IsEnabled>
-          </Button>
+            Sort List</Button>
         </DockPanel>
         
         <DataGrid Name="dg1" Items="{Binding Manager.ItemList, Mode=OneTime}" IsEnabled="{Binding Path=!IsBusy, Mode=OneWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" KeyDown="GridOnKeyDown" BeginningEdit="DataGrid_BeginningEdit" CellEditEnding="DataGrid_CellEditEnding" SelectionChanged="DataGrid_SelectionChanged" RowBackground="{DynamicResource ThemeBackgroundBrush}" AlternatingRowBackground="{DynamicResource ThemeBackgroundBrush}" GridLinesVisibility="All" BorderBrush="Black" BorderThickness="1" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray">
@@ -233,18 +208,18 @@
                   </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{DynamicResource StringRename}" Click="MenuItemRename_Click" CommandParameter="{Binding}"/>
-                <MenuItem Header="{DynamicResource StringSentenceCase}" Click="MenuItemRenameSentence_Click" CommandParameter="{Binding}"/>
-                <MenuItem Header="{DynamicResource StringUppercase}" Click="MenuItemRenameUppercase_Click" CommandParameter="{Binding}"/>
-                <MenuItem Header="{DynamicResource StringLowercase}" Click="MenuItemRenameLowercase_Click" CommandParameter="{Binding}"/>
-                <MenuItem x:Name="MenuItemAutoRename" Header="{DynamicResource StringAutoRename}">
-                  <MenuItem Header="{DynamicResource StringUsingIP}" Click="MenuItemRenameIP_Click" CommandParameter="{Binding}"/>
-                  <MenuItem x:Name="MenuItemRenameFolder" Header="{DynamicResource StringUsingFolderComputer}" Click="MenuItemRenameFolder_Click" CommandParameter="{Binding}"/>
-                  <MenuItem x:Name="MenuItemRenameFile" Header="{DynamicResource StringUsingFileBase}" Click="MenuItemRenameFile_Click" CommandParameter="{Binding}"/>
+                <MenuItem Header="Rename" Click="MenuItemRename_Click" CommandParameter="{Binding}"/>
+                <MenuItem Header="Title Case" Click="MenuItemRenameSentence_Click" CommandParameter="{Binding}"/>
+                <MenuItem Header="Uppercase" Click="MenuItemRenameUppercase_Click" CommandParameter="{Binding}"/>
+                <MenuItem Header="Lowercase" Click="MenuItemRenameLowercase_Click" CommandParameter="{Binding}"/>
+                <MenuItem x:Name="MenuItemAutoRename" Header="Automatically Rename Title">
+                  <MenuItem Header="Using IP.BIN _info" Click="MenuItemRenameIP_Click" CommandParameter="{Binding}"/>
+                  <MenuItem x:Name="MenuItemRenameFolder" Header="Using its folder name on computer" Click="MenuItemRenameFolder_Click" CommandParameter="{Binding}"/>
+                  <MenuItem x:Name="MenuItemRenameFile" Header="Using disc image's base file name" Click="MenuItemRenameFile_Click" CommandParameter="{Binding}"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem x:Name="MenuItemAssignFolder" Header="{DynamicResource StringAssignFolder}" Click="MenuItemAssignFolder_Click" CommandParameter="{Binding}"/>
-                <MenuItem x:Name="MenuItemAssignAltFolders" Header="{DynamicResource StringAssignAltFolders}" Click="MenuItemAssignAltFolders_Click" CommandParameter="{Binding}"/>
+                <MenuItem x:Name="MenuItemAssignFolder" Header="Assign Folder Path" Click="MenuItemAssignFolder_Click" CommandParameter="{Binding}"/>
+                <MenuItem x:Name="MenuItemAssignAltFolders" Header="Assign Additional Folder Paths" Click="MenuItemAssignAltFolders_Click" CommandParameter="{Binding}"/>
               </ContextMenu.Items>
             </ContextMenu>
           </DataGrid.Resources>
@@ -258,7 +233,7 @@
             <DataGridTemplateColumn Width="Auto">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                  <Button Click="ButtonInfo_Click" ToolTip.Tip="{DynamicResource StringViewFileInfo}" CommandParameter="{Binding}" IsEnabled="{Binding Path=., Converter={StaticResource IsGameDisc}}">
+                  <Button Click="ButtonInfo_Click" ToolTip.Tip="View File Info" CommandParameter="{Binding}" IsEnabled="{Binding Path=., Converter={StaticResource IsGameDisc}}">
                     <!--<ContentControl Content="{StaticResource ViewInfo}"/>-->
                     <!--until this issue is fixed https://github.com/AvaloniaUI/Avalonia/issues/2735-->
                     <Viewbox Width="18" Height="18">
@@ -270,14 +245,14 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTextColumn Header="{DynamicResource StringLocation}" Width="60" IsReadOnly="True" Binding="{Binding Location, Mode=OneWay}"/>
+            <DataGridTextColumn Header="Location" Width="60" IsReadOnly="True" Binding="{Binding Location, Mode=OneWay}"/>
             <DataGridTextColumn Width="45" IsReadOnly="True" Binding="{Binding SdNumber, Mode=OneWay}">
               <DataGridTextColumn.Header>
-                <TextBlock Text="{DynamicResource StringSdNumberShort}" ToolTip.Tip="{DynamicResource StringSdNumberTooltip}"/>
+                <TextBlock Text="SD #" ToolTip.Tip="Current item folder on SD card"/>
               </DataGridTextColumn.Header>
             </DataGridTextColumn>
-            <DataGridTextColumn Header="{DynamicResource StringLength}" Width="81" IsReadOnly="True" Binding="{Binding Length, Mode=OneWay, Converter={StaticResource ByteSizeToString}}"/>
-            <DataGridTemplateColumn Header="{DynamicResource StringTitle}" Width="2*">
+            <DataGridTextColumn Header="Size" Width="81" IsReadOnly="True" Binding="{Binding Length, Mode=OneWay, Converter={StaticResource ByteSizeToString}}"/>
+            <DataGridTemplateColumn Header="Title" Width="2*">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock Text="{Binding Name, Mode=OneWay}" VerticalAlignment="Center"/>
@@ -289,7 +264,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="{DynamicResource StringFolder}" Width="1*" IsVisible="False">
+            <DataGridTemplateColumn Header="Folder" Width="1*" IsVisible="False">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock Text="{Binding Folder, Mode=OneWay}" VerticalAlignment="Center"/>
@@ -301,7 +276,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="{DynamicResource StringSerial}" Width="75">
+            <DataGridTemplateColumn Header="Serial" Width="75">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock Text="{Binding ProductNumber, Mode=OneWay}" VerticalAlignment="Center"/>
@@ -313,7 +288,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="{DynamicResource StringArt}" Width="1*" IsVisible="False">
+            <DataGridTemplateColumn Header="Art" Width="60" IsVisible="False">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <Button Click="ButtonArtwork_Click" CommandParameter="{Binding}"
@@ -331,7 +306,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="{DynamicResource StringDisc}" Width="45">
+            <DataGridTemplateColumn Header="Disc" Width="45">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock Text="{Binding Disc, Mode=OneWay}" VerticalAlignment="Center"/>
@@ -343,7 +318,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="{DynamicResource StringType}" Width="80" IsVisible="False">
+            <DataGridTemplateColumn Header="Type" Width="80" IsVisible="False">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <TextBlock Text="{Binding DiscType, Mode=OneWay}" VerticalAlignment="Center"/>
@@ -378,11 +353,11 @@
           <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="0" Width="50" Margin="10 0" ToolTip.Tip="{DynamicResource StringAddGames}" Click="ButtonAddGames_Click" Content="{StaticResource ViewAdd}" IsEnabled="{Binding !IsFilterActive}"/>
-        <Button Grid.Column="1" Width="50" Margin="0 0 10 0" ToolTip.Tip="{DynamicResource StringRemoveGame}" Click="ButtonRemoveGame_Click" Content="{StaticResource ViewRemove}"/>
+        <Button Grid.Column="0" Width="50" Margin="10 0" ToolTip.Tip="Add game(s)" Click="ButtonAddGames_Click" Content="{StaticResource ViewAdd}" IsEnabled="{Binding !IsFilterActive}"/>
+        <Button Grid.Column="1" Width="50" Margin="0 0 10 0" ToolTip.Tip="Remove selected game(s)" Click="ButtonRemoveGame_Click" Content="{StaticResource ViewRemove}"/>
 
 
-        <Button Grid.Column="2" Width="50" Margin="10 0" ToolTip.Tip="{DynamicResource StringMoveUp}" Click="ButtonMoveUp_Click" IsEnabled="{Binding !IsFilterActive}">
+        <Button Grid.Column="2" Width="50" Margin="10 0" ToolTip.Tip="Move selected game(s) up" Click="ButtonMoveUp_Click" IsEnabled="{Binding !IsFilterActive}">
           <Button.Content>
           <Viewbox Width="24" Height="24">
               <Canvas Width="24" Height="24">
@@ -391,7 +366,7 @@
             </Viewbox>
           </Button.Content>
         </Button>
-        <Button Grid.Column="3" Width="50" Margin="0 0 10 0" ToolTip.Tip="{DynamicResource StringMoveDown}" Click="ButtonMoveDown_Click" IsEnabled="{Binding !IsFilterActive}">
+        <Button Grid.Column="3" Width="50" Margin="0 0 10 0" ToolTip.Tip="Move selected game(s) down" Click="ButtonMoveDown_Click" IsEnabled="{Binding !IsFilterActive}">
           <Button.Content>
             <Viewbox Width="24" Height="24">
               <Canvas Width="24" Height="24">
@@ -401,19 +376,18 @@
           </Button.Content>
         </Button>
 
-        <CheckBox Grid.Column="4" Name="cbLockCheck" VerticalAlignment="Center" Margin="10 0" IsChecked="{Binding EnableLockCheck, Mode=TwoWay}" ToolTip.Tip="{DynamicResource StringLockCheckTooltip}" Content="{DynamicResource StringLockCheck}"/>
-        <Button Grid.Column="5" Margin="10 0" Padding="0 10" FontWeight="Bold" Click="ButtonSaveChanges_Click" ToolTip.Tip="{DynamicResource StringSaveChangesTooltip}" IsEnabled="{Binding !IsFilterActive}" Content="{DynamicResource StringSaveChanges}"/>
-        <Button Grid.Column="6" Margin="0 0 5 0" Padding="10 10" Click="ButtonUndo_Click" ToolTip.Tip="{DynamicResource StringUndoTooltip}"
-                IsEnabled="{Binding Manager.UndoManager.CanUndo}" Content="{DynamicResource StringUndo}"/>
-        <Button Grid.Column="7" Margin="5 0 10 0" Padding="10 10" Click="ButtonRedo_Click" ToolTip.Tip="{DynamicResource StringRedoTooltip}"
-                IsEnabled="{Binding Manager.UndoManager.CanRedo}" Content="{DynamicResource StringRedo}"/>
-        <Button Grid.Column="8" Margin="10 0" Padding="10 10" ToolTip.Tip="{DynamicResource StringPreloadTooltip}" Click="ButtonPreload_Click" IsVisible="False" Content="{DynamicResource StringPreload}"/>
-        <Button Grid.Column="9" Margin="10 0" Padding="10 10" Click="ButtonSort_Click" IsVisible="False" Content="{DynamicResource StringSortList}"/>
-        <Button Grid.Column="10" Margin="10 0" Padding="10 10" Click="ButtonBatchRename_Click" IsVisible="False" Content="{DynamicResource StringBatchRename}"/>
+        <CheckBox Grid.Column="4" Name="cbLockCheck" VerticalAlignment="Center" Margin="10 0" IsChecked="{Binding EnableLockCheck, Mode=TwoWay}" ToolTip.Tip="Check for locked files/folders before saving">File/Folder Lock Check</CheckBox>
+        <Button Grid.Column="5" Margin="10 0" Padding="0 10" FontWeight="Bold" Click="ButtonSaveChanges_Click" ToolTip.Tip="Save changes to SD card" IsEnabled="{Binding !IsFilterActive}">Save Changes</Button>
+        <Button Grid.Column="6" Margin="0 0 5 0" Padding="10 10" Click="ButtonUndo_Click" ToolTip.Tip="Undo last change"
+                IsEnabled="{Binding Manager.UndoManager.CanUndo}">Undo</Button>
+        <Button Grid.Column="7" Margin="5 0 10 0" Padding="10 10" Click="ButtonRedo_Click" ToolTip.Tip="Redo last change"
+                IsEnabled="{Binding Manager.UndoManager.CanRedo}">Redo</Button>
+        <Button Grid.Column="8" Margin="10 0" Padding="10 10" ToolTip.Tip="Load info from files that are already on sd card" Click="ButtonPreload_Click" IsVisible="False">Preload</Button>
+        <Button Grid.Column="9" Margin="10 0" Padding="10 10" Click="ButtonSort_Click" IsVisible="False">Sort List</Button>
+        <Button Grid.Column="10" Margin="10 0" Padding="10 10" Click="ButtonBatchRename_Click" IsVisible="False">Batch Rename</Button>
       </Grid>
     </Grid>
 
   </Grid>
 
 </Window>
-

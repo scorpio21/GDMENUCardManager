@@ -1,9 +1,7 @@
-using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media.Imaging;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.Models;
 using System;
@@ -308,9 +306,6 @@ namespace GDMENUCardManager
             //showAllDrives = true;
 
             DataContext = this;
-
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings["PALVersion"]) == true)
-                this.Icon = new WindowIcon(new Bitmap("./Assets/GDMENUCardManagerPAL.ico"));
         }
 
         private void InitializeComponent()
@@ -323,26 +318,6 @@ namespace GDMENUCardManager
             // Add tunneling handler to intercept right-clicks before context menu opens
             dg1.AddHandler(Avalonia.Input.InputElement.PointerPressedEvent, DataGrid_PointerPressed, Avalonia.Interactivity.RoutingStrategies.Tunnel);
             dg1.AddHandler(Avalonia.Input.InputElement.PointerReleasedEvent, DataGrid_PointerReleased, Avalonia.Interactivity.RoutingStrategies.Tunnel);
-        }
-
-        private void ButtonSpanish_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            SetLanguage("es-ES");
-        }
-
-        private void ButtonEnglish_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            SetLanguage("en-US");
-        }
-
-        private void SetLanguage(string langCode)
-        {
-            var dictionaries = App.Current.Resources.MergedDictionaries;
-            dictionaries.Clear();
-            dictionaries.Add(new Avalonia.Markup.Xaml.MarkupExtensions.ResourceInclude()
-            {
-                Source = new Uri($"avares://GDMENUCardManager/Assets/Languages/{langCode}.axaml")
-            });
         }
 
         // Track if we should block context menu for current right-click
@@ -469,14 +444,26 @@ namespace GDMENUCardManager
 
         private void UpdateFolderColumnVisibility()
         {
-            if (dg1?.Columns == null || dg1.Columns.Count < 10)
+            if (dg1?.Columns == null)
                 return;
 
-            // Use fixed indices as defined in XAML (since reordering is disabled)
-            // 0: Info, 1: Location, 2: SdNumber, 3: Length, 4: Title, 5: Folder, 6: Serial, 7: Art, 8: Disc, 9: Type
-            DataGridColumn folderColumn = dg1.Columns[5];
-            DataGridColumn artColumn = dg1.Columns[7];
-            DataGridColumn typeColumn = dg1.Columns[9];
+            // Find columns by iterating and checking their Header
+            DataGridColumn folderColumn = null;
+            DataGridColumn typeColumn = null;
+            DataGridColumn artColumn = null;
+            DataGridTemplateColumn discColumn = null;
+
+            foreach (var col in dg1.Columns)
+            {
+                if (col.Header?.ToString() == "Folder")
+                    folderColumn = col;
+                else if (col is DataGridTemplateColumn templateCol && templateCol.Header?.ToString() == "Type")
+                    typeColumn = col;
+                else if (col is DataGridTemplateColumn discTemplateCol && discTemplateCol.Header?.ToString() == "Disc")
+                    discColumn = discTemplateCol;
+                else if (col.Header?.ToString() == "Art")
+                    artColumn = col;
+            }
 
             if (folderColumn != null)
             {
@@ -493,14 +480,25 @@ namespace GDMENUCardManager
 
             if (typeColumn != null)
             {
-                typeColumn.IsVisible = MenuKindSelected == MenuKind.openMenu;
+                if (MenuKindSelected == MenuKind.openMenu)
+                {
+                    typeColumn.IsVisible = true;
+                }
+                else
+                {
+                    typeColumn.IsVisible = false;
+                }
             }
 
             // Art column: only visible in openMenu mode
             if (artColumn != null)
             {
-                artColumn.IsVisible = MenuKindSelected == MenuKind.openMenu;
+                bool showArt = MenuKindSelected == MenuKind.openMenu;
+                artColumn.IsVisible = showArt;
             }
+
+            // Disc column read-only handling is now done via BeginningEdit event
+            // since it's a template column
         }
 
         private void UpdateSortButtonTooltip()
@@ -1332,7 +1330,7 @@ namespace GDMENUCardManager
                     if (isOnScreen)
                     {
                         WindowStartupLocation = WindowStartupLocation.Manual;
-                        Position = new PixelPoint((int)left, (int)top);
+                        Position = new Avalonia.PixelPoint((int)left, (int)top);
                         Width = width;
                         Height = height;
                     }
@@ -1633,70 +1631,6 @@ namespace GDMENUCardManager
             finally
             {
                 IsBusy = false;
-            }
-        }
-
-        private async void ButtonBatchFolderRename_Click(object sender, RoutedEventArgs e)
-        {
-            if (IsFilterActive)
-                return;
-            if (Manager.ItemList.Count == 0)
-                return;
-
-            try
-            {
-                var folderCounts = Manager.GetFolderCounts();
-
-                if (folderCounts.Count == 0)
-                {
-                    await MessageBoxManager.GetMessageBoxStandardWindow("Information", "No folders found in the current game list.", icon: MessageBox.Avalonia.Enums.Icon.Info).ShowDialog(this);
-                    return;
-                }
-
-                var window = new BatchFolderRenameWindow(folderCounts, Manager.ItemList.Count);
-                if (await window.ShowDialog<bool>(this) && window.FolderMappings != null)
-                {
-                    // snapshot before applying
-                    var snapshots = Manager.ItemList.Select(i => new BatchFolderRenameOperation.ItemSnapshot
-                    {
-                        Item = i,
-                        OldFolder = i.Folder,
-                        OldAltFolders = new List<string>(i.AlternativeFolders)
-                    }).ToList();
-
-                    var (updatedCount, conflictsRemoved) = Manager.ApplyFolderMappings(window.FolderMappings);
-
-                    if (updatedCount > 0 || conflictsRemoved > 0)
-                    {
-                        // fill in new values and filter to only changed items
-                        var undoOp = new BatchFolderRenameOperation();
-                        foreach (var s in snapshots)
-                        {
-                            s.NewFolder = s.Item.Folder;
-                            s.NewAltFolders = new List<string>(s.Item.AlternativeFolders);
-                            if (s.OldFolder != s.NewFolder || !s.OldAltFolders.SequenceEqual(s.NewAltFolders))
-                                undoOp.Snapshots.Add(s);
-                        }
-
-                        if (undoOp.Snapshots.Count > 0)
-                            Manager.UndoManager.RecordChange(undoOp);
-
-                        var msg = $"{updatedCount} disc image(s) updated across {window.FolderMappings.Count} folder(s).";
-                        if (conflictsRemoved > 0)
-                            msg += $"\n\n{conflictsRemoved} additional folder path(s) were automatically removed because they became duplicates of their disc image's primary folder path after renaming.";
-                        msg += "\n\nClick 'Save Changes' to write updates to SD card.";
-
-                        await MessageBoxManager.GetMessageBoxStandardWindow("Folders Renamed", msg, icon: MessageBox.Avalonia.Enums.Icon.Info).ShowDialog(this);
-                    }
-                    else
-                    {
-                        await MessageBoxManager.GetMessageBoxStandardWindow("Information", "No changes were made.", icon: MessageBox.Avalonia.Enums.Icon.Info).ShowDialog(this);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await MessageBoxManager.GetMessageBoxStandardWindow("Error", $"Error during batch folder rename: {ex.Message}", icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
             }
         }
 
@@ -2222,6 +2156,51 @@ namespace GDMENUCardManager
                 }
             }
         }
+
+        //private void rename(GdItem item, short index)
+        //{
+        //    string name;
+
+        //    if (index == 0)//ip.bin
+        //    {
+        //        name = item.Ip.Name;
+        //    }
+        //    else
+        //    {
+        //        if (index == 1)//folder
+        //            name = Path.GetFileName(item.FullFolderPath).ToUpperInvariant();
+        //        else//file
+        //            name = Path.GetFileNameWithoutExtension(item.ImageFile).ToUpperInvariant();
+        //        var m = RegularExpressions.TosecnNameRegexp.Match(name);
+        //        if (m.Success)
+        //            name = name.Substring(0, m.Index);
+        //    }
+        //    item.Name = name;
+        //}
+
+        //private void rename(object sender, short index)
+        //{
+        //    var menuItem = (MenuItem)sender;
+        //    var item = (GdItem)menuItem.CommandParameter;
+
+        //    string name;
+
+        //    if (index == 0)//ip.bin
+        //    {
+        //        name = item.Ip.Name;
+        //    }
+        //    else
+        //    {
+        //        if (index == 1)//folder
+        //            name = Path.GetFileName(item.FullFolderPath).ToUpperInvariant();
+        //        else//file
+        //            name = Path.GetFileNameWithoutExtension(item.ImageFile).ToUpperInvariant();
+        //        var m = RegularExpressions.TosecnNameRegexp.Match(name);
+        //        if (m.Success)
+        //            name = name.Substring(0, m.Index);
+        //    }
+        //    item.Name = name;
+        //}
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {

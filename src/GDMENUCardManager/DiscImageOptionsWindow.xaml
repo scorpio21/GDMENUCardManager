@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:GDMENUCardManager.Converter"
         mc:Ignorable="d"
-        Title="Disc Image Options" Width="320" SizeToContent="Height"
+        Title="{DynamicResource StringDiscOptions}" Width="320" SizeToContent="Height"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Window.Resources>
         <conv:BoolToVisibleOrCollapsedConverter x:Key="BoolToVisibleOrCollapsed"/>
@@ -22,27 +22,27 @@
             <!-- GDI Shrink Card -->
             <GroupBox Margin="0 0 0 10">
                 <GroupBox.Header>
-                    <TextBlock Text="GDI Shrink" FontWeight="Bold"/>
+                    <TextBlock Text="{DynamicResource StringGdiShrink}" FontWeight="Bold"/>
                 </GroupBox.Header>
                 <StackPanel Margin="8">
-                    <TextBlock Text="Games use less space on SD card" TextWrapping="Wrap"
+                    <TextBlock Text="{DynamicResource StringGdiShrinkDesc}" TextWrapping="Wrap"
                                Foreground="Gray" FontSize="11" Margin="0 0 0 10"/>
                     <CheckBox x:Name="ChkEnableGDIShrink" IsChecked="{Binding EnableGDIShrink, Mode=TwoWay}">
-                        <TextBlock Text="Apply to newly added games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToNew}"/>
                     </CheckBox>
                     <CheckBox IsChecked="{Binding EnableGDIShrinkExisting, Mode=TwoWay}"
                               IsEnabled="{Binding IsChecked, ElementName=ChkEnableGDIShrink}" Margin="0 5 0 0">
-                        <TextBlock Text="Apply to existing games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToExisting}"/>
                     </CheckBox>
                     <Separator Margin="0 8"/>
                     <CheckBox IsChecked="{Binding EnableGDIShrinkCompressed, Mode=TwoWay}"
                               IsEnabled="{Binding IsChecked, ElementName=ChkEnableGDIShrink}">
-                        <TextBlock Text="Also shrink compressed" FontSize="11"/>
+                        <TextBlock Text="{DynamicResource StringAlsoShrinkCompressed}" FontSize="11"/>
                     </CheckBox>
                     <CheckBox IsChecked="{Binding EnableGDIShrinkBlackList, Mode=TwoWay}"
                               IsEnabled="{Binding IsChecked, ElementName=ChkEnableGDIShrink}" Margin="0 3 0 0"
                               Visibility="{Binding HaveGDIShrinkBlacklist, Mode=OneWay, Converter={StaticResource BoolToVisibleOrCollapsed}}">
-                        <TextBlock Text="Use blacklist (recommended)" FontSize="11"/>
+                        <TextBlock Text="{DynamicResource StringUseBlacklist}" FontSize="11"/>
                     </CheckBox>
                 </StackPanel>
             </GroupBox>
@@ -50,17 +50,17 @@
             <!-- VGA Patch Card -->
             <GroupBox Margin="0 0 0 10">
                 <GroupBox.Header>
-                    <TextBlock Text="VGA Patch" FontWeight="Bold"/>
+                    <TextBlock Text="{DynamicResource StringVgaPatch}" FontWeight="Bold"/>
                 </GroupBox.Header>
                 <StackPanel Margin="8">
-                    <TextBlock Text="Force VGA flag after &quot;Exit to BIOS&quot; from openMenu" TextWrapping="Wrap"
+                    <TextBlock Text="{DynamicResource StringVgaPatchDesc}" TextWrapping="Wrap"
                                Foreground="Gray" FontSize="11" Margin="0 0 0 10"/>
                     <CheckBox x:Name="ChkEnableVgaPatch" IsChecked="{Binding EnableVgaPatch, Mode=TwoWay}">
-                        <TextBlock Text="Apply to newly added games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToNew}"/>
                     </CheckBox>
                     <CheckBox IsChecked="{Binding EnableVgaPatchExisting, Mode=TwoWay}"
                               IsEnabled="{Binding IsChecked, ElementName=ChkEnableVgaPatch}" Margin="0 5 0 0">
-                        <TextBlock Text="Apply to existing games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToExisting}"/>
                     </CheckBox>
                 </StackPanel>
             </GroupBox>
@@ -68,17 +68,17 @@
             <!-- Region-Free Patch Card -->
             <GroupBox Margin="0">
                 <GroupBox.Header>
-                    <TextBlock Text="Region-Free Patch" FontWeight="Bold"/>
+                    <TextBlock Text="{DynamicResource StringRegionPatch}" FontWeight="Bold"/>
                 </GroupBox.Header>
                 <StackPanel Margin="8">
-                    <TextBlock Text="Boot out-of-region games after &quot;Exit to BIOS&quot; from openMenu" TextWrapping="Wrap"
+                    <TextBlock Text="{DynamicResource StringRegionPatchDesc}" TextWrapping="Wrap"
                                Foreground="Gray" FontSize="11" Margin="0 0 0 10"/>
                     <CheckBox x:Name="ChkEnableRegionPatch" IsChecked="{Binding EnableRegionPatch, Mode=TwoWay}">
-                        <TextBlock Text="Apply to newly added games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToNew}"/>
                     </CheckBox>
                     <CheckBox IsChecked="{Binding EnableRegionPatchExisting, Mode=TwoWay}"
                               IsEnabled="{Binding IsChecked, ElementName=ChkEnableRegionPatch}" Margin="0 5 0 0">
-                        <TextBlock Text="Apply to existing games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToExisting}"/>
                     </CheckBox>
                 </StackPanel>
             </GroupBox>
@@ -86,8 +86,8 @@
 
         <!-- Save/Cancel Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0">
-            <Button Content="Save" Width="80" Padding="15,8" Margin="0 0 10 0" Click="SaveButton_Click" IsDefault="True"/>
-            <Button Content="Cancel" Width="80" Padding="15,8" Click="CancelButton_Click" IsCancel="True"/>
+            <Button Content="{DynamicResource StringSave}" Width="80" Padding="15,8" Margin="0 0 10 0" Click="SaveButton_Click" IsDefault="True"/>
+            <Button Content="{DynamicResource StringCancel}" Width="80" Padding="15,8" Click="CancelButton_Click" IsCancel="True"/>
         </StackPanel>
     </Grid>
 </Window>

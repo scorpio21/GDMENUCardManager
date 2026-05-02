@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GDMENUCardManager"
         mc:Ignorable="d"
-        Title="Info" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="{DynamicResource StringInfo}" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="372"/>
@@ -16,14 +16,14 @@
         <StackPanel x:Name="LeftPanel" Grid.Column="0">
             <GroupBox Margin="5">
                 <GroupBox.Header>
-                    <TextBlock Text="File Info" FontWeight="Bold"/>
+                    <TextBlock Text="{DynamicResource StringFileInfo}" FontWeight="Bold"/>
                 </GroupBox.Header>
                 <TextBlock Text="{Binding FileInfo, Mode=OneTime}" TextWrapping="Wrap"/>
             </GroupBox>
 
             <GroupBox Margin="5">
                 <GroupBox.Header>
-                    <TextBlock Text="IP.BIN Info" FontWeight="Bold"/>
+                    <TextBlock Text="{DynamicResource StringIpBinInfo}" FontWeight="Bold"/>
                 </GroupBox.Header>
                 <TextBlock Text="{Binding IpInfo, Mode=OneWay}" TextWrapping="Wrap"/>
             </GroupBox>

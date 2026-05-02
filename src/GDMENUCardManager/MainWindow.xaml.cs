@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,7 +12,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using GDMENUCardManager.Core;
 using GongSolutions.Wpf.DragDrop;
 
@@ -303,29 +302,6 @@ namespace GDMENUCardManager
             //showAllDrives = true;
 
             DataContext = this;
-
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings["PALVersion"]) == true)
-                this.Icon = BitmapFrame.Create(new Uri("./Assets/GDMENUCardManagerPAL.ico", UriKind.RelativeOrAbsolute));
-        }
-
-        private void ButtonSpanish_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            SetLanguage("es-ES");
-        }
-
-        private void ButtonEnglish_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            SetLanguage("en-US");
-        }
-
-        private void SetLanguage(string langCode)
-        {
-            var dictionaries = App.Current.Resources.MergedDictionaries;
-            dictionaries.Clear();
-            dictionaries.Add(new System.Windows.ResourceDictionary()
-            {
-                Source = new Uri($"pack://application:,,,/Assets/Languages/{langCode}.xaml")
-            });
         }
 
         private async void MainWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -355,34 +331,60 @@ namespace GDMENUCardManager
             if (dg1?.Columns == null)
                 return;
 
-            if (FolderColumn != null)
+            // Find columns by iterating and checking their Header
+            DataGridColumn folderColumn = null;
+            DataGridColumn typeColumn = null;
+            DataGridColumn artColumn = null;
+            DataGridTextColumn discColumn = null;
+
+            foreach (var col in dg1.Columns)
+            {
+                if (col.Header?.ToString() == "Folder")
+                    folderColumn = col;
+                else if (col is DataGridTemplateColumn templateCol && templateCol.Header?.ToString() == "Type")
+                    typeColumn = col;
+                else if (col is DataGridTextColumn discTextCol && discTextCol.Header?.ToString() == "Disc")
+                    discColumn = discTextCol;
+                else if (col.Header?.ToString() == "Art")
+                    artColumn = col;
+            }
+
+            if (folderColumn != null)
             {
                 if (MenuKindSelected == MenuKind.openMenu)
                 {
-                    FolderColumn.Visibility = Visibility.Visible;
-                    FolderColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    folderColumn.Visibility = Visibility.Visible;
+                    folderColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
                 }
                 else
                 {
-                    FolderColumn.Visibility = Visibility.Collapsed;
+                    folderColumn.Visibility = Visibility.Collapsed;
                 }
             }
 
-            if (TypeColumn != null)
+            if (typeColumn != null)
             {
-                TypeColumn.Visibility = MenuKindSelected == MenuKind.openMenu ? Visibility.Visible : Visibility.Collapsed;
+                if (MenuKindSelected == MenuKind.openMenu)
+                {
+                    typeColumn.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    typeColumn.Visibility = Visibility.Collapsed;
+                }
             }
 
             // Art column: only visible in openMenu mode
-            if (ArtColumn != null)
+            if (artColumn != null)
             {
-                ArtColumn.Visibility = MenuKindSelected == MenuKind.openMenu ? Visibility.Visible : Visibility.Collapsed;
+                bool showArt = MenuKindSelected == MenuKind.openMenu;
+                artColumn.Visibility = showArt ? Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (DiscColumn != null)
+            if (discColumn != null)
             {
                 // Make Disc column editable only in openMenu mode
-                DiscColumn.IsReadOnly = (MenuKindSelected != MenuKind.openMenu);
+                discColumn.IsReadOnly = (MenuKindSelected != MenuKind.openMenu);
             }
         }
 

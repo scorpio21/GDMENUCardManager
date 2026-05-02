@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Assign Folder Path" SizeToContent="Height" Width="400"
+        Title="{DynamicResource StringAssignFolder}" SizeToContent="Height" Width="400"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <StackPanel Margin="15">
         <TextBlock Text="{Binding SelectionInfo}" Margin="0 0 0 15" FontWeight="Bold"/>
 
-        <TextBlock Text="Folder Path:" Margin="0 0 0 5"/>
+        <TextBlock Text="{DynamicResource StringFolderPath}" Margin="0 0 0 5"/>
         <ComboBox x:Name="FolderInput"
                   ItemsSource="{Binding KnownFolders}"
                   Text="{Binding FolderPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -17,8 +17,8 @@
                   MaxDropDownHeight="200"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 0 0">
-            <Button Content="OK" Click="OkButton_Click" IsDefault="True" Width="80" Padding="15,8" Margin="0 0 10 0"/>
-            <Button Content="Cancel" Click="CancelButton_Click" IsCancel="True" Width="80" Padding="15,8"/>
+            <Button Content="{DynamicResource StringOk}" Click="OkButton_Click" IsDefault="True" Width="80" Padding="15,8" Margin="0 0 10 0"/>
+            <Button Content="{DynamicResource StringCancel}" Click="CancelButton_Click" IsCancel="True" Width="80" Padding="15,8"/>
         </StackPanel>
     </StackPanel>
 </Window>

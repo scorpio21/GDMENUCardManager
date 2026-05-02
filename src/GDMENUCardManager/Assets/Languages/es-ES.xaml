@@ -64,4 +64,142 @@
   <sys:String x:Key="StringBatchFolderRenameTooltip">Reorganizar y renombrar carpetas virtuales fácilmente</sys:String>
   <sys:String x:Key="StringAssignArtworkTooltip">Asignar carátula</sys:String>
   <sys:String x:Key="StringEditArtworkTooltip">Editar carátula asignada actualmente</sys:String>
+
+  <sys:String x:Key="StringInfo">Info</sys:String>
+  <sys:String x:Key="StringFileInfo">Info del archivo</sys:String>
+  <sys:String x:Key="StringIpBinInfo">Info de IP.BIN</sys:String>
+
+  <sys:String x:Key="StringGdiShrink">Reducir GDI</sys:String>
+  <sys:String x:Key="StringGdiShrinkDesc">Los juegos usan menos espacio en la tarjeta SD</sys:String>
+  <sys:String x:Key="StringApplyToNew">Aplicar a los juegos nuevos</sys:String>
+  <sys:String x:Key="StringApplyToExisting">Aplicar a los juegos existentes</sys:String>
+  <sys:String x:Key="StringAlsoShrinkCompressed">Reducir también comprimidos</sys:String>
+  <sys:String x:Key="StringUseBlacklist">Usar lista negra (recomendado)</sys:String>
+  <sys:String x:Key="StringVgaPatch">Parche VGA</sys:String>
+  <sys:String x:Key="StringVgaPatchDesc">Forzar flag VGA tras "Exit to BIOS" desde openMenu</sys:String>
+  <sys:String x:Key="StringRegionPatch">Parche Region-Free</sys:String>
+  <sys:String x:Key="StringRegionPatchDesc">Arrancar juegos de otra región tras "Exit to BIOS" desde openMenu</sys:String>
+  <sys:String x:Key="StringSave">Guardar</sys:String>
+  <sys:String x:Key="StringImportDatEntries">Importar entradas DAT</sys:String>
+  <sys:String x:Key="StringImportDatDesc1">Importar entradas para fusionarlas en los archivos DAT actuales</sys:String>
+  <sys:String x:Key="StringImportDatDesc2">Antes de que se inicie este proceso, se hará una copia de seguridad de los DAT que residen en "tools\openMenu\menu_data" a la carpeta "dat_backups".</sys:String>
+  <sys:String x:Key="StringImportDatDesc3">Usa </sys:String>
+  <sys:String x:Key="StringChooseDatFolder">Seleccionar carpeta DAT</sys:String>
+  <sys:String x:Key="StringImportDatDesc5"> para seleccionar una carpeta que contenga BOX.DAT o META.DAT (o ambos), ya que ICON.DAT se generará automáticamente a partir de BOX.DAT.</sys:String>
+  <sys:String x:Key="StringImportDatDesc6">Decide si se deben importar solo las entradas que faltan en los DAT actuales, o si se deben importar todas las entradas sobrescribiendo lo que ya existe. Luego, haz clic en </sys:String>
+  <sys:String x:Key="StringBeginImport">Comenzar importación</sys:String>
+  <sys:String x:Key="StringImportDatDesc8"> para realizar esta operación.</sys:String>
+  <sys:String x:Key="StringImportDatDesc9">Ten en cuenta que también se incluirán los cambios de carátulas sin guardar de esta sesión.</sys:String>
+  <sys:String x:Key="StringImportMissing">Importar solo entradas faltantes</sys:String>
+  <sys:String x:Key="StringImportAll">Importar todas las entradas (sobrescribir existentes)</sys:String>
+  <sys:String x:Key="StringSource">Origen: </sys:String>
+  <sys:String x:Key="StringNoFolderSelected">[ninguna carpeta seleccionada]</sys:String>
+  <sys:String x:Key="StringExportArtwork">Exportar carátulas a PNGs</sys:String>
+  <sys:String x:Key="StringExportArtworkDesc1">Exportar todas las carátulas asignadas, incluyendo actualizaciones sin guardar de esta sesión, a archivos de imagen PNG</sys:String>
+  <sys:String x:Key="StringExportArtworkDesc2">Los archivos de imagen usarán la siguiente sintaxis de nombre: </sys:String>
+  <sys:String x:Key="StringExportArtworkDesc3">Título [Serie].png</sys:String>
+  <sys:String x:Key="StringExportArtworkDesc4">Selecciona una carpeta de destino y haz clic en </sys:String>
+  <sys:String x:Key="StringTarget">Destino: </sys:String>
+  <sys:String x:Key="StringChooseTargetFolder">Elegir carpeta de destino</sys:String>
+  <sys:String x:Key="StringBeginExport">Comenzar exportación</sys:String>
+  <sys:String x:Key="StringClearDatEntries">Borrar todas las entradas DAT</sys:String>
+  <sys:String x:Key="StringClearDatDesc1">Borrar todas las carátulas y metadatos de BOX.DAT, ICON.DAT y META.DAT</sys:String>
+  <sys:String x:Key="StringClearDatDesc2">Al hacer esto, se descartarán los cambios de carátulas sin guardar de la Lista de juegos, así como todas las entradas guardadas.</sys:String>
+  <sys:String x:Key="StringClearDatDesc4">Haz clic en </sys:String>
+  <sys:String x:Key="StringClearDats">Borrar DATs</sys:String>
+  <sys:String x:Key="StringOverwriteDats">Sobrescribir DATs con tarjeta SD</sys:String>
+  <sys:String x:Key="StringOverwriteDatsDesc1">Sobrescribir los archivos DAT locales con los que ya están en la tarjeta SD de openMenu</sys:String>
+  <sys:String x:Key="StringOverwriteDatsDesc2">Los archivos DAT en la carpeta "tools\openMenu\menu_data" se usan cada vez que se reconstruye openMenu y se guarda en la SD.</sys:String>
+  <sys:String x:Key="StringOverwriteDatsDesc3">Sin embargo, hay situaciones donde un usuario puede querer sobrescribir estos DAT con los que se usaron para generar el openMenu de la SD. Por ejemplo, un usuario que actualiza desde una versión anterior de </sys:String>
+  <sys:String x:Key="StringOverwriteDatsDesc4">openMenu Virtual Folder Bundle</sys:String>
+  <sys:String x:Key="StringOverwriteDatsDesc5"> es probable que ya tenga carátulas personalizadas.</sys:String>
+  <sys:String x:Key="StringOverwriteDatsDesc6">Mientras que esos usuarios pueden copiar fácilmente los DAT de su antigua versión a la nueva carpeta, esta herramienta puede hacerlo automáticamente usando la tarjeta SD como origen.</sys:String>
+  <sys:String x:Key="StringOverwrite">Sobrescribir DATs</sys:String>
+
+  <sys:String x:Key="StringFolderPath">Ruta de carpeta:</sys:String>
+  <sys:String x:Key="StringFolderPathSpace">Ruta de carpeta </sys:String>
+  <sys:String x:Key="StringAddFolderPath">+ Añadir ruta de carpeta</sys:String>
+  <sys:String x:Key="StringOk">Aceptar</sys:String>
+
+  <sys:String x:Key="StringUpdateWizard">Asistente de actualización</sys:String>
+  <sys:String x:Key="StringUpdatePreserveDesc">Elige cuáles de tus archivos actuales preservar durante la actualización. Los elementos marcados NO se sobrescribirán.</sys:String>
+  <sys:String x:Key="StringPreserveDats">Preservar carátulas y metadatos personalizados</sys:String>
+  <sys:String x:Key="StringPreserveThemes">Preservar temas de openMenu</sys:String>
+  <sys:String x:Key="StringPreserveCheats">Preservar trucos (cheats)</sys:String>
+  <sys:String x:Key="StringPreserveSettingsDesc">Preservar configuración (la nueva configuración de la actualización se añadirá igualmente)</sys:String>
+  <sys:String x:Key="StringNext">Siguiente</sys:String>
+  <sys:String x:Key="StringInstallNow">Instalar ahora</sys:String>
+  <sys:String x:Key="StringFolderHierarchy">Jerarquía de carpetas</sys:String>
+  <sys:String x:Key="StringBatchFolderRenameDesc">Haz doble clic para renombrar carpetas. Arrástralas para cambiar su carpeta superior. Los cambios se aplicarán al hacer clic en Guardar.</sys:String>
+  <sys:String x:Key="StringUndoLastChange">Deshacer último cambio</sys:String>
+
+  <!-- Artwork Window -->
+  <sys:String x:Key="StringNoArtworkAssigned">Sin carátula asignada</sys:String>
+  <sys:String x:Key="StringArtworkWarning1">Los cambios en carátulas no se guardan en los DAT hasta que hagas clic en </sys:String>
+  <sys:String x:Key="StringArtworkWarning2"> en la ventana principal.</sys:String>
+  <sys:String x:Key="StringBrowseForImage">Buscar imagen</sys:String>
+  <sys:String x:Key="StringDeleteEntry">Borrar entrada</sys:String>
+  
+  <!-- Main Window -->
+  <sys:String x:Key="StringSettings">Configuración</sys:String>
+  <sys:String x:Key="StringSdDrive">Unidad SD</sys:String>
+  <sys:String x:Key="StringBrowseSdToolTip">Buscar carpeta personalizada de tarjeta SD</sys:String>
+  <sys:String x:Key="StringRefreshDriveToolTip">Actualizar lista de unidades y borrar ruta personalizada</sys:String>
+  <sys:String x:Key="StringTempFolder">Carpeta Temp.</sys:String>
+  <sys:String x:Key="StringSelectTempFolderToolTip">Seleccionar carpeta temporal</sys:String>
+  <sys:String x:Key="StringResetTempFolderToolTip">Restablecer al valor predeterminado</sys:String>
+  <sys:String x:Key="StringMenuType">Tipo de Menú</sys:String>
+  <sys:String x:Key="StringUseGdMenuToolTip">Usar gdMenu</sys:String>
+  <sys:String x:Key="StringUseOpenMenuToolTip">Usar openMenu</sys:String>
+  <sys:String x:Key="StringAboutToolTip">Acerca de</sys:String>
+  <sys:String x:Key="StringGamesList">Lista de juegos [</sys:String>
+  <sys:String x:Key="StringSearchFilter">Buscar/Filtrar</sys:String>
+  <sys:String x:Key="StringSearchToolTip">Buscar por título o serie (ir al siguiente resultado)</sys:String>
+  <sys:String x:Key="StringFilterToolTip">Filtrar por título o serie</sys:String>
+  <sys:String x:Key="StringClearFilterToolTip">Limpiar filtro y mostrar todos</sys:String>
+  <sys:String x:Key="StringBatchFolderRenameButton">Mover y renombrar carpetas en lote</sys:String>
+  <sys:String x:Key="StringBatchFolderRenameToolTip">Reorganizar y renombrar carpetas virtuales fácilmente</sys:String>
+  <sys:String x:Key="StringDiscImageOptionsButton">Opciones de imagen de disco</sys:String>
+  <sys:String x:Key="StringDiscImageOptionsToolTip">Varias opciones de modificación de imagen de disco</sys:String>
+  <sys:String x:Key="StringDatToolsButton">Herramientas DAT</sys:String>
+  <sys:String x:Key="StringDatToolsToolTip">Varias tareas de mantenimiento de archivos DAT</sys:String>
+  <sys:String x:Key="StringSortListButton">Ordenar lista</sys:String>
+  <sys:String x:Key="StringSortListToolTip">Ordenar lista por ruta + título</sys:String>
+
+  <!-- Main Window: Context Menu -->
+  <sys:String x:Key="StringRename">Renombrar</sys:String>
+  <sys:String x:Key="StringTitleCase">Primera Letra En Mayúscula</sys:String>
+  <sys:String x:Key="StringUppercase">MAYÚSCULAS</sys:String>
+  <sys:String x:Key="StringLowercase">minúsculas</sys:String>
+  <sys:String x:Key="StringAutoRenameTitle">Renombrar título automáticamente</sys:String>
+  <sys:String x:Key="StringRenameUsingIP">Usando la info de IP.BIN</sys:String>
+  <sys:String x:Key="StringRenameUsingFolder">Usando el nombre de carpeta en la PC</sys:String>
+  <sys:String x:Key="StringRenameUsingFile">Usando el nombre de archivo de la imagen</sys:String>
+
+  <!-- Main Window: DataGrid Headers -->
+  <sys:String x:Key="StringLocation">Ubicación</sys:String>
+  <sys:String x:Key="StringSdNumber">SD #</sys:String>
+  <sys:String x:Key="StringSdNumberToolTip">Carpeta del ítem actual en la SD</sys:String>
+  <sys:String x:Key="StringSize">Tamaño</sys:String>
+  <sys:String x:Key="StringTitle">Título</sys:String>
+  <sys:String x:Key="StringFolder">Carpeta</sys:String>
+  <sys:String x:Key="StringSerial">Serie</sys:String>
+  <sys:String x:Key="StringArt">Arte</sys:String>
+  <sys:String x:Key="StringDisc">Disco</sys:String>
+  <sys:String x:Key="StringType">Tipo</sys:String>
+  <sys:String x:Key="StringGame">Juego</sys:String>
+  <sys:String x:Key="StringOther">Otro</sys:String>
+  <sys:String x:Key="StringViewFileInfoToolTip">Ver información del archivo</sys:String>
+
+  <!-- Main Window: Bottom Toolbar -->
+  <sys:String x:Key="StringAddGamesToolTip">Añadir juego(s)</sys:String>
+  <sys:String x:Key="StringRemoveGameToolTip">Quitar juego(s) seleccionado(s)</sys:String>
+  <sys:String x:Key="StringLockCheck">Comprobar bloqueo de archivo/carpeta</sys:String>
+  <sys:String x:Key="StringLockCheckToolTip">Comprobar si hay archivos/carpetas bloqueados antes de guardar</sys:String>
+  <sys:String x:Key="StringSaveChanges">Guardar cambios</sys:String>
+  <sys:String x:Key="StringSaveChangesToolTip">Guardar cambios en tarjeta SD</sys:String>
+  <sys:String x:Key="StringUndo">Deshacer</sys:String>
+  <sys:String x:Key="StringUndoToolTip">Deshacer último cambio</sys:String>
+  <sys:String x:Key="StringRedo">Rehacer</sys:String>
+  <sys:String x:Key="StringRedoToolTip">Rehacer último cambio</sys:String>
 </ResourceDictionary>
