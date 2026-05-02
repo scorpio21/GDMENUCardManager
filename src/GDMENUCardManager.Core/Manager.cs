@@ -1619,7 +1619,7 @@ namespace GDMENUCardManager.Core
                     throw new Exception($"The SD card is no longer accessible at \"{sdPath}\".\n\nPlease reconnect the SD card and try again.");
                 }
 
-                if (ItemList.Count == 0 || await Helper.DependencyManager.ShowYesNoDialog("Save", $"Save changes to \"{sdPath}\" drive?") == false)
+                if (ItemList.Count == 0 || await Helper.DependencyManager.ShowYesNoDialog(Helper.DependencyManager.GetString("StringSave"), string.Format(Helper.DependencyManager.GetString("StringSaveChangesToDrive"), sdPath)) == false)
                 {
                     return false;
                 }

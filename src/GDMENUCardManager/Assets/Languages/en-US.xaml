@@ -285,4 +285,5 @@
   <sys:String x:Key="StringCheckingLockedFiles">Checking for locked files and folders...</sys:String>
   <sys:String x:Key="StringDone">Done!</sys:String>
   <sys:String x:Key="StringMessage">Message</sys:String>
+  <sys:String x:Key="StringSaveChangesToDrive">Save changes to "{0}" drive?</sys:String>
 </ResourceDictionary>
