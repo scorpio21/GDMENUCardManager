@@ -106,7 +106,7 @@ namespace GDMENUCardManager.Core
                                 body = bodyElement.GetString() ?? "";
 
                             result.LatestTag = tagName;
-                            result.LatestVersion = "v" + tagName;
+                            result.LatestVersion = tagName.StartsWith("v", StringComparison.OrdinalIgnoreCase) ? tagName : "v" + tagName;
 
                             var currentVersion = ParseVersion(Constants.Version);
                             var latestVersion = ParseVersion(tagName);
@@ -149,7 +149,7 @@ namespace GDMENUCardManager.Core
         {
             var repoPath = GetRepoPath();
             var suffix = GetAssetSuffix();
-            var assetVersion = "v" + tag;
+            var assetVersion = tag.StartsWith("v", StringComparison.OrdinalIgnoreCase) ? tag : "v" + tag;
             return $"https://github.com/{repoPath}/releases/download/{tag}/GDMENUCardManager.{assetVersion}-{suffix}";
         }
 
@@ -171,7 +171,7 @@ namespace GDMENUCardManager.Core
 
             var url = GetAssetUrl(tag);
             var suffix = GetAssetSuffix();
-            var assetVersion = "v" + tag;
+            var assetVersion = tag.StartsWith("v", StringComparison.OrdinalIgnoreCase) ? tag : "v" + tag;
             var fileName = $"GDMENUCardManager.{assetVersion}-{suffix}";
             var downloadPath = Path.Combine(downloadDir, fileName);
 
@@ -234,7 +234,7 @@ namespace GDMENUCardManager.Core
             Directory.CreateDirectory(extractedDir);
 
             var suffix = GetAssetSuffix();
-            var assetVersion = "v" + tag;
+            var assetVersion = tag.StartsWith("v", StringComparison.OrdinalIgnoreCase) ? tag : "v" + tag;
             var fileName = $"GDMENUCardManager.{assetVersion}-{suffix}";
             var archivePath = Path.Combine(downloadDir, fileName);
 

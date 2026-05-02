@@ -1,4 +1,4 @@
-﻿name: build-and-release
+name: build-and-release
 
 on:
   push:
@@ -85,11 +85,11 @@ jobs:
           New-Item -Force -ItemType Directory -Path publish | Out-Null
           $version = "${{ env.RELEASE_VERSION }}"
 
-          $zipSingle = "publish/GDMENUCardManager_${version}_win-x64_singlefile.zip"
+          $zipSingle = "publish/GDMENUCardManager.v${version}-win-x64.zip"
           if (Test-Path $zipSingle) { Remove-Item $zipSingle -Force }
           Compress-Archive -Force -Path publish/win-x64-singlefile/* -DestinationPath $zipSingle
 
-          $zipPortable = "publish/GDMENUCardManager_${version}_Portable.zip"
+          $zipPortable = "publish/GDMENUCardManager.v${version}-Portable.zip"
           if (Test-Path $zipPortable) { Remove-Item $zipPortable -Force }
           Compress-Archive -Force -Path publish/win-x64-singlefile/* -DestinationPath $zipPortable
 
@@ -97,13 +97,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GDMENUCardManager_win-x64_singlefile
-          path: publish/GDMENUCardManager_*_win-x64_singlefile.zip
+          path: publish/GDMENUCardManager.v*-win-x64.zip
 
       - name: Upload portable artifact
         uses: actions/upload-artifact@v4
         with:
           name: Portable
-          path: publish/GDMENUCardManager_*_Portable.zip
+          path: publish/GDMENUCardManager.v*-Portable.zip
           if-no-files-found: warn
           retention-days: 7
 
@@ -146,8 +146,8 @@ jobs:
           name: GDMENUCardManager v${{ env.RELEASE_VERSION }}
           body_path: CHANGELOG_RELEASE.md
           files: |
-            publish/GDMENUCardManager_*_win-x64_singlefile.zip
-            publish/GDMENUCardManager_*_Portable.zip
+            publish/GDMENUCardManager.v*-win-x64.zip
+            publish/GDMENUCardManager.v*-Portable.zip
             publish/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
