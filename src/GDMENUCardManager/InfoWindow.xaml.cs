@@ -19,14 +19,14 @@ namespace GDMENUCardManager
     {
         public string FileInfo { get; }
 
-        private string _IpInfo = "Loading...";
+        private string _IpInfo = MainWindow.GetString("StringLoading");
         public string IpInfo
         {
             get { return _IpInfo; }
             private set { _IpInfo = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IpInfo))); }
         }
 
-        private string _LabelText = "Loading...";
+        private string _LabelText = MainWindow.GetString("StringLoading");
         public string LabelText
         {
             get { return _LabelText; }
@@ -53,14 +53,14 @@ namespace GDMENUCardManager
             this.item = item;
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Folder: {Path.GetFileName(item.FullFolderPath)}");
-            sb.Append($"File: {Path.GetFileName(item.ImageFile)}");
+            sb.AppendLine(MainWindow.GetString("StringFolder") + ": " + Path.GetFileName(item.FullFolderPath));
+            sb.Append(MainWindow.GetString("StringFile") + ": " + Path.GetFileName(item.ImageFile));
 
             FileInfo = sb.ToString();
 
             if (item.FileFormat != FileFormat.Uncompressed)
             {
-                IpInfo = "Compressed file";
+                IpInfo = MainWindow.GetString("StringCompressedFile");
             }
 
             this.KeyUp += (ss, ee) => { if (ee.Key == Key.Escape) Close(); };
@@ -72,8 +72,8 @@ namespace GDMENUCardManager
         {
             if (item.FileFormat == FileFormat.SevenZip)
             {
-                IpInfo = "Can't load from compressed files.";
-                LabelText = "Can't load from compressed files.";
+                IpInfo = MainWindow.GetString("StringCantLoadCompressed");
+                LabelText = MainWindow.GetString("StringCantLoadCompressed");
                 return;
             }
 
@@ -86,28 +86,28 @@ namespace GDMENUCardManager
                 if (ip != null)
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.AppendLine($"Title: {ip.Name}");
-                    sb.AppendLine($"Version: {ip.Version}");
-                    sb.AppendLine($"Disc: {ip.Disc}");
-                    sb.AppendLine($"VGA: {(ip.Vga ? "Yes" : "No")}");
-                    sb.AppendLine($"Serial: {ip.ProductNumber}");
-                    sb.Append($"Region: {ip.Region}");
+                    sb.AppendLine(MainWindow.GetString("StringTitle") + ": " + ip.Name);
+                    sb.AppendLine(MainWindow.GetString("StringVersion") + ": " + ip.Version);
+                    sb.AppendLine(MainWindow.GetString("StringDisc") + ": " + ip.Disc);
+                    sb.AppendLine(MainWindow.GetString("StringVga") + ": " + (ip.Vga ? MainWindow.GetString("StringYes") : MainWindow.GetString("StringNo")));
+                    sb.AppendLine(MainWindow.GetString("StringSerial") + ": " + ip.ProductNumber);
+                    sb.Append(MainWindow.GetString("StringRegion") + ": " + ip.Region);
 
                     if (ip.SpecialDisc != SpecialDisc.None)
                     {
                         sb.AppendLine();
-                        sb.Append("Detected as: " + ip.SpecialDisc);
+                        sb.Append(MainWindow.GetString("StringDetectedAs") + ": " + ip.SpecialDisc);
                     }
                     IpInfo = sb.ToString();
                 }
                 else
                 {
-                    IpInfo = "Could not read IP.BIN";
+                    IpInfo = MainWindow.GetString("StringCouldNotReadIpBin");
                 }
             }
             catch (Exception ex)
             {
-                IpInfo = $"Error: {ex.Message}";
+                IpInfo = MainWindow.GetString("StringError") + ": " + ex.Message;
             }
 
             // Load GDTEX texture
@@ -116,7 +116,7 @@ namespace GDMENUCardManager
                 var gdtexture = await Task.Run(() => ImageHelper.GetGdText(filePath));
                 if (gdtexture == null)
                 {
-                    LabelText = "Unable to find or read file";
+                    LabelText = MainWindow.GetString("StringUnableToFindOrReadFile");
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace GDMENUCardManager
             }
             catch
             {
-                LabelText = "Unable to find or read file";
+                LabelText = MainWindow.GetString("StringUnableToFindOrReadFile");
             }
         }
     }

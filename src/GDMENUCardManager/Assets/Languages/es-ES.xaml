@@ -268,4 +268,21 @@
   <sys:String x:Key="StringFileFolderLockDesc">Cuando está activado, revisa todos los archivos y carpetas antes de guardar para asegurar que ningún otro proceso (ej. Explorador de archivos, antivirus) los tenga bloqueados. Desactívalo si experimentas tiempos de guardado lentos en tarjetas SD grandes.</sys:String>
   <sys:String x:Key="StringCredits">Créditos</sys:String>
   <sys:String x:Key="StringCheckForUpdates">Buscar Actualizaciones</sys:String>
+  <sys:String x:Key="StringLoading">Cargando...</sys:String>
+  <sys:String x:Key="StringFolder">Carpeta</sys:String>
+  <sys:String x:Key="StringFile">Archivo</sys:String>
+  <sys:String x:Key="StringCompressedFile">Archivo comprimido</sys:String>
+  <sys:String x:Key="StringCantLoadCompressed">No se puede cargar desde archivos comprimidos.</sys:String>
+  <sys:String x:Key="StringTitle">Título</sys:String>
+  <sys:String x:Key="StringVersion">Versión</sys:String>
+  <sys:String x:Key="StringDisc">Disco</sys:String>
+  <sys:String x:Key="StringVga">VGA</sys:String>
+  <sys:String x:Key="StringYes">Sí</sys:String>
+  <sys:String x:Key="StringNo">No</sys:String>
+  <sys:String x:Key="StringSerial">Serie</sys:String>
+  <sys:String x:Key="StringRegion">Región</sys:String>
+  <sys:String x:Key="StringDetectedAs">Detectado como</sys:String>
+  <sys:String x:Key="StringCouldNotReadIpBin">No se pudo leer el IP.BIN</sys:String>
+  <sys:String x:Key="StringError">Error</sys:String>
+  <sys:String x:Key="StringUnableToFindOrReadFile">No se puede encontrar o leer el archivo</sys:String>
 </ResourceDictionary>
