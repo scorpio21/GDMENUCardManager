@@ -23,6 +23,10 @@ namespace GDMENUCardManager
     /// </summary>
     public partial class MainWindow : Window, IDropTarget, INotifyPropertyChanged, IDiscImageOptionsViewModel
     {
+        public static string GetString(string key)
+        {
+            return Application.Current.TryFindResource(key) as string ?? key;
+        }
         private Core.Manager _ManagerInstance;
         public Core.Manager Manager { get { return _ManagerInstance; } }
 

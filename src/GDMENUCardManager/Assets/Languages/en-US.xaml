@@ -198,4 +198,24 @@
   <sys:String x:Key="StringSerialTranslationMsg2">Note that openMenu has always performed these serial translations automatically, regardless of user settings. As a result, artwork lookups and the IDs used for virtual VMU devices expect the adjusted versions of these serials.</sys:String>
   <sys:String x:Key="StringSerialTranslationMsg3">It's highly recommended you allow these serials to also be translated here in GD MENU Card Manager for compatibility with artwork lookups and virtual VMU devices.</sys:String>
   <sys:String x:Key="StringSerialTranslationInstruct">Uncheck any you want to revert to the original serial.</sys:String>
+  <sys:String x:Key="StringDatErrorInvalidFolder">Selected folder does not contain BOX.DAT or META.DAT.</sys:String>
+  <sys:String x:Key="StringDatErrorInvalidFolderTitle">Invalid Folder</sys:String>
+  <sys:String x:Key="StringDatConfirmImport">This will backup current DAT files and merge entries from the selected folder.&#x0A;&#x0A;Continue?</sys:String>
+  <sys:String x:Key="StringDatConfirmImportTitle">Confirm Import</sys:String>
+  <sys:String x:Key="StringDatImportFailed">Import Failed</sys:String>
+  <sys:String x:Key="StringDatImportComplete">Import Complete</sys:String>
+  <sys:String x:Key="StringDatExportFailed">Export Failed</sys:String>
+  <sys:String x:Key="StringDatExportComplete">Export Complete</sys:String>
+  <sys:String x:Key="StringDatConfirmClear">This will backup current DAT files and then clear ALL artwork and metadata entries.&#x0A;&#x0A;This action cannot be undone. Continue?</sys:String>
+  <sys:String x:Key="StringDatConfirmClearTitle">Confirm Clear</sys:String>
+  <sys:String x:Key="StringDatClearFailed">Clear Failed</sys:String>
+  <sys:String x:Key="StringDatClearCompleteMsg">All DAT entries have been cleared.</sys:String>
+  <sys:String x:Key="StringDatClearCompleteTitle">Clear Complete</sys:String>
+  <sys:String x:Key="StringDatConfirmOverwrite">This will backup current DAT files and overwrite them with those from the SD card's openMenu disc image.&#x0A;&#x0A;Continue?</sys:String>
+  <sys:String x:Key="StringDatConfirmOverwriteTitle">Confirm Overwrite</sys:String>
+  <sys:String x:Key="StringDatOverwriteFailed">Overwrite Failed</sys:String>
+  <sys:String x:Key="StringDatOverwriteCompleteMsg">DAT files have been successfully overwritten with those from the SD card.</sys:String>
+  <sys:String x:Key="StringDatOverwriteCompleteTitle">Overwrite Complete</sys:String>
+  <sys:String x:Key="StringDatErrorOccurred">An error occurred: </sys:String>
+  <sys:String x:Key="StringDatExportedMsg">Exported {0} artwork file(s) to PNG.</sys:String>
 </ResourceDictionary>

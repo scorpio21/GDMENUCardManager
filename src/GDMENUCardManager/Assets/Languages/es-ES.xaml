@@ -198,4 +198,24 @@
   <sys:String x:Key="StringSerialTranslationMsg2">Ten en cuenta que openMenu siempre ha realizado estas traducciones de serie de forma automática, independientemente de la configuración del usuario. Como resultado, las búsquedas de carátulas y las IDs usadas para los dispositivos VMU virtuales esperan las versiones ajustadas de estas series.</sys:String>
   <sys:String x:Key="StringSerialTranslationMsg3">Es altamente recomendable que permitas que estas series también se traduzcan aquí en GD MENU Card Manager por compatibilidad con las búsquedas de carátulas y los dispositivos VMU virtuales.</sys:String>
   <sys:String x:Key="StringSerialTranslationInstruct">Desmarca cualquiera que quieras revertir a la serie original.</sys:String>
+  <sys:String x:Key="StringDatErrorInvalidFolder">La carpeta seleccionada no contiene BOX.DAT o META.DAT.</sys:String>
+  <sys:String x:Key="StringDatErrorInvalidFolderTitle">Carpeta inválida</sys:String>
+  <sys:String x:Key="StringDatConfirmImport">Esto hará una copia de seguridad de los archivos DAT actuales y fusionará las entradas de la carpeta seleccionada.&#x0A;&#x0A;¿Continuar?</sys:String>
+  <sys:String x:Key="StringDatConfirmImportTitle">Confirmar importación</sys:String>
+  <sys:String x:Key="StringDatImportFailed">Error al importar</sys:String>
+  <sys:String x:Key="StringDatImportComplete">Importación completada</sys:String>
+  <sys:String x:Key="StringDatExportFailed">Error al exportar</sys:String>
+  <sys:String x:Key="StringDatExportComplete">Exportación completada</sys:String>
+  <sys:String x:Key="StringDatConfirmClear">Esto hará una copia de seguridad de los archivos DAT actuales y luego borrará TODAS las entradas de carátulas y metadatos.&#x0A;&#x0A;Esta acción no se puede deshacer. ¿Continuar?</sys:String>
+  <sys:String x:Key="StringDatConfirmClearTitle">Confirmar borrado</sys:String>
+  <sys:String x:Key="StringDatClearFailed">Error al borrar</sys:String>
+  <sys:String x:Key="StringDatClearCompleteMsg">Todas las entradas DAT han sido borradas.</sys:String>
+  <sys:String x:Key="StringDatClearCompleteTitle">Borrado completado</sys:String>
+  <sys:String x:Key="StringDatConfirmOverwrite">Esto hará una copia de seguridad de los archivos DAT actuales y los sobrescribirá con los de la tarjeta SD (imagen de openMenu).&#x0A;&#x0A;¿Continuar?</sys:String>
+  <sys:String x:Key="StringDatConfirmOverwriteTitle">Confirmar sobrescritura</sys:String>
+  <sys:String x:Key="StringDatOverwriteFailed">Error al sobrescribir</sys:String>
+  <sys:String x:Key="StringDatOverwriteCompleteMsg">Los archivos DAT han sido sobrescritos exitosamente con los de la tarjeta SD.</sys:String>
+  <sys:String x:Key="StringDatOverwriteCompleteTitle">Sobrescritura completada</sys:String>
+  <sys:String x:Key="StringDatErrorOccurred">Ocurrió un error: </sys:String>
+  <sys:String x:Key="StringDatExportedMsg">Exportado(s) {0} archivo(s) de carátula a PNG.</sys:String>
 </ResourceDictionary>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -67,8 +67,8 @@ namespace GDMENUCardManager
 
                     if (!File.Exists(boxPath) && !File.Exists(metaPath))
                     {
-                        MessageBox.Show("Selected folder does not contain BOX.DAT or META.DAT.",
-                            "Invalid Folder", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(MainWindow.GetString("StringDatErrorInvalidFolder"),
+                            MainWindow.GetString("StringDatErrorInvalidFolderTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -87,8 +87,8 @@ namespace GDMENUCardManager
 
             // Confirmation dialog
             var confirmResult = MessageBox.Show(
-                "This will backup current DAT files and merge entries from the selected folder.\n\nContinue?",
-                "Confirm Import",
+                MainWindow.GetString("StringDatConfirmImport"),
+                MainWindow.GetString("StringDatConfirmImportTitle"),
                 MessageBoxButton.OKCancel,
                 MessageBoxImage.Warning);
 
@@ -128,7 +128,7 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    MessageBox.Show(result.errorMessage, "Import Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(result.errorMessage, MainWindow.GetString("StringDatImportFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -138,7 +138,7 @@ namespace GDMENUCardManager
                 {
                     message += "\n\nICON.DAT was automatically regenerated using the updated contents of BOX.DAT.";
                 }
-                MessageBox.Show(message, "Import Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(message, MainWindow.GetString("StringDatImportComplete"), MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Close this window
                 this.Close();
@@ -153,7 +153,7 @@ namespace GDMENUCardManager
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                MessageBox.Show($"An error occurred: {ex.Message}", "Import Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(MainWindow.GetString("StringDatErrorOccurred") + ex.Message, MainWindow.GetString("StringDatImportFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -209,19 +209,19 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    MessageBox.Show(result.errorMessage, "Export Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(result.errorMessage, MainWindow.GetString("StringDatExportFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 // Keep window open, just show success
-                MessageBox.Show($"Exported {result.exportedCount} artwork file(s) to PNG.",
-                    "Export Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(string.Format(MainWindow.GetString("StringDatExportedMsg"), result.exportedCount),
+                    MainWindow.GetString("StringDatExportComplete"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                MessageBox.Show($"An error occurred: {ex.Message}", "Export Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(MainWindow.GetString("StringDatErrorOccurred") + ex.Message, MainWindow.GetString("StringDatExportFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -233,8 +233,8 @@ namespace GDMENUCardManager
         {
             // Confirmation dialog
             var confirmResult = MessageBox.Show(
-                "This will backup current DAT files and then clear ALL artwork and metadata entries.\n\nThis action cannot be undone. Continue?",
-                "Confirm Clear",
+                MainWindow.GetString("StringDatConfirmClear"),
+                MainWindow.GetString("StringDatConfirmClearTitle"),
                 MessageBoxButton.OKCancel,
                 MessageBoxImage.Warning);
 
@@ -263,13 +263,13 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    MessageBox.Show(result.errorMessage, "Clear Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(result.errorMessage, MainWindow.GetString("StringDatClearFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 // Show success message first
-                MessageBox.Show("All DAT entries have been cleared.",
-                    "Clear Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(MainWindow.GetString("StringDatClearCompleteMsg"),
+                    MainWindow.GetString("StringDatClearCompleteTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Close this window
                 this.Close();
@@ -284,7 +284,7 @@ namespace GDMENUCardManager
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                MessageBox.Show($"An error occurred: {ex.Message}", "Clear Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(MainWindow.GetString("StringDatErrorOccurred") + ex.Message, MainWindow.GetString("StringDatClearFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -296,8 +296,8 @@ namespace GDMENUCardManager
         {
             // Confirmation dialog
             var confirmResult = MessageBox.Show(
-                "This will backup current DAT files and overwrite them with those from the SD card's openMenu disc image.\n\nContinue?",
-                "Confirm Overwrite",
+                MainWindow.GetString("StringDatConfirmOverwrite"),
+                MainWindow.GetString("StringDatConfirmOverwriteTitle"),
                 MessageBoxButton.OKCancel,
                 MessageBoxImage.Warning);
 
@@ -326,12 +326,12 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    MessageBox.Show(result.errorMessage, "Overwrite Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(result.errorMessage, MainWindow.GetString("StringDatOverwriteFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                MessageBox.Show("DAT files have been successfully overwritten with those from the SD card.",
-                    "Overwrite Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(MainWindow.GetString("StringDatOverwriteCompleteMsg"),
+                    MainWindow.GetString("StringDatOverwriteCompleteTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Close this window
                 this.Close();
@@ -346,7 +346,7 @@ namespace GDMENUCardManager
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                MessageBox.Show($"An error occurred: {ex.Message}", "Overwrite Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(MainWindow.GetString("StringDatErrorOccurred") + ex.Message, MainWindow.GetString("StringDatOverwriteFailed"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
