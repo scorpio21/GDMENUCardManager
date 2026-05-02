@@ -269,17 +269,13 @@
   <sys:String x:Key="StringCredits">Credits</sys:String>
   <sys:String x:Key="StringCheckForUpdates">Check for Updates</sys:String>
   <sys:String x:Key="StringLoading">Loading...</sys:String>
-  <sys:String x:Key="StringFolder">Folder</sys:String>
   <sys:String x:Key="StringFile">File</sys:String>
   <sys:String x:Key="StringCompressedFile">Compressed file</sys:String>
   <sys:String x:Key="StringCantLoadCompressed">Can't load from compressed files.</sys:String>
-  <sys:String x:Key="StringTitle">Title</sys:String>
   <sys:String x:Key="StringVersion">Version</sys:String>
-  <sys:String x:Key="StringDisc">Disc</sys:String>
   <sys:String x:Key="StringVga">VGA</sys:String>
   <sys:String x:Key="StringYes">Yes</sys:String>
   <sys:String x:Key="StringNo">No</sys:String>
-  <sys:String x:Key="StringSerial">Serial</sys:String>
   <sys:String x:Key="StringRegion">Region</sys:String>
   <sys:String x:Key="StringDetectedAs">Detected as</sys:String>
   <sys:String x:Key="StringCouldNotReadIpBin">Could not read IP.BIN</sys:String>
