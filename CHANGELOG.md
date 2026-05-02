@@ -1,11 +1,9 @@
 # Changelog
 
-Todas las novedades, cambios y correcciones notables de este proyecto se documentarán en este archivo.
-
-## [1.5.3] - 2026-05-02
+## v1.5.3 - 2026-05-02
 
 ### Añadido
-- Flujo de trabajo en GitHub Actions (`build.yml`) para compilar y generar instaladores automáticamente en cada nuevo *release* o *push*.
+- Flujo de trabajo en GitHub Actions (`build-and-release.yml`) para compilar y generar instaladores automáticamente en cada nuevo *release* o *push*.
 - Script `installer.iss` para la creación de instaladores usando Inno Setup.
 
 ### Corregido
@@ -15,3 +13,6 @@ Todas las novedades, cambios y correcciones notables de este proyecto se documen
 
 ### Modificado
 - Consolidación de la modernización de la aplicación para que funcione correctamente bajo .NET 8.0.
+
+### Planeado (Roadmap)
+- Futuras mejoras y funcionalidades.
