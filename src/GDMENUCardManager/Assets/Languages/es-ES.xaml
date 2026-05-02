@@ -1,8 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-  <sys:String x:Key="StringSettings">Configuración</sys:String>
-  <sys:String x:Key="StringSDDrive">Unidad SD</sys:String>
+  <sys:String x:Key="StringSdDrive">Unidad SD</sys:String>
   <sys:String x:Key="StringTempFolder">Carpeta Temp.</sys:String>
   <sys:String x:Key="StringSearch">Buscar</sys:String>
   <sys:String x:Key="StringGamesList">Lista de juegos</sys:String>
@@ -10,7 +9,7 @@
   <sys:String x:Key="StringSdNumber">Número SD</sys:String>
   <sys:String x:Key="StringSdNumberShort">SD #</sys:String>
   <sys:String x:Key="StringSdNumberTooltip">Carpeta actual del elemento en la tarjeta SD</sys:String>
-  <sys:String x:Key="StringLength">Tamaño</sys:String>
+  <sys:String x:Key="StringSize">Tamaño</sys:String>
   <sys:String x:Key="StringTitle">Título</sys:String>
   <sys:String x:Key="StringSerial">Serie</sys:String>
   <sys:String x:Key="StringDisc">Disco</sys:String>
@@ -24,30 +23,48 @@
   <sys:String x:Key="StringRefreshDrive">Actualizar lista de unidades y limpiar ruta personalizada</sys:String>
   <sys:String x:Key="StringRename">Renombrar</sys:String>
   <sys:String x:Key="StringSentenceCase">Primera letra en mayúscula</sys:String>
+  <sys:String x:Key="StringTitleCase">Primera Letra En Mayúscula</sys:String>
   <sys:String x:Key="StringUppercase">MAYÚSCULAS</sys:String>
   <sys:String x:Key="StringLowercase">minúsculas</sys:String>
   <sys:String x:Key="StringAutoRename">Renombrado automático</sys:String>
+  <sys:String x:Key="StringAutoRenameTitle">Renombrar título automáticamente</sys:String>
   <sys:String x:Key="StringUsingIP">Usando info de IP.BIN</sys:String>
+  <sys:String x:Key="StringRenameUsingIP">Usando la info de IP.BIN</sys:String>
   <sys:String x:Key="StringUsingFolder">Usando nombre de carpeta</sys:String>
   <sys:String x:Key="StringUsingFolderComputer">Usando su nombre de carpeta en el equipo</sys:String>
+  <sys:String x:Key="StringRenameUsingFolder">Usando el nombre de carpeta en la PC</sys:String>
   <sys:String x:Key="StringUsingFile">Usando nombre de archivo</sys:String>
   <sys:String x:Key="StringUsingFileBase">Usando el nombre base del archivo de imagen</sys:String>
+  <sys:String x:Key="StringRenameUsingFile">Usando el nombre de archivo de la imagen</sys:String>
   <sys:String x:Key="StringViewFileInfo">Ver info del archivo</sys:String>
+  <sys:String x:Key="StringViewFileInfoToolTip">Ver información del archivo</sys:String>
   <sys:String x:Key="StringAddGames">Añadir juego(s)</sys:String>
+  <sys:String x:Key="StringAddGamesToolTip">Añadir juego(s)</sys:String>
   <sys:String x:Key="StringRemoveGame">Eliminar juego(s) seleccionado(s)</sys:String>
+  <sys:String x:Key="StringRemoveGameToolTip">Quitar juego(s) seleccionado(s)</sys:String>
 
   <sys:String x:Key="StringBrowseSdTooltip">Buscar carpeta de SD personalizada</sys:String>
+  <sys:String x:Key="StringBrowseSdToolTip">Buscar carpeta personalizada de tarjeta SD</sys:String>
   <sys:String x:Key="StringResetTempTooltip">Restablecer a valores predeterminados del sistema</sys:String>
   <sys:String x:Key="StringMenuType">Tipo de menú</sys:String>
   <sys:String x:Key="StringSearchFilter">Buscar/Filtrar</sys:String>
   <sys:String x:Key="StringSearchTooltip">Buscar por título o serie (navegar al siguiente resultado)</sys:String>
+  <sys:String x:Key="StringSearchToolTip">Buscar por título o serie (ir al siguiente resultado)</sys:String>
   <sys:String x:Key="StringFilterTooltip">Filtrar por título o serie</sys:String>
+  <sys:String x:Key="StringFilterToolTip">Filtrar por título o serie</sys:String>
   <sys:String x:Key="StringFilterResetTooltip">Limpiar filtro y mostrar todos los elementos</sys:String>
+  <sys:String x:Key="StringClearFilterToolTip">Limpiar filtro y mostrar todos</sys:String>
   <sys:String x:Key="StringDiscOptions">Opciones de imagen</sys:String>
+  <sys:String x:Key="StringDiscImageOptionsButton">Opciones de imagen de disco</sys:String>
   <sys:String x:Key="StringDiscOptionsTooltip">Varias opciones de modificación de imagen de disco</sys:String>
+  <sys:String x:Key="StringDiscImageOptionsToolTip">Varias opciones de modificación de imagen de disco</sys:String>
   <sys:String x:Key="StringDatTools">Herramientas DAT</sys:String>
+  <sys:String x:Key="StringDatToolsButton">Herramientas DAT</sys:String>
   <sys:String x:Key="StringDatToolsTooltip">Varias tareas de mantenimiento de archivos DAT</sys:String>
+  <sys:String x:Key="StringDatToolsToolTip">Varias tareas de mantenimiento de archivos DAT</sys:String>
   <sys:String x:Key="StringSortListTooltip">Ordenar lista por ruta de carpeta + título</sys:String>
+  <sys:String x:Key="StringSortListButton">Ordenar lista</sys:String>
+  <sys:String x:Key="StringSortListToolTip">Ordenar lista por ruta + título</sys:String>
   <sys:String x:Key="StringAssignFolder">Asignar ruta de carpeta</sys:String>
   <sys:String x:Key="StringAssignAltFolders">Asignar rutas de carpeta adicionales</sys:String>
   <sys:String x:Key="StringFolder">Carpeta</sys:String>
@@ -55,13 +72,19 @@
   <sys:String x:Key="StringType">Tipo</sys:String>
   <sys:String x:Key="StringLockCheck">Comprobar bloqueo de archivos/carpetas</sys:String>
   <sys:String x:Key="StringLockCheckTooltip">Comprobar si hay archivos/carpetas bloqueados antes de guardar</sys:String>
+  <sys:String x:Key="StringLockCheckToolTip">Comprobar si hay archivos/carpetas bloqueados antes de guardar</sys:String>
   <sys:String x:Key="StringSaveChangesTooltip">Guardar cambios en la tarjeta SD</sys:String>
+  <sys:String x:Key="StringSaveChangesToolTip">Guardar cambios en tarjeta SD</sys:String>
   <sys:String x:Key="StringUndo">Deshacer</sys:String>
   <sys:String x:Key="StringUndoTooltip">Deshacer último cambio</sys:String>
+  <sys:String x:Key="StringUndoToolTip">Deshacer último cambio</sys:String>
   <sys:String x:Key="StringRedo">Rehacer</sys:String>
   <sys:String x:Key="StringRedoTooltip">Rehacer último cambio</sys:String>
+  <sys:String x:Key="StringRedoToolTip">Rehacer último cambio</sys:String>
   <sys:String x:Key="StringBatchFolderRename">Mover y renombrar carpetas en bloque</sys:String>
+  <sys:String x:Key="StringBatchFolderRenameButton">Mover y renombrar carpetas en lote</sys:String>
   <sys:String x:Key="StringBatchFolderRenameTooltip">Reorganizar y renombrar carpetas virtuales fácilmente</sys:String>
+  <sys:String x:Key="StringBatchFolderRenameToolTip">Reorganizar y renombrar carpetas virtuales fácilmente</sys:String>
   <sys:String x:Key="StringAssignArtworkTooltip">Asignar carátula</sys:String>
   <sys:String x:Key="StringEditArtworkTooltip">Editar carátula asignada actualmente</sys:String>
 
@@ -130,7 +153,6 @@
   <sys:String x:Key="StringNext">Siguiente</sys:String>
   <sys:String x:Key="StringInstallNow">Instalar ahora</sys:String>
   <sys:String x:Key="StringFolderHierarchy">Jerarquía de carpetas</sys:String>
-  <sys:String x:Key="StringBatchFolderRenameDesc">Haz doble clic para renombrar carpetas. Arrástralas para cambiar su carpeta superior. Los cambios se aplicarán al hacer clic en Guardar.</sys:String>
   <sys:String x:Key="StringUndoLastChange">Deshacer último cambio</sys:String>
 
   <!-- Artwork Window -->
@@ -142,64 +164,13 @@
   
   <!-- Main Window -->
   <sys:String x:Key="StringSettings">Configuración</sys:String>
-  <sys:String x:Key="StringSdDrive">Unidad SD</sys:String>
-  <sys:String x:Key="StringBrowseSdToolTip">Buscar carpeta personalizada de tarjeta SD</sys:String>
   <sys:String x:Key="StringRefreshDriveToolTip">Actualizar lista de unidades y borrar ruta personalizada</sys:String>
-  <sys:String x:Key="StringTempFolder">Carpeta Temp.</sys:String>
   <sys:String x:Key="StringSelectTempFolderToolTip">Seleccionar carpeta temporal</sys:String>
   <sys:String x:Key="StringResetTempFolderToolTip">Restablecer al valor predeterminado</sys:String>
-  <sys:String x:Key="StringMenuType">Tipo de Menú</sys:String>
   <sys:String x:Key="StringUseGdMenuToolTip">Usar gdMenu</sys:String>
   <sys:String x:Key="StringUseOpenMenuToolTip">Usar openMenu</sys:String>
   <sys:String x:Key="StringAboutToolTip">Acerca de</sys:String>
-  <sys:String x:Key="StringGamesList">Lista de juegos [</sys:String>
-  <sys:String x:Key="StringSearchFilter">Buscar/Filtrar</sys:String>
-  <sys:String x:Key="StringSearchToolTip">Buscar por título o serie (ir al siguiente resultado)</sys:String>
-  <sys:String x:Key="StringFilterToolTip">Filtrar por título o serie</sys:String>
-  <sys:String x:Key="StringClearFilterToolTip">Limpiar filtro y mostrar todos</sys:String>
-  <sys:String x:Key="StringBatchFolderRenameButton">Mover y renombrar carpetas en lote</sys:String>
-  <sys:String x:Key="StringBatchFolderRenameToolTip">Reorganizar y renombrar carpetas virtuales fácilmente</sys:String>
-  <sys:String x:Key="StringDiscImageOptionsButton">Opciones de imagen de disco</sys:String>
-  <sys:String x:Key="StringDiscImageOptionsToolTip">Varias opciones de modificación de imagen de disco</sys:String>
-  <sys:String x:Key="StringDatToolsButton">Herramientas DAT</sys:String>
-  <sys:String x:Key="StringDatToolsToolTip">Varias tareas de mantenimiento de archivos DAT</sys:String>
-  <sys:String x:Key="StringSortListButton">Ordenar lista</sys:String>
-  <sys:String x:Key="StringSortListToolTip">Ordenar lista por ruta + título</sys:String>
-
-  <!-- Main Window: Context Menu -->
-  <sys:String x:Key="StringRename">Renombrar</sys:String>
-  <sys:String x:Key="StringTitleCase">Primera Letra En Mayúscula</sys:String>
-  <sys:String x:Key="StringUppercase">MAYÚSCULAS</sys:String>
-  <sys:String x:Key="StringLowercase">minúsculas</sys:String>
-  <sys:String x:Key="StringAutoRenameTitle">Renombrar título automáticamente</sys:String>
-  <sys:String x:Key="StringRenameUsingIP">Usando la info de IP.BIN</sys:String>
-  <sys:String x:Key="StringRenameUsingFolder">Usando el nombre de carpeta en la PC</sys:String>
-  <sys:String x:Key="StringRenameUsingFile">Usando el nombre de archivo de la imagen</sys:String>
-
-  <!-- Main Window: DataGrid Headers -->
-  <sys:String x:Key="StringLocation">Ubicación</sys:String>
-  <sys:String x:Key="StringSdNumber">SD #</sys:String>
-  <sys:String x:Key="StringSdNumberToolTip">Carpeta del ítem actual en la SD</sys:String>
-  <sys:String x:Key="StringSize">Tamaño</sys:String>
-  <sys:String x:Key="StringTitle">Título</sys:String>
-  <sys:String x:Key="StringFolder">Carpeta</sys:String>
-  <sys:String x:Key="StringSerial">Serie</sys:String>
-  <sys:String x:Key="StringArt">Arte</sys:String>
-  <sys:String x:Key="StringDisc">Disco</sys:String>
-  <sys:String x:Key="StringType">Tipo</sys:String>
+  
   <sys:String x:Key="StringGame">Juego</sys:String>
   <sys:String x:Key="StringOther">Otro</sys:String>
-  <sys:String x:Key="StringViewFileInfoToolTip">Ver información del archivo</sys:String>
-
-  <!-- Main Window: Bottom Toolbar -->
-  <sys:String x:Key="StringAddGamesToolTip">Añadir juego(s)</sys:String>
-  <sys:String x:Key="StringRemoveGameToolTip">Quitar juego(s) seleccionado(s)</sys:String>
-  <sys:String x:Key="StringLockCheck">Comprobar bloqueo de archivo/carpeta</sys:String>
-  <sys:String x:Key="StringLockCheckToolTip">Comprobar si hay archivos/carpetas bloqueados antes de guardar</sys:String>
-  <sys:String x:Key="StringSaveChanges">Guardar cambios</sys:String>
-  <sys:String x:Key="StringSaveChangesToolTip">Guardar cambios en tarjeta SD</sys:String>
-  <sys:String x:Key="StringUndo">Deshacer</sys:String>
-  <sys:String x:Key="StringUndoToolTip">Deshacer último cambio</sys:String>
-  <sys:String x:Key="StringRedo">Rehacer</sys:String>
-  <sys:String x:Key="StringRedoToolTip">Rehacer último cambio</sys:String>
 </ResourceDictionary>

@@ -339,60 +339,42 @@ namespace GDMENUCardManager
             if (dg1?.Columns == null)
                 return;
 
-            // Find columns by iterating and checking their Header
-            DataGridColumn folderColumn = null;
-            DataGridColumn typeColumn = null;
-            DataGridColumn artColumn = null;
-            DataGridTextColumn discColumn = null;
-
-            foreach (var col in dg1.Columns)
-            {
-                if (col.Header?.ToString() == "Folder")
-                    folderColumn = col;
-                else if (col is DataGridTemplateColumn templateCol && templateCol.Header?.ToString() == "Type")
-                    typeColumn = col;
-                else if (col is DataGridTextColumn discTextCol && discTextCol.Header?.ToString() == "Disc")
-                    discColumn = discTextCol;
-                else if (col.Header?.ToString() == "Art")
-                    artColumn = col;
-            }
-
-            if (folderColumn != null)
+            if (FolderColumn != null)
             {
                 if (MenuKindSelected == MenuKind.openMenu)
                 {
-                    folderColumn.Visibility = Visibility.Visible;
-                    folderColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    FolderColumn.Visibility = Visibility.Visible;
+                    FolderColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
                 }
                 else
                 {
-                    folderColumn.Visibility = Visibility.Collapsed;
+                    FolderColumn.Visibility = Visibility.Collapsed;
                 }
             }
 
-            if (typeColumn != null)
+            if (TypeColumn != null)
             {
                 if (MenuKindSelected == MenuKind.openMenu)
                 {
-                    typeColumn.Visibility = Visibility.Visible;
+                    TypeColumn.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    typeColumn.Visibility = Visibility.Collapsed;
+                    TypeColumn.Visibility = Visibility.Collapsed;
                 }
             }
 
             // Art column: only visible in openMenu mode
-            if (artColumn != null)
+            if (ArtColumn != null)
             {
                 bool showArt = MenuKindSelected == MenuKind.openMenu;
-                artColumn.Visibility = showArt ? Visibility.Visible : Visibility.Collapsed;
+                ArtColumn.Visibility = showArt ? Visibility.Visible : Visibility.Collapsed;
             }
 
-            if (discColumn != null)
+            if (DiscColumn != null)
             {
                 // Make Disc column editable only in openMenu mode
-                discColumn.IsReadOnly = (MenuKindSelected != MenuKind.openMenu);
+                DiscColumn.IsReadOnly = (MenuKindSelected != MenuKind.openMenu);
             }
         }
 
