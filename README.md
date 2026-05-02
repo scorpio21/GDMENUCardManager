@@ -41,9 +41,6 @@ openMenu will display customized icon, box art and text info for each title, but
 openMenu DAT files should go to this app's subfolder `tools\openMenu\menu_data`.<br/>
 Grab the DAT files from mrneo240's repos: [imagedb](https://github.com/mrneo240/openMenu_imagedb) and [metadb](https://github.com/mrneo240/openMenu_metadb)
 
-### Windows version requires the .Net 8 Desktop Runtime
-Download and install the [Desktop Runtime installer](https://dotnet.microsoft.com/download/dotnet/8.0/runtime) for your system.
-![Dot Net Runtime](docs/dotnetruntime.png)
 
 ### Limitations
 On Linux version it's not possible to use drag-and-drop.
