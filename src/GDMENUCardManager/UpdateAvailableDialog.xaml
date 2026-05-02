@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Update Available" SizeToContent="Height" Width="450"
+        Title="{DynamicResource StringUpdateAvailableTitle}" SizeToContent="Height" Width="450"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -15,21 +15,21 @@
         <!-- Message -->
         <StackPanel Grid.Row="0">
             <TextBlock TextWrapping="Wrap" Margin="0 0 0 10">
-                <Run Text="A new version of GD MENU Card Manager ("/><Run x:Name="VersionText" FontWeight="SemiBold"/><Run Text=") is available."/>
+                <Run Text="{DynamicResource StringUpdateAvailableNewVersion1}"/><Run x:Name="VersionText" FontWeight="SemiBold"/><Run Text="{DynamicResource StringUpdateAvailableNewVersion2}"/>
             </TextBlock>
 
             <TextBlock Margin="0 0 0 15">
-                <Hyperlink RequestNavigate="Changelog_RequestNavigate" NavigateUri="https://github.com/DerekPascarella/openMenu-Virtual-Folder-Bundle?tab=readme-ov-file#changelog">View Changelog</Hyperlink>
+                <Hyperlink RequestNavigate="Changelog_RequestNavigate" NavigateUri="https://github.com/DerekPascarella/openMenu-Virtual-Folder-Bundle?tab=readme-ov-file#changelog"><Run Text="{DynamicResource StringViewChangelog}"/></Hyperlink>
             </TextBlock>
 
-            <TextBlock TextWrapping="Wrap" Text="Would you like to update now? An update wizard will walk you through options to preserve your current assets."/>
+            <TextBlock TextWrapping="Wrap" Text="{DynamicResource StringUpdateAvailablePrompt}"/>
         </StackPanel>
 
         <!-- Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 15 0 0">
-            <Button Content="Skip This Version" Click="SkipButton_Click" Width="120" Height="28" Margin="0 0 10 0"/>
-            <Button Content="Remind Me Later" Click="RemindButton_Click" Width="120" Height="28" Margin="0 0 10 0"/>
-            <Button Content="Update Now" Click="UpdateButton_Click" Width="90" Height="28" IsDefault="True"/>
+            <Button Content="{DynamicResource StringSkipVersion}" Click="SkipButton_Click" Width="120" Height="28" Margin="0 0 10 0"/>
+            <Button Content="{DynamicResource StringRemindLater}" Click="RemindButton_Click" Width="120" Height="28" Margin="0 0 10 0"/>
+            <Button Content="{DynamicResource StringUpdateNow}" Click="UpdateButton_Click" Width="90" Height="28" IsDefault="True"/>
         </StackPanel>
     </Grid>
 </Window>

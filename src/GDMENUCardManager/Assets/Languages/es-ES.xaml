@@ -173,4 +173,29 @@
   
   <sys:String x:Key="StringGame">Juego</sys:String>
   <sys:String x:Key="StringOther">Otro</sys:String>
+  <sys:String x:Key="StringUpdateAvailableTitle">Actualización Disponible</sys:String>
+  <sys:String x:Key="StringUpdateAvailableNewVersion1">Una nueva versión de GD MENU Card Manager (</sys:String>
+  <sys:String x:Key="StringUpdateAvailableNewVersion2">) está disponible.</sys:String>
+  <sys:String x:Key="StringViewChangelog">Ver Novedades</sys:String>
+  <sys:String x:Key="StringUpdateAvailablePrompt">¿Deseas actualizar ahora? Un asistente de actualización te guiará a través de las opciones para conservar tus archivos actuales.</sys:String>
+  <sys:String x:Key="StringSkipVersion">Omitir esta versión</sys:String>
+  <sys:String x:Key="StringRemindLater">Recordar más tarde</sys:String>
+  <sys:String x:Key="StringUpdateNow">Actualizar ahora</sys:String>
+
+  <sys:String x:Key="StringMetadataScanTitle">Se Requiere Caché de Metadatos</sys:String>
+  <sys:String x:Key="StringMetadataScanDesc1">Tu tarjeta SD contiene juegos que fueron añadidos por una versión anterior de esta aplicación (u otra herramienta). A estos juegos les faltan archivos de caché de metadatos que son necesarios para el correcto funcionamiento.</sys:String>
+  <sys:String x:Key="StringMetadataScanDesc2">Ahora se realizará un escaneo por única vez de todas las imágenes de disco para:</sys:String>
+  <sys:String x:Key="StringMetadataScanBullet1">&#x2022; Leer las propiedades del juego desde cada imagen de disco</sys:String>
+  <sys:String x:Key="StringMetadataScanBullet2">&#x2022; Guardar metadatos en caché para una carga más rápida en el futuro</sys:String>
+  <sys:String x:Key="StringMetadataScanBullet3">&#x2022; Asegurar que las IDs de serie se muestren correctamente para buscar carátulas</sys:String>
+  <sys:String x:Key="StringMetadataScanDesc3">Este proceso no se puede omitir. Dependiendo de la cantidad de juegos y de la velocidad de tu unidad, esto puede tardar unos minutos.</sys:String>
+  <sys:String x:Key="StringMetadataScanCount">Juegos que requieren escaneo:</sys:String>
+  <sys:String x:Key="StringQuit">Salir</sys:String>
+  <sys:String x:Key="StringStartScan">Iniciar escaneo</sys:String>
+
+  <sys:String x:Key="StringSerialTranslationTitle">Ajustes de Compatibilidad de Serie</sys:String>
+  <sys:String x:Key="StringSerialTranslationMsg1">Las siguientes series fueron ajustadas por compatibilidad con openMenu.</sys:String>
+  <sys:String x:Key="StringSerialTranslationMsg2">Ten en cuenta que openMenu siempre ha realizado estas traducciones de serie de forma automática, independientemente de la configuración del usuario. Como resultado, las búsquedas de carátulas y las IDs usadas para los dispositivos VMU virtuales esperan las versiones ajustadas de estas series.</sys:String>
+  <sys:String x:Key="StringSerialTranslationMsg3">Es altamente recomendable que permitas que estas series también se traduzcan aquí en GD MENU Card Manager por compatibilidad con las búsquedas de carátulas y los dispositivos VMU virtuales.</sys:String>
+  <sys:String x:Key="StringSerialTranslationInstruct">Desmarca cualquiera que quieras revertir a la serie original.</sys:String>
 </ResourceDictionary>

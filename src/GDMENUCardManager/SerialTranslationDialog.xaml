@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Serial Compatibility Adjustments"
+        Title="{DynamicResource StringSerialTranslationTitle}"
         SizeToContent="Height"
         Width="550"
         MinHeight="200"
@@ -20,14 +20,12 @@
         </Grid.RowDefinitions>
 
         <!-- Message -->
-        <TextBlock Grid.Row="0" TextWrapping="Wrap" Margin="0,0,0,15">
-            The following serials were adjusted for openMenu compatibility.
-        </TextBlock>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" Margin="0,0,0,15" Text="{DynamicResource StringSerialTranslationMsg1}" />
 
         <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="0,0,0,15">
-            Note that openMenu has always performed these serial translations automatically, regardless of user settings. As a result, artwork lookups and the IDs used for virtual VMU devices expect the adjusted versions of these serials.
+            <Run Text="{DynamicResource StringSerialTranslationMsg2}"/>
             <LineBreak/><LineBreak/>
-            It's highly recommended you allow these serials to also be translated here in GD MENU Card Manager for compatibility with artwork lookups and virtual VMU devices.
+            <Run Text="{DynamicResource StringSerialTranslationMsg3}"/>
         </TextBlock>
 
         <!-- Checkbox list -->
@@ -52,12 +50,10 @@
         </Border>
 
         <!-- Instruction -->
-        <TextBlock Grid.Row="3" TextWrapping="Wrap" Margin="0,0,0,15" FontStyle="Italic" Foreground="Gray">
-            Uncheck any you want to revert to the original serial.
-        </TextBlock>
+        <TextBlock Grid.Row="3" TextWrapping="Wrap" Margin="0,0,0,15" FontStyle="Italic" Foreground="Gray" Text="{DynamicResource StringSerialTranslationInstruct}"/>
 
         <!-- OK Button -->
-        <Button Grid.Row="3" Content="OK" Width="80" HorizontalAlignment="Right"
+        <Button Grid.Row="3" Content="{DynamicResource StringOk}" Width="80" HorizontalAlignment="Right"
                 Padding="10,5" Click="OkButton_Click"/>
     </Grid>
 </Window>

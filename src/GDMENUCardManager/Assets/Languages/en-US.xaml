@@ -173,4 +173,29 @@
   
   <sys:String x:Key="StringGame">Game</sys:String>
   <sys:String x:Key="StringOther">Other</sys:String>
+  <sys:String x:Key="StringUpdateAvailableTitle">Update Available</sys:String>
+  <sys:String x:Key="StringUpdateAvailableNewVersion1">A new version of GD MENU Card Manager (</sys:String>
+  <sys:String x:Key="StringUpdateAvailableNewVersion2">) is available.</sys:String>
+  <sys:String x:Key="StringViewChangelog">View Changelog</sys:String>
+  <sys:String x:Key="StringUpdateAvailablePrompt">Would you like to update now? An update wizard will walk you through options to preserve your current assets.</sys:String>
+  <sys:String x:Key="StringSkipVersion">Skip This Version</sys:String>
+  <sys:String x:Key="StringRemindLater">Remind Me Later</sys:String>
+  <sys:String x:Key="StringUpdateNow">Update Now</sys:String>
+
+  <sys:String x:Key="StringMetadataScanTitle">Metadata Cache Required</sys:String>
+  <sys:String x:Key="StringMetadataScanDesc1">Your SD card contains games that were added by an older version of this application (or another tool). These games are missing cached metadata files that are required for proper operation.</sys:String>
+  <sys:String x:Key="StringMetadataScanDesc2">A one-time scan of all disc images will now be performed to:</sys:String>
+  <sys:String x:Key="StringMetadataScanBullet1">&#x2022; Read game properties from each disc image</sys:String>
+  <sys:String x:Key="StringMetadataScanBullet2">&#x2022; Cache metadata for faster loading in the future</sys:String>
+  <sys:String x:Key="StringMetadataScanBullet3">&#x2022; Ensure serial IDs display correctly for artwork matching</sys:String>
+  <sys:String x:Key="StringMetadataScanDesc3">This process cannot be skipped. Depending on the number of games and your drive speed, this may take a few minutes.</sys:String>
+  <sys:String x:Key="StringMetadataScanCount">Games requiring scan:</sys:String>
+  <sys:String x:Key="StringQuit">Quit</sys:String>
+  <sys:String x:Key="StringStartScan">Start Scan</sys:String>
+
+  <sys:String x:Key="StringSerialTranslationTitle">Serial Compatibility Adjustments</sys:String>
+  <sys:String x:Key="StringSerialTranslationMsg1">The following serials were adjusted for openMenu compatibility.</sys:String>
+  <sys:String x:Key="StringSerialTranslationMsg2">Note that openMenu has always performed these serial translations automatically, regardless of user settings. As a result, artwork lookups and the IDs used for virtual VMU devices expect the adjusted versions of these serials.</sys:String>
+  <sys:String x:Key="StringSerialTranslationMsg3">It's highly recommended you allow these serials to also be translated here in GD MENU Card Manager for compatibility with artwork lookups and virtual VMU devices.</sys:String>
+  <sys:String x:Key="StringSerialTranslationInstruct">Uncheck any you want to revert to the original serial.</sys:String>
 </ResourceDictionary>
