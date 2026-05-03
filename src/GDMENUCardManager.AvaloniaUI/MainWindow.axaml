@@ -1,4 +1,4 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -143,13 +143,21 @@
           </Grid>
         </Grid>
 
-        <Button Grid.Column="3" Width="30" Margin="30 0 0 0" HorizontalAlignment="Right" ToolTip.Tip="About" Click="ButtonAbout_Click">
-          <Viewbox Width="18" Height="18">
-            <Canvas Width="24" Height="24">
-              <Path Data="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" Fill="{DynamicResource ThemeForegroundBrush}" />
-            </Canvas>
-          </Viewbox>
-        </Button>
+        <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="30 0 0 0">
+          <Button Width="30" ToolTip.Tip="English" Click="ButtonLangEn_Click" Padding="2" Margin="0 0 5 0">
+              <Image Source="avares://GDMENUCardManager.AvaloniaUI/Assets/banderas/gb.png" Stretch="Uniform"/>
+          </Button>
+          <Button Width="30" ToolTip.Tip="Español" Click="ButtonLangEs_Click" Padding="2" Margin="0 0 5 0">
+              <Image Source="avares://GDMENUCardManager.AvaloniaUI/Assets/banderas/es.png" Stretch="Uniform"/>
+          </Button>
+          <Button Width="30" ToolTip.Tip="About" Click="ButtonAbout_Click">
+            <Viewbox Width="18" Height="18">
+              <Canvas Width="24" Height="24">
+                <Path Data="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" Fill="{DynamicResource ThemeForegroundBrush}" />
+              </Canvas>
+            </Viewbox>
+          </Button>
+        </StackPanel>
       </Grid>
     </HeaderedContentControl>
 
@@ -178,6 +186,15 @@
               <Viewbox Width="18" Height="18"><Canvas Width="24" Height="24"><Path Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z" Fill="{DynamicResource ThemeForegroundBrush}" /></Canvas></Viewbox>
             </Button>
           </Grid>
+          <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Margin="10 0 0 0" Click="ButtonBatchFolderRename_Click"
+                  IsVisible="{Binding MenuKindSelected, Converter={StaticResource IsOpenMenuMode}}" ToolTip.Tip="Batch move and rename folders">
+            <Button.IsEnabled>
+              <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                <Binding Path="HasSdPath"/>
+              </MultiBinding>
+            </Button.IsEnabled>
+            Batch Folder Move and Rename
+          </Button>
           <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Click="ButtonDiscImageOptions_Click" ToolTip.Tip="Various disc image modification options"
                   IsEnabled="{Binding HasSdPath}">Disc Image Options</Button>
           <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Margin="0 0 10 0" Click="ButtonDatTools_Click"
@@ -248,7 +265,7 @@
             <DataGridTextColumn Header="Location" Width="60" IsReadOnly="True" Binding="{Binding Location, Mode=OneWay}"/>
             <DataGridTextColumn Width="45" IsReadOnly="True" Binding="{Binding SdNumber, Mode=OneWay}">
               <DataGridTextColumn.Header>
-                <TextBlock Text="SD #" ToolTip.Tip="Current item folder on SD card"/>
+                <TextBlock Text="Sd Num" ToolTip.Tip="Current item folder on SD card"/>
               </DataGridTextColumn.Header>
             </DataGridTextColumn>
             <DataGridTextColumn Header="Size" Width="81" IsReadOnly="True" Binding="{Binding Length, Mode=OneWay, Converter={StaticResource ByteSizeToString}}"/>
@@ -288,7 +305,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Art" Width="60" IsVisible="False">
+            <DataGridTemplateColumn Header="Art" Width="70" IsVisible="False">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
                   <Button Click="ButtonArtwork_Click" CommandParameter="{Binding}"
