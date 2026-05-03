@@ -182,7 +182,7 @@
 
             <!-- Credits -->
             <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringCredits}" />
-            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">GDEMU - Deunan; gdMenu - neuroacid; openMenu - mrneo240; GdiBuilder - Paul Kratt; GdiShrink - FamilyGuy; Aaru - Natalia Portillo; PuyoTools - Nick Woronekin; Redump2CDI - darc; gdidrop - feyris-tan; libchdr - Romain Tisserand; ImageSharp - SixLabors; ClosedXML - Jan Havlíček; 7z - Igor Pavlov; SevenZipSharp - Joel Ahlgren</TextBlock>
+            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">GDEMU - Deunan; gdMenu - neuroacid; openMenu - mrneo240; Virtual Folders - Derek Pascarella; GdiBuilder - Paul Kratt; GdiShrink - FamilyGuy; Aaru - Natalia Portillo; PuyoTools - Nick Woronekin; Redump2CDI - darc; gdidrop - feyris-tan; libchdr - Romain Tisserand; ImageSharp - SixLabors; ClosedXML - Jan Havlíček; 7z - Igor Pavlov; SevenZipSharp - Joel Ahlgren</TextBlock>
         </StackPanel>
 
         <!-- Check for Updates button (top-right, rendered after StackPanel so it's on top for clicks) -->

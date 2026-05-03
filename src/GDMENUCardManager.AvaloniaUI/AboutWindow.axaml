@@ -183,7 +183,7 @@
 
             <!-- Credits -->
             <TextBlock FontWeight="Bold" TextWrapping="Wrap">Credits</TextBlock>
-            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">GDEMU - Deunan; gdMenu - neuroacid; openMenu - mrneo240; GdiBuilder - Paul Kratt; Aaru - Natalia Portillo; PuyoTools - Nick Woronekin; Redump2CDI - darc; gdidrop - feyris-tan; libchdr - Romain Tisserand; ImageSharp - SixLabors; ClosedXML - Jan Havlíček; SharpCompress - Adam Hathcock</TextBlock>
+            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">GDEMU - Deunan; gdMenu - neuroacid; openMenu - mrneo240; Virtual Folders - Derek Pascarella; GdiBuilder - Paul Kratt; Aaru - Natalia Portillo; PuyoTools - Nick Woronekin; Redump2CDI - darc; gdidrop - feyris-tan; libchdr - Romain Tisserand; ImageSharp - SixLabors; ClosedXML - Jan Havlíček; SharpCompress - Adam Hathcock</TextBlock>
         </StackPanel>
 
         <!-- Check for Updates button (top-right, rendered after StackPanel so it's on top for clicks) -->

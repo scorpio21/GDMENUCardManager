@@ -79,10 +79,11 @@ On Linux version it's not possible to use drag-and-drop.
   ```
 
 ### Credits
-This software is made possible by using third party tools:
+This software is made possible by using third party tools and community contributions:
 
 GDmenu by neuroacid<br />
 [openMenu](https://github.com/mrneo240/openmenu/),
+[openMenu Virtual Folder Bundle](https://github.com/DerekPascarella/openMenu-Virtual-Folder-Bundle) by Derek Pascarella,
 [GdiTools](https://sourceforge.net/projects/dcisotools/),
 [GdiBuilder](https://github.com/Sappharad/GDIbuilder/),
 [Aaru](https://github.com/aaru-dps/Aaru/),
