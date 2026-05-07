@@ -1820,6 +1820,30 @@ namespace GDMENUCardManager
                     return;
                 }
 
+                // Prevent editing Serial, Type, or Disc for compressed files
+                if (item.FileFormat == FileFormat.SevenZip)
+                {
+                    bool isLocked = false;
+                    if (e.Column == TypeColumn || e.Column == DiscColumn)
+                    {
+                        isLocked = true;
+                    }
+                    else if (e.Column is DataGridBoundColumn boundColumn && boundColumn.Binding is Binding binding)
+                    {
+                        var path = binding.Path.Path;
+                        if (path == "ProductNumber")
+                        {
+                            isLocked = true;
+                        }
+                    }
+
+                    if (isLocked)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+
                 // Capture old value for undo
                 _editingItem = item;
                 var column = e.Column;

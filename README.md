@@ -12,7 +12,9 @@ This program will save the files the proper way so you console will boot super f
 ## Features
 * Multi platform. Windows/Linux/OSX
 * Supports both GDmenu and openMenu
-* Supports GDI, CDI, MDS and CCD files. Also compressed files inside zip/rar/7z
+* **Full Spanish Localization**: Complete translation of all windows, dialogs, and messages.
+* Supports GDI, CDI, MDS and CCD files. Also compressed files inside zip/rar/7z.
+* **Improved GDI Shrinking**: Now supports shrinking games inside compressed archives (.7z/.rar/etc.) and GD-ROM CUE/BIN images.
 * **Undo/Redo System**: Undo or redo any changes made to the list or metadata.
 * **Advanced Search & Filter**: Quickly find titles or serials, or filter the entire list.
 * Add/delete/rename items

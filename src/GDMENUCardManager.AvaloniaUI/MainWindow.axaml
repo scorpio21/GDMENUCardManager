@@ -18,6 +18,7 @@
       <conv:EnumToBoolConverter x:Key="EnumToBool"/>
       <conv:IsNotMenuItemConverter x:Key="IsNotMenuItem"/>
       <conv:IsGameDiscConverter x:Key="IsGameDisc"/>
+      <conv:CanReadIpBinConverter x:Key="CanReadIpBin"/>
       <conv:ArtworkButtonLabelConverter x:Key="ArtworkButtonLabel"/>
       <conv:ArtworkButtonFontWeightConverter x:Key="ArtworkButtonFontWeight"/>
       <conv:IsOpenMenuModeConverter x:Key="IsOpenMenuMode"/>
@@ -245,7 +246,7 @@
                 <MenuItem Header="{DynamicResource StringUppercase}" Click="MenuItemRenameUppercase_Click" CommandParameter="{Binding}"/>
                 <MenuItem Header="{DynamicResource StringLowercase}" Click="MenuItemRenameLowercase_Click" CommandParameter="{Binding}"/>
                 <MenuItem x:Name="MenuItemAutoRename" Header="{DynamicResource StringAutoRename}">
-                  <MenuItem Header="{DynamicResource StringUsingIP}" Click="MenuItemRenameIP_Click" CommandParameter="{Binding}"/>
+                  <MenuItem Header="{DynamicResource StringUsingIP}" Click="MenuItemRenameIP_Click" CommandParameter="{Binding}" IsEnabled="{Binding FileFormat, Converter={StaticResource CanReadIpBin}}"/>
                   <MenuItem x:Name="MenuItemRenameFolder" Header="{DynamicResource StringUsingFolderComputer}" Click="MenuItemRenameFolder_Click" CommandParameter="{Binding}"/>
                   <MenuItem x:Name="MenuItemRenameFile" Header="{DynamicResource StringUsingFileBase}" Click="MenuItemRenameFile_Click" CommandParameter="{Binding}"/>
                 </MenuItem>

@@ -530,6 +530,30 @@ namespace GDMENUCardManager
                     return;
                 }
 
+                // Prevent editing Serial, Type, or Disc for compressed files
+                if (item.FileFormat == FileFormat.SevenZip)
+                {
+                    var headerText = "";
+                    if (e.Column.Header is TextBlock tb)
+                        headerText = tb.Text;
+                    else if (e.Column.Header is string s)
+                        headerText = s;
+
+                    bool isLocked = false;
+                    if (headerText == GetString("StringSerial") ||
+                        headerText == GetString("StringType") ||
+                        headerText == GetString("StringDisc"))
+                    {
+                        isLocked = true;
+                    }
+
+                    if (isLocked)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+
                 // Capture old value for undo
                 _editingItem = item;
                 var column = e.Column;

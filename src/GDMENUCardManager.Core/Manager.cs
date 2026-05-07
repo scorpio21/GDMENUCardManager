@@ -1329,6 +1329,7 @@ namespace GDMENUCardManager.Core
                 AlternativeFolders = itemAltFolders,
                 DiscType = itemType,
                 Length = ByteSizeLib.ByteSize.FromBytes(new DirectoryInfo(folderPath).GetFiles().Sum(x => x.Length)),
+                CanApplyGDIShrink = Path.GetExtension(itemImageFile).Equals(".gdi", StringComparison.InvariantCultureIgnoreCase),
             };
 
             // Need all cache files present; if any are missing, Ip stays null
@@ -2477,6 +2478,80 @@ namespace GDMENUCardManager.Core
                 return;
             }
 
+            var preExtractedPaths = new Dictionary<GdItem, string>();
+            if (EnableGDIShrink && EnableGDIShrinkCompressed)
+            {
+                var ambiguousList = new List<(GdItem item, int folderNumber)>();
+                for (int i = 0; i < ItemList.Count; i++)
+                {
+                    var it = ItemList[i];
+                    if (it.Work == WorkMode.New
+                        && it.FileFormat == FileFormat.SevenZip
+                        && !it.CanApplyGDIShrink)
+                    {
+                        ambiguousList.Add((it, i + 1));
+                    }
+                }
+
+                if (ambiguousList.Count > 0)
+                {
+                    var preExtractProgress = Helper.DependencyManager.CreateAndShowProgressWindow();
+                    preExtractProgress.TotalItems = ambiguousList.Count;
+                    preExtractProgress.TextContent = "Preparing archive contents...";
+                    do { await Task.Delay(50); } while (!preExtractProgress.IsInitialized);
+
+                    try
+                    {
+                        foreach (var (it, folderNumber) in ambiguousList)
+                        {
+                            if (!preExtractProgress.IsVisible)
+                                throw new ProgressWindowClosedException();
+
+                            preExtractProgress.TextContent = $"Preparing {it.Name}...";
+
+                            var preExtractDir = Path.Combine(tempdir, $"ext_{folderNumber}");
+
+                            try
+                            {
+                                if (!await Helper.DirectoryExistsAsync(preExtractDir))
+                                    await Helper.CreateDirectoryAsync(preExtractDir);
+
+                                await Task.Run(() => Helper.DependencyManager.ExtractArchive(
+                                    Path.Combine(it.FullFolderPath, it.ImageFile), preExtractDir));
+
+                                var extracted = await ImageHelper.CreateGdItemAsync(preExtractDir);
+
+                                it.Ip = extracted.Ip;
+                                if (string.IsNullOrWhiteSpace(it.ProductNumber))
+                                    it.ProductNumber = extracted.ProductNumber;
+                                if (extracted.DiscType != "Game")
+                                    it.DiscType = extracted.DiscType;
+                                if (extracted.CanApplyGDIShrink)
+                                    it.CanApplyGDIShrink = true;
+
+                                preExtractedPaths[it] = preExtractDir;
+                            }
+                            catch (ProgressWindowClosedException)
+                            {
+                                throw;
+                            }
+                            catch
+                            {
+                                if (await Helper.DirectoryExistsAsync(preExtractDir))
+                                    await Helper.DeleteDirectoryAsync(preExtractDir);
+                            }
+
+                            preExtractProgress.ProcessedItems++;
+                        }
+                    }
+                    finally
+                    {
+                        preExtractProgress.AllowClose();
+                        preExtractProgress.Close();
+                    }
+                }
+            }
+
             //gdishrink
             var itemsToShrink = new List<GdItem>();
             var ignoreShrinkList = new List<string>();
@@ -2498,9 +2573,10 @@ namespace GDMENUCardManager.Core
 
                 var shrinkableItems = ItemList.Where(x =>
                     x.Work == WorkMode.New && x.Ip?.Name != "GDMENU" && x.Ip?.Name != "openMenu" && x.CanApplyGDIShrink
-                        && (x.FileFormat == FileFormat.Uncompressed || x.FileFormat == FileFormat.Chd || (EnableGDIShrinkCompressed)
+                        && (x.FileFormat == FileFormat.Uncompressed || x.FileFormat == FileFormat.Chd || (EnableGDIShrinkCompressed && x.FileFormat == FileFormat.SevenZip))
+                        && x.DiscType == "Game"
                         && !ignoreShrinkList.Contains(x.Ip?.ProductNumber ?? string.Empty, StringComparer.OrdinalIgnoreCase)
-                    )).OrderBy(x => x.Name).ThenBy(x => x.Ip?.Disc ?? "1/1").ToArray();
+                    ).OrderBy(x => x.Name).ThenBy(x => x.Ip?.Disc ?? "1/1").ToArray();
                 if (shrinkableItems.Any())
                 {
                     var result = Helper.DependencyManager.GdiShrinkWindowShowDialog(shrinkableItems);
@@ -3269,7 +3345,7 @@ namespace GDMENUCardManager.Core
             return (updatedCount, conflictsRemoved);
         }
 
-        private async Task Uncompress(GdItem item, int folderNumber, string tempdir, IProgressWindow progress = null)
+        private async Task Uncompress(GdItem item, int folderNumber, string tempdir, IProgressWindow progress = null, Dictionary<GdItem, string> preExtractedPaths = null)
         {
             var newPath = Path.Combine(sdPath, FormatFolderNumber(folderNumber));
 
@@ -3278,7 +3354,8 @@ namespace GDMENUCardManager.Core
             if (!await Helper.DirectoryExistsAsync(tempExtractDir))
                 await Helper.CreateDirectoryAsync(tempExtractDir);
 
-            await Task.Run(() => Helper.DependencyManager.ExtractArchive(Path.Combine(item.FullFolderPath, item.ImageFile), tempExtractDir));
+            if (preExtractedPaths == null || !preExtractedPaths.ContainsKey(item))
+                await Task.Run(() => Helper.DependencyManager.ExtractArchive(Path.Combine(item.FullFolderPath, item.ImageFile), tempExtractDir));
 
             var extracted = await ImageHelper.CreateGdItemAsync(tempExtractDir);
 
