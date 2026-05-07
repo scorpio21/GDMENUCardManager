@@ -1,5 +1,22 @@
 # Changelog
 
+## v2.0.5 - 2026-05-08
+
+### Añadido
+- **Localización Completa al Español**: Traducción total de todas las ventanas, diálogos y mensajes del sistema en las versiones WPF y AvaloniaUI.
+- **Soporte de Idioma Dinámico**: Cambio de idioma "en caliente" (Hot-swapping) sin necesidad de reiniciar la aplicación.
+- **Mejoras de GDI Shrink (Integradas de Derek Pascarella)**:
+  - Soporte para reducir tamaño en juegos contenidos dentro de archivos comprimidos (`.7z`, `.rar`, `.zip`) mediante pre-extracción automática.
+  - Soporte para aplicar GDI Shrink en imágenes GD-ROM en formato CUE/BIN.
+- **Protecciones de UI**:
+  - Bloqueo de edición de metadatos críticos para archivos comprimidos para evitar errores de integridad.
+  - Nueva opción de "Verificación de archivos bloqueados" antes de guardar cambios.
+  - Deshabilitación inteligente de funciones que requieren acceso directo al binario en archivos comprimidos (como renombrado por IP.BIN).
+
+### Corregido
+- Corregido el error de visualización de saltos de línea literal (`\n\n`) en las traducciones de AvaloniaUI.
+- Sincronización de lógica entre el núcleo Core y las interfaces de usuario para mayor estabilidad.
+
 ## v2.0.0 - 2026-05-02
 
 ### Añadido
