@@ -2,7 +2,7 @@
 ; Requires Inno Setup 6.x
 
 #define MyAppName "GD MENU Card Manager"
-#define MyAppVersion "2.0.0"
+#define MyAppVersion "2.0.5"
 #define MyAppPublisher "ATeam"
 #define MyAppExeName "GDMENUCardManager.exe"
 

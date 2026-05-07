@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -1828,7 +1829,7 @@ namespace GDMENUCardManager
                     {
                         isLocked = true;
                     }
-                    else if (e.Column is DataGridBoundColumn boundColumn && boundColumn.Binding is Binding binding)
+                    else if (e.Column is DataGridBoundColumn boundColumn && boundColumn.Binding is System.Windows.Data.Binding binding)
                     {
                         var path = binding.Path.Path;
                         if (path == "ProductNumber")

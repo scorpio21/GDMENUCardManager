@@ -1,11 +1,11 @@
 [Setup]
 ; Información básica de la aplicación
 AppName=GD MENU Card Manager
-AppVersion=1.5.3
+AppVersion=2.0.5
 AppPublisher=ATeam
-AppPublisherURL=https://github.com/sonik-br/GDMENUCardManager
-AppSupportURL=https://github.com/sonik-br/GDMENUCardManager/issues
-AppUpdatesURL=https://github.com/sonik-br/GDMENUCardManager/releases
+AppPublisherURL=https://github.com/scorpio21/GDMENUCardManager
+AppSupportURL=https://github.com/scorpio21/GDMENUCardManager/issues
+AppUpdatesURL=https://github.com/scorpio21/GDMENUCardManager/releases
 
 ; Configuración de las carpetas de instalación
 DefaultDirName={autopf}\GD MENU Card Manager
@@ -21,7 +21,7 @@ WizardStyle=modern
 
 ; Ubicación donde se generará el archivo "Setup.exe"
 OutputDir=k:\GDMENUCardManager\Instalador
-OutputBaseFilename=GDMENUCardManager_Setup_v1.5.3
+OutputBaseFilename=GDMENUCardManager_Setup_v2.0.5
 
 [Languages]
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"

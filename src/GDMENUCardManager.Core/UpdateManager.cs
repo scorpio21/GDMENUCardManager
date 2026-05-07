@@ -46,7 +46,7 @@ namespace GDMENUCardManager.Core
     public static class UpdateManager
     {
         private static readonly HttpClient _client;
-        private const string DefaultRepo = "DerekPascarella/openMenu-Virtual-Folder-Bundle";
+        private const string DefaultRepo = "scorpio21/GDMENUCardManager";
         private const string StagingDirName = "GDMENUCardManager_update";
         private const string AutoUpdateKillSwitch = "This release cannot be auto-updated.";
         private const string WindowsScriptName = "_gdmenu_updater.bat";
