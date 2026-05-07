@@ -9,18 +9,36 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'VersiÃ³n (ej. 2.0.0)'
+        description: 'Versión (ej. 2.0.5)'
         required: true
-        default: '2.0.0'
+        default: '2.0.5'
 
 permissions:
   contents: write
 
 jobs:
   build:
-    runs-on: windows-latest
-    env:
-      RELEASE_VERSION: ${{ github.event.inputs.version || '2.0.0' }}
+    name: Build ${{ matrix.rid }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+            suffix: win-x64.zip
+          - os: windows-latest
+            rid: win-x86
+            suffix: win-x86.zip
+          - os: ubuntu-latest
+            rid: linux-x64
+            suffix: linux-x64.tar.gz
+          - os: macos-latest
+            rid: osx-x64
+            suffix: osx-x64-AppBundle.tar.gz
+          - os: macos-latest
+            rid: osx-arm64
+            suffix: osx-arm64-AppBundle.tar.gz
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,124 +48,95 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Determinar versiÃ³n
-        shell: pwsh
+      - name: Determinar versión
+        shell: bash
         run: |
-          $ErrorActionPreference = 'Stop'
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            VERSION="${github_ref#refs/tags/v}"
+          else
+            VERSION="${{ github.event.inputs.version || '2.0.5' }}"
+          fi
+          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
-          if ("${{ startsWith(github.ref, 'refs/tags/v') }}" -eq 'True') {
-            $version = "${{ github.ref_name }}".Substring(1)
-          }
-          else {
-            $version = "${{ env.RELEASE_VERSION }}"
-          }
-
-          "RELEASE_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
-      - name: Install Inno Setup (Chocolatey)
-        shell: pwsh
-        run: |
-          choco install innosetup -y
-
-      - name: Restore
-        run: dotnet restore src/GDMENUCardManager/GDMENUCardManager.csproj
-
-      - name: Publish single-file win-x64
+      - name: Publish AvaloniaUI
         run: >
-          dotnet publish src/GDMENUCardManager/GDMENUCardManager.csproj -c Release -r win-x64 --self-contained true
-          /p:PublishSingleFile=true /p:PublishTrimmed=false -o publish/win-x64-singlefile
+          dotnet publish src/GDMENUCardManager.AvaloniaUI/GDMENUCardManager.AvaloniaUI.csproj 
+          -c Release 
+          -r ${{ matrix.rid }} 
+          --self-contained true 
+          -p:PublishSingleFile=true 
+          -p:PublishTrimmed=false 
+          -o publish/${{ matrix.rid }}
 
-      - name: Build installer (Inno Setup)
+      - name: Package Windows
+        if: startsWith(matrix.rid, 'win-')
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path publish | Out-Null
+          $version = "${{ env.RELEASE_VERSION }}"
+          Compress-Archive -Path publish/${{ matrix.rid }}/* -DestinationPath publish/GDMENUCardManager.v${version}-${{ matrix.suffix }}
 
+      - name: Package Linux
+        if: matrix.rid == 'linux-x64'
+        run: |
+          cd publish/${{ matrix.rid }}
+          tar -czf ../GDMENUCardManager.v${{ env.RELEASE_VERSION }}-${{ matrix.suffix }} *
+
+      - name: Package macOS
+        if: startsWith(matrix.rid, 'osx-')
+        run: |
+          # Simular estructura de App Bundle simple para macOS
+          mkdir -p "publish/GDMENUCardManager.app/Contents/MacOS"
+          cp -r publish/${{ matrix.rid }}/* "publish/GDMENUCardManager.app/Contents/MacOS/"
+          cd publish
+          tar -czf GDMENUCardManager.v${{ env.RELEASE_VERSION }}-${{ matrix.suffix }} GDMENUCardManager.app
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.rid }}
+          path: publish/GDMENUCardManager.v${{ env.RELEASE_VERSION }}-${{ matrix.suffix }}
+
+  release:
+    name: Create Release
+    needs: build
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Prepare publish folder for installer
+        run: |
+          mkdir publish
+          # Usamos win-x64 para el instalador
+          cp -r artifacts/win-x64/* publish/
+          # InnoSetup espera win-x64-singlefile basado en installer.iss anterior, pero lo ajustaremos
+          mkdir -p publish/win-x64-singlefile
+          cp -r artifacts/win-x64/* publish/win-x64-singlefile/
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y
+
+      - name: Build Windows Installer
+        shell: pwsh
+        run: |
           $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-          if (-not (Test-Path $iscc)) {
-            $iscc = "${env:ProgramFiles}\Inno Setup 6\ISCC.exe"
-          }
+          if (-not (Test-Path $iscc)) { $iscc = "${env:ProgramFiles}\Inno Setup 6\ISCC.exe" }
+          $version = "${{ github.event.inputs.version || '2.0.5' }}"
+          if ("${{ startsWith(github.ref, 'refs/tags/v') }}" -eq 'True') { $version = "${{ github.ref_name }}".Substring(1) }
+          & $iscc "/DMyAppVersion=$version" "/Opublish" "installer.iss"
 
-          if (-not (Test-Path $iscc)) {
-            Write-Host "##[warning] Inno Setup no encontrado. Saltando instalador."
-            exit 0
-          }
-
-          $outputDir = Join-Path $env:GITHUB_WORKSPACE 'publish'
-          $version = "${{ env.RELEASE_VERSION }}"
-
-          & $iscc "/Sspawn=0" "/V=1" "/DMyAppVersion=$version" "/O$outputDir" "$env:GITHUB_WORKSPACE\installer.iss"
-
-      - name: Archive artifacts (zip)
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = 'Stop'
-
-          New-Item -Force -ItemType Directory -Path publish | Out-Null
-          $version = "${{ env.RELEASE_VERSION }}"
-
-          $zipSingle = "publish/GDMENUCardManager.v${version}-win-x64.zip"
-          if (Test-Path $zipSingle) { Remove-Item $zipSingle -Force }
-          Compress-Archive -Force -Path publish/win-x64-singlefile/* -DestinationPath $zipSingle
-
-          $zipPortable = "publish/GDMENUCardManager.v${version}-Portable.zip"
-          if (Test-Path $zipPortable) { Remove-Item $zipPortable -Force }
-          Compress-Archive -Force -Path publish/win-x64-singlefile/* -DestinationPath $zipPortable
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: GDMENUCardManager_win-x64_singlefile
-          path: publish/GDMENUCardManager.v*-win-x64.zip
-
-      - name: Upload portable artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Portable
-          path: publish/GDMENUCardManager.v*-Portable.zip
-          if-no-files-found: warn
-          retention-days: 7
-
-      - name: Upload installer artifact (if exists)
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: Installer
-          path: publish/*.exe
-          if-no-files-found: warn
-          retention-days: 7
-
-      - name: Preparar texto del changelog para la versiÃ³n
-        if: github.event_name == 'workflow_dispatch'
-        shell: pwsh
-        run: |
-          $version = "${{ env.RELEASE_VERSION }}"
-          $changelog = Get-Content CHANGELOG.md
-          $match = $changelog | Select-String "## v$version" -SimpleMatch | Select-Object -First 1
-          if (-not $match) { throw "No se encontrÃ³ entrada para v$version en CHANGELOG.md" }
-
-          $start = $match.LineNumber - 1
-          $rest = $changelog[$start..($changelog.Length-1)]
-
-          $nextHeaders = $rest | Select-String '^##\s+v' | Select-Object -Skip 1 | Select-Object -First 1
-          if ($nextHeaders) {
-            $endIndex = $nextHeaders.LineNumber - 2
-            $slice = $rest[0..$endIndex]
-          } else {
-            $slice = $rest
-          }
-
-          Set-Content -Path CHANGELOG_RELEASE.md -Value $slice
-
-      - name: Create GitHub release (manual)
-        if: github.event_name == 'workflow_dispatch'
+      - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.RELEASE_VERSION }}
-          name: GDMENUCardManager v${{ env.RELEASE_VERSION }}
-          body_path: CHANGELOG_RELEASE.md
+          tag_name: v${{ github.event.inputs.version || github.ref_name }}
           files: |
-            publish/GDMENUCardManager.v*-win-x64.zip
-            publish/GDMENUCardManager.v*-Portable.zip
+            artifacts/**/*
             publish/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
