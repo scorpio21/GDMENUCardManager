@@ -15,7 +15,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <IsPackable>False</IsPackable>
-    <AssemblyName>GDMENUCardManager</AssemblyName>
+    <AssemblyName>GDMENUCardManager.AvaloniaUI</AssemblyName>
     <ApplicationIcon>Assets\GDMENUCardManager.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

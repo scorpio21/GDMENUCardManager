@@ -1,23 +1,69 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using System;
-using System.ComponentModel;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using GDMENUCardManager.Core;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace GDMENUCardManager
 {
     public class CopyNameWindow : Window, INotifyPropertyChanged
     {
-        public bool OnCard { get; set; }
-        public bool NotOnCard { get; set; } = true;
-        public bool FolderName { get; set; } = true;
-        public bool ParseTosec { get; set; } = true;
+        private bool _onCard = true;
+        public bool OnCard
+        {
+            get => _onCard;
+            set
+            {
+                if (_onCard != value)
+                {
+                    _onCard = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _notOnCard = true;
+        public bool NotOnCard
+        {
+            get => _notOnCard;
+            set
+            {
+                if (_notOnCard != value)
+                {
+                    _notOnCard = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _folderName = true;
+        public bool FolderName
+        {
+            get => _folderName;
+            set
+            {
+                if (_folderName != value)
+                {
+                    _folderName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _parseTosec = true;
+        public bool ParseTosec
+        {
+            get => _parseTosec;
+            set
+            {
+                if (_parseTosec != value)
+                {
+                    _parseTosec = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public CopyNameWindow()
         {
@@ -33,6 +79,13 @@ namespace GDMENUCardManager
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close(true);
+        }
+
+        public new event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

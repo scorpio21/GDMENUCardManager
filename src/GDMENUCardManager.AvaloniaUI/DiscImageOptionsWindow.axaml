@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="330"
         x:Class="GDMENUCardManager.DiscImageOptionsWindow"
-        Title="Disc Image Options" Width="320" SizeToContent="Height"
+        Title="{DynamicResource StringDiscOptions}" Width="320" SizeToContent="Height"
         WindowStartupLocation="CenterOwner" CanResize="False">
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -18,17 +18,17 @@
             <!-- VGA Patch Card -->
             <HeaderedContentControl Margin="0 0 0 10">
                 <HeaderedContentControl.Header>
-                    <TextBlock Text="VGA Patch" FontWeight="Bold"/>
+                    <TextBlock Text="{DynamicResource StringVgaPatch}" FontWeight="Bold"/>
                 </HeaderedContentControl.Header>
                 <StackPanel Margin="8">
-                    <TextBlock Text="Force VGA flag after &quot;Exit to BIOS&quot; from openMenu" TextWrapping="Wrap"
+                    <TextBlock Text="{DynamicResource StringVgaPatchDesc}" TextWrapping="Wrap"
                                Foreground="Gray" FontSize="11" Margin="0 0 0 10"/>
                     <CheckBox x:Name="ChkEnableVgaPatch" IsChecked="{Binding EnableVgaPatch}">
-                        <TextBlock Text="Apply to newly added games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToNewlyAdded}"/>
                     </CheckBox>
                     <CheckBox IsChecked="{Binding EnableVgaPatchExisting}"
                               IsEnabled="{Binding IsChecked, ElementName=ChkEnableVgaPatch}" Margin="0 5 0 0">
-                        <TextBlock Text="Apply to existing games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToExisting}"/>
                     </CheckBox>
                 </StackPanel>
             </HeaderedContentControl>
@@ -36,17 +36,17 @@
             <!-- Region-Free Patch Card -->
             <HeaderedContentControl Margin="0">
                 <HeaderedContentControl.Header>
-                    <TextBlock Text="Region-Free Patch" FontWeight="Bold"/>
+                    <TextBlock Text="{DynamicResource StringRegionFreePatch}" FontWeight="Bold"/>
                 </HeaderedContentControl.Header>
                 <StackPanel Margin="8">
-                    <TextBlock Text="Boot out-of-region games after &quot;Exit to BIOS&quot; from openMenu" TextWrapping="Wrap"
+                    <TextBlock Text="{DynamicResource StringRegionFreePatchDesc}" TextWrapping="Wrap"
                                Foreground="Gray" FontSize="11" Margin="0 0 0 10"/>
                     <CheckBox x:Name="ChkEnableRegionPatch" IsChecked="{Binding EnableRegionPatch}">
-                        <TextBlock Text="Apply to newly added games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToNewlyAdded}"/>
                     </CheckBox>
                     <CheckBox IsChecked="{Binding EnableRegionPatchExisting}"
                               IsEnabled="{Binding IsChecked, ElementName=ChkEnableRegionPatch}" Margin="0 5 0 0">
-                        <TextBlock Text="Apply to existing games"/>
+                        <TextBlock Text="{DynamicResource StringApplyToExisting}"/>
                     </CheckBox>
                 </StackPanel>
             </HeaderedContentControl>
@@ -54,8 +54,12 @@
 
         <!-- Save/Cancel Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0">
-            <Button Content="Save" Width="80" Padding="15,8" Margin="0 0 10 0" Click="SaveButton_Click"/>
-            <Button Content="Cancel" Width="80" Padding="15,8" Click="CancelButton_Click"/>
+            <Button Width="80" Padding="15,8" Margin="0 0 10 0" Click="SaveButton_Click">
+                <TextBlock Text="{DynamicResource StringSave}" />
+            </Button>
+            <Button Width="80" Padding="15,8" Click="CancelButton_Click">
+                <TextBlock Text="{DynamicResource StringCancel}" />
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

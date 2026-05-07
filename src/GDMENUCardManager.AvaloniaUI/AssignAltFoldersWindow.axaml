@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="300"
         x:Class="GDMENUCardManager.AssignAltFoldersWindow"
-        Title="Assign Additional Folder Paths"
+        Title="{DynamicResource StringAssignAltFolders}"
         SizeToContent="Height" Width="420" MinHeight="160" MaxHeight="420"
         CanResize="False" WindowStartupLocation="CenterOwner">
   <StackPanel Margin="15">
@@ -20,7 +20,7 @@
               <Button DockPanel.Dock="Right" Content="X" Width="26" Height="26"
                       Margin="5 0 0 0" Click="RemoveButton_Click"/>
               <TextBox Text="{Binding FolderPath, Mode=TwoWay}"
-                       MaxLength="256" Watermark="e.g., Games\Action\US"
+                       MaxLength="256" Watermark="{DynamicResource StringWatermarkFolderPath}"
                        LostFocus="FolderPath_LostFocus"/>
             </DockPanel>
           </StackPanel>
@@ -28,12 +28,18 @@
       </ItemsControl.ItemTemplate>
     </ItemsControl>
 
-    <Button x:Name="AddButton" Content="+ Add Folder Path" Click="AddButton_Click"
-            HorizontalAlignment="Left" Margin="0 0 0 0" Padding="15,8"/>
+    <Button x:Name="AddButton" Click="AddButton_Click"
+            HorizontalAlignment="Left" Margin="0 0 0 0" Padding="15,8">
+      <TextBlock Text="{DynamicResource StringAddFolderPath}" />
+    </Button>
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 0 0">
-      <Button Content="OK" Click="OkButton_Click" IsDefault="True" Width="80" Padding="15,8" Margin="0 0 10 0"/>
-      <Button Content="Cancel" Click="CancelButton_Click" IsCancel="True" Width="80" Padding="15,8"/>
+      <Button Click="OkButton_Click" IsDefault="True" Width="80" Padding="15,8" Margin="0 0 10 0">
+        <TextBlock Text="{DynamicResource StringOk}" />
+      </Button>
+      <Button Click="CancelButton_Click" IsCancel="True" Width="80" Padding="15,8">
+        <TextBlock Text="{DynamicResource StringCancel}" />
+      </Button>
     </StackPanel>
   </StackPanel>
 </Window>

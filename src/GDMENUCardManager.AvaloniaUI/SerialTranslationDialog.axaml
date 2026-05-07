@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="350"
         x:Class="GDMENUCardManager.SerialTranslationDialog"
-        Title="Serial Compatibility Adjustments"
+        Title="{DynamicResource StringSerialCompatibilityTitle}"
         SizeToContent="Height"
         Width="550"
         MinHeight="200"
@@ -21,17 +21,14 @@
         </Grid.RowDefinitions>
 
         <!-- Message -->
-        <TextBlock Grid.Row="0" TextWrapping="Wrap" Margin="0,0,0,15">
-            The following serials were adjusted for openMenu compatibility.
-        </TextBlock>
+        <TextBlock Grid.Row="0" TextWrapping="Wrap" Margin="0,0,0,15"
+                   Text="{DynamicResource StringSerialAdjustedMsg}"/>
 
-        <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="0,0,0,15">
-            Note that openMenu has always performed these serial translations automatically, regardless of user settings. As a result, artwork lookups and the IDs used for virtual VMU devices expect the adjusted versions of these serials.
-        </TextBlock>
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="0,0,0,15"
+                   Text="{DynamicResource StringSerialExplanation1}"/>
 
-        <TextBlock Grid.Row="2" TextWrapping="Wrap" Margin="0,0,0,15">
-            It's highly recommended you allow these serials to also be translated here in GD MENU Card Manager for compatibility with artwork lookups and virtual VMU devices.
-        </TextBlock>
+        <TextBlock Grid.Row="2" TextWrapping="Wrap" Margin="0,0,0,15"
+                   Text="{DynamicResource StringSerialExplanation2}"/>
 
         <!-- Checkbox list -->
         <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Margin="0,0,0,15" MaxHeight="200">
@@ -56,11 +53,12 @@
 
         <!-- Instruction and OK Button -->
         <Grid Grid.Row="4">
-            <TextBlock TextWrapping="Wrap" FontStyle="Italic" Foreground="Gray" VerticalAlignment="Center">
-                Uncheck any you want to revert to the original serial.
-            </TextBlock>
-            <Button Content="OK" Width="80" HorizontalAlignment="Right"
-                    Padding="10,5" Click="OkButton_Click"/>
+            <TextBlock TextWrapping="Wrap" FontStyle="Italic" Foreground="Gray" VerticalAlignment="Center"
+                       Text="{DynamicResource StringSerialUncheckRevert}"/>
+            <Button Width="80" HorizontalAlignment="Right"
+                    Padding="10,5" Click="OkButton_Click">
+                <TextBlock Text="{DynamicResource StringOk}" />
+            </Button>
         </Grid>
     </Grid>
 </Window>

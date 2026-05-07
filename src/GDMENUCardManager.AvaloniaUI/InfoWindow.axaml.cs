@@ -41,6 +41,13 @@ namespace GDMENUCardManager
 
         public InfoWindow() { }
 
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
         public InfoWindow(GdItem item)
         {
             InitializeComponent();
@@ -54,14 +61,14 @@ namespace GDMENUCardManager
             this.item = item;
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Folder: {Path.GetFileName(item.FullFolderPath)}");
-            sb.Append($"File: {Path.GetFileName(item.ImageFile)}");
+            sb.AppendLine($"{GetString("StringFolderColon")} {Path.GetFileName(item.FullFolderPath)}");
+            sb.Append($"{GetString("StringFileColon")} {Path.GetFileName(item.ImageFile)}");
 
             FileInfo = sb.ToString();
 
             if (item.FileFormat != FileFormat.Uncompressed)
             {
-                IpInfo = "Compressed file";
+                IpInfo = GetString("StringCompressedFile");
             }
 
             this.KeyUp += (ss, ee) => { if (ee.Key == Avalonia.Input.Key.Escape) Close(); };
@@ -84,8 +91,8 @@ namespace GDMENUCardManager
 
             if (item.FileFormat == FileFormat.SevenZip)
             {
-                IpInfo = "Can't load from compressed files.";
-                LabelText = "Can't load from compressed files.";
+                IpInfo = GetString("StringCantLoadCompressed");
+                LabelText = GetString("StringCantLoadCompressed");
                 return;
             }
 
@@ -98,28 +105,28 @@ namespace GDMENUCardManager
                 if (ip != null)
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.AppendLine($"Title: {ip.Name}");
-                    sb.AppendLine($"Version: {ip.Version}");
-                    sb.AppendLine($"Disc: {ip.Disc}");
-                    sb.AppendLine($"VGA: {(ip.Vga ? "Yes" : "No")}");
-                    sb.AppendLine($"Serial: {ip.ProductNumber}");
-                    sb.Append($"Region: {ip.Region}");
+                    sb.AppendLine($"{GetString("StringTitleColon")} {ip.Name}");
+                    sb.AppendLine($"{GetString("StringVersionColon")} {ip.Version}");
+                    sb.AppendLine($"{GetString("StringDiscColon")} {ip.Disc}");
+                    sb.AppendLine($"{GetString("StringVgaColon")} {(ip.Vga ? GetString("StringYes") : GetString("StringNo"))}");
+                    sb.AppendLine($"{GetString("StringSerialColon")} {ip.ProductNumber}");
+                    sb.Append($"{GetString("StringRegionColon")} {ip.Region}");
 
                     if (ip.SpecialDisc != SpecialDisc.None)
                     {
                         sb.AppendLine();
-                        sb.Append("Detected as: " + ip.SpecialDisc);
+                        sb.Append($"{GetString("StringDetectedAsColon")} " + ip.SpecialDisc);
                     }
                     IpInfo = sb.ToString();
                 }
                 else
                 {
-                    IpInfo = "Could not read IP.BIN";
+                    IpInfo = GetString("StringCouldNotReadIpBin");
                 }
             }
             catch (Exception ex)
             {
-                IpInfo = $"Error: {ex.Message}";
+                IpInfo = $"{GetString("StringError")}: {ex.Message}";
             }
 
             // Load GDTEX texture
@@ -129,7 +136,7 @@ namespace GDMENUCardManager
 
                 if (gdtexture == null)
                 {
-                    LabelText = "Unable to find or read file";
+                    LabelText = GetString("StringUnableToRead");
                 }
                 else
                 {
@@ -153,7 +160,7 @@ namespace GDMENUCardManager
             }
             catch
             {
-                LabelText = "Unable to find or read file";
+                LabelText = GetString("StringUnableToRead");
             }
         }
     }

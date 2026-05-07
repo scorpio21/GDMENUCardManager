@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
         x:Class="GDMENUCardManager.LockedFilesDialog"
-        Title="Files In Use" Height="400" Width="600"
+        Title="{DynamicResource StringFilesInUse}" Height="400" Width="600"
         MinHeight="250" MinWidth="400"
         WindowStartupLocation="CenterOwner">
   <Grid Margin="10">
@@ -15,8 +15,8 @@
     </Grid.RowDefinitions>
 
     <StackPanel Grid.Row="0" Margin="0,0,0,10">
-      <TextBlock FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,8">The following files or folders are currently in use and cannot be modified.</TextBlock>
-      <TextBlock TextWrapping="Wrap">Please close any programs that may be using these files (e.g., file explorer, media players) and click Retry.</TextBlock>
+      <TextBlock FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,8" Text="{DynamicResource StringLockedFilesHeader}"/>
+      <TextBlock TextWrapping="Wrap" Text="{DynamicResource StringLockedFilesDesc}"/>
     </StackPanel>
 
     <ListBox Grid.Row="1" x:Name="FileListBox" Margin="0,0,0,10">
@@ -31,8 +31,12 @@
     </ListBox>
 
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-      <Button Content="Retry" Width="80" Padding="15,8" Margin="0,0,10,0" Click="RetryButton_Click" IsDefault="True"/>
-      <Button Content="Cancel" Width="80" Padding="15,8" Click="CancelButton_Click"/>
+      <Button Width="80" Padding="15,8" Margin="0,0,10,0" Click="RetryButton_Click" IsDefault="True">
+        <TextBlock Text="{DynamicResource StringRetry}" />
+      </Button>
+      <Button Width="80" Padding="15,8" Click="CancelButton_Click">
+        <TextBlock Text="{DynamicResource StringCancel}" />
+      </Button>
     </StackPanel>
   </Grid>
 </Window>

@@ -1567,10 +1567,10 @@ namespace GDMENUCardManager
             if (IsFilterActive)
                 return;
             var sortDescription = MenuKindSelected == MenuKind.openMenu
-                ? "Your disc images will be automatically sorted in alphanumeric order based on a combination of Folder and Title.\n\nDo you want to continue?"
-                : "Your disc images will be automatically sorted in alphanumeric order based on Title.\n\nDo you want to continue?";
+                ? GetString("StringSortDescriptionOpenMenu")
+                : GetString("StringSortDescriptionGDMenu");
             var result = await MessageBoxManager.GetMessageBoxStandardWindow(
-                "Sort List",
+                GetString("StringSortListTitle"),
                 sortDescription,
                 MessageBox.Avalonia.Enums.ButtonEnum.YesNo,
                 MessageBox.Avalonia.Enums.Icon.Question).ShowDialog(this);
@@ -1585,7 +1585,7 @@ namespace GDMENUCardManager
             }
             catch (Exception ex)
             {
-                await MessageBoxManager.GetMessageBoxStandardWindow("Error", ex.Message, icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
+                await MessageBoxManager.GetMessageBoxStandardWindow(GetString("StringError"), ex.Message, icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
             }
             IsBusy = false;
         }
@@ -1629,7 +1629,7 @@ namespace GDMENUCardManager
                     }
                 }
 
-                await MessageBoxManager.GetMessageBoxStandardWindow("Done", $"{count} item(s) renamed").ShowDialog(this);
+                await MessageBoxManager.GetMessageBoxStandardWindow(GetString("StringDone"), string.Format(GetString("StringItemsRenamed"), count)).ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -2541,24 +2541,24 @@ namespace GDMENUCardManager
             });
         }
 
-        private void ButtonFilterReset_Click(object? sender, RoutedEventArgs e)
+        private void ButtonFilterReset_Click(object sender, RoutedEventArgs e)
         {
             if (!IsFilterActive)
                 return;
             ClearFilterFromGrid();
         }
 
-        private void ButtonLangEn_Click(object? sender, RoutedEventArgs e)
+        private void ButtonLangEn_Click(object sender, RoutedEventArgs e)
         {
             App.ChangeLanguage("en-US");
         }
 
-        private void ButtonLangEs_Click(object? sender, RoutedEventArgs e)
+        private void ButtonLangEs_Click(object sender, RoutedEventArgs e)
         {
             App.ChangeLanguage("es-ES");
         }
 
-        private async void ButtonBatchFolderRename_Click(object? sender, RoutedEventArgs e)
+        private async void ButtonBatchFolderRename_Click(object sender, RoutedEventArgs e)
         {
             if (IsFilterActive)
                 return;

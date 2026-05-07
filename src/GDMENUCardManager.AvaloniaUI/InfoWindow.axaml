@@ -5,7 +5,7 @@
         xmlns:conv="clr-namespace:GDMENUCardManager.Converter"
         mc:Ignorable="d" d:DesignWidth="630" d:DesignHeight="250"
         x:Class="GDMENUCardManager.InfoWindow"
-        Title="Info" SizeToContent="WidthAndHeight" CanResize="False"
+        Title="{DynamicResource StringInfo}" SizeToContent="WidthAndHeight" CanResize="False"
         WindowStartupLocation="CenterOwner">
   <Window.Resources>
     <conv:SubtractConverter x:Key="SubtractConverter"/>
@@ -20,14 +20,14 @@
     <StackPanel x:Name="LeftPanel" Grid.Column="0" VerticalAlignment="Top">
       <HeaderedContentControl Margin="5">
         <HeaderedContentControl.Header>
-          <TextBlock Text="File Info" FontWeight="Bold"/>
+          <TextBlock Text="{DynamicResource StringViewFileInfo}" FontWeight="Bold"/>
         </HeaderedContentControl.Header>
         <TextBlock Text="{Binding FileInfo, Mode=OneTime}" TextWrapping="Wrap"/>
       </HeaderedContentControl>
 
       <HeaderedContentControl Margin="5">
         <HeaderedContentControl.Header>
-          <TextBlock Text="IP.BIN Info" FontWeight="Bold"/>
+          <TextBlock Text="{DynamicResource StringIpBinInfo}" FontWeight="Bold"/>
         </HeaderedContentControl.Header>
         <TextBlock Text="{Binding IpInfo, Mode=OneWay}" TextWrapping="Wrap"/>
       </HeaderedContentControl>

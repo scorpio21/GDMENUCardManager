@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -27,7 +28,7 @@ namespace GDMENUCardManager
             }
         }
 
-        private string _label = "Folder Path 1:";
+        private string _label = string.Empty;
         public string Label
         {
             get => _label;
@@ -59,13 +60,20 @@ namespace GDMENUCardManager
             InitializeComponent();
         }
 
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
         public AssignAltFoldersWindow(GdItem item, IEnumerable<string> knownFolders) : this()
         {
             _primaryFolder = item.Folder;
 
             var headerLabel = this.FindControl<TextBlock>("HeaderLabel");
             if (headerLabel != null)
-                headerLabel.Text = "Assign additional folder paths for selected item";
+                headerLabel.Text = GetString("StringAssignAltFoldersHeader");
 
             _listControl = this.FindControl<ItemsControl>("AltFoldersList");
             _addButton = this.FindControl<Button>("AddButton");
@@ -75,7 +83,7 @@ namespace GDMENUCardManager
                 _altFolders.Add(new AltFolderEntryAvalonia
                 {
                     FolderPath = item.AlternativeFolders[i],
-                    Label = $"Folder Path {i + 1}:"
+                    Label = string.Format(GetString("StringPathNumbered"), i + 1)
                 });
             }
 
@@ -98,7 +106,7 @@ namespace GDMENUCardManager
             if (_altFolders.Count >= 5) return;
             _altFolders.Add(new AltFolderEntryAvalonia
             {
-                Label = $"Folder Path {_altFolders.Count + 1}:"
+                Label = string.Format(GetString("StringPathNumbered"), _altFolders.Count + 1)
             });
             UpdateAddButton();
         }
@@ -139,8 +147,8 @@ namespace GDMENUCardManager
 
                 if (isDuplicate)
                 {
-                    await MessageBoxManager.GetMessageBoxStandardWindow("Duplicate Folder Path",
-                        "This folder path is already assigned to this disc image.",
+                    await MessageBoxManager.GetMessageBoxStandardWindow(GetString("StringDuplicateFolderPath"),
+                        GetString("StringDuplicateFolderMsg"),
                         icon: MessageBox.Avalonia.Enums.Icon.Info).ShowDialog(this);
                     entry.FolderPath = string.Empty;
                 }
@@ -160,7 +168,7 @@ namespace GDMENUCardManager
         private void ReindexEntries()
         {
             for (int i = 0; i < _altFolders.Count; i++)
-                _altFolders[i].Label = $"Folder Path {i + 1}:";
+                _altFolders[i].Label = string.Format(GetString("StringPathNumbered"), i + 1);
         }
 
         private void UpdateAddButton()

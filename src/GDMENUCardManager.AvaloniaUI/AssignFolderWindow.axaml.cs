@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
@@ -46,9 +47,16 @@ namespace GDMENUCardManager
             DataContext = this;
         }
 
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
         public AssignFolderWindow(int selectedCount, IEnumerable<string> knownFolders) : this()
         {
-            SelectionInfo = $"Assign folder path to {selectedCount} selected item{(selectedCount == 1 ? "" : "s")}";
+            SelectionInfo = string.Format(GetString("StringAssignFolderPathToCount"), selectedCount);
             KnownFolders = knownFolders;
         }
 

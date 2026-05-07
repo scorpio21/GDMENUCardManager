@@ -26,9 +26,11 @@ namespace GDMENUCardManager
             var uri = new System.Uri($"avares://GDMENUCardManager.AvaloniaUI/Assets/Languages/{languageCode}.axaml");
             var dict = (Avalonia.Controls.IResourceDictionary)Avalonia.Markup.Xaml.AvaloniaXamlLoader.Load(uri);
 
-            var appResources = (Avalonia.Controls.ResourceDictionary)Current.Resources;
-            appResources.MergedDictionaries.Clear();
-            appResources.MergedDictionaries.Add(dict);
+            if (Current.Resources is Avalonia.Controls.ResourceDictionary appResources)
+            {
+                appResources.MergedDictionaries.Clear();
+                appResources.MergedDictionaries.Add(dict);
+            }
         }
     }
 }

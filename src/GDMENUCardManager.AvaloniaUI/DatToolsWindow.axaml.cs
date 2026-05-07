@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -36,6 +37,13 @@ namespace GDMENUCardManager
         public DatToolsWindow()
         {
             InitializeComponent();
+        }
+
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
         }
 
         public DatToolsWindow(Core.Manager manager, Func<Task> reloadCallback)
@@ -82,30 +90,18 @@ namespace GDMENUCardManager
                 ? "\"~/Library/Application Support/GDMENUCardManager/dat_backups\""
                 : "\"dat_backups\"";
 
-            TextImportInstructions.Text =
-                $"Before this process is initiated, the DATs that currently reside in {datFolder} will be backed up to the {backupFolder} folder.\n\n" +
-                "Use \"Choose DAT Folder\" to select a folder containing either BOX.DAT or META.DAT (or both), as ICON.DAT will be automatically generated from BOX.DAT.\n\n" +
-                "Decide if only entries missing from the current DATs should be imported, or if all entries should be imported, overwriting anything currently existing. Then, click \"Begin Import\" to perform this operation.\n\n" +
-                "Please note that any unsaved artwork changes from this session will also be included.";
+            // Localize instructions with dynamic paths
+            string importBase = GetString("StringImportInstructions");
+            // Simple replacement for technical paths if needed, but here we just rebuild to ensure translation
+            TextImportInstructions.Text = importBase.Replace("\"tools\\openMenu\\menu_data\"", datFolder).Replace("\"dat_backups\"", backupFolder);
 
-            TextClearInstructions.Text =
-                "Doing so will discard any unsaved artwork changes from Games List, as well as remove all saved entries.\n\n" +
-                $"Before this process is initiated, the DATs that currently reside in {datFolder} will be backed up to the {backupFolder} folder.\n\n" +
-                "Click \"Clear DATs\" to perform this operation.";
+            string clearBase = GetString("StringClearInstructions");
+            TextClearInstructions.Text = clearBase.Replace("\"tools\\openMenu\\menu_data\"", datFolder).Replace("\"dat_backups\"", backupFolder);
 
             if (isMacOS)
             {
-                TextOverwriteInstructions.Text =
-                    "The DAT files in \"~/Library/Application Support/GDMENUCardManager/menu_data\" are used each time openMenu is rebuilt and saved to the GDEMU SD card.\n\n" +
-                    "On macOS, these DAT files reside in Application Support and are never overwritten by app updates, so in most cases this operation is not needed. Your artwork and metadata persist automatically across GD MENU Card Manager updates.\n\n" +
-                    "However, if you are setting up on a new Mac or have otherwise lost your Application Support data, this tool can restore your DAT files directly from your SD card's existing openMenu disc image.";
-            }
-            else // Linux
-            {
-                TextOverwriteInstructions.Text =
-                    "The DAT files in the \"tools/openMenu/menu_data\" folder are used each time openMenu is rebuilt and saved to the GDEMU SD card.\n\n" +
-                    "However, there are several scenarios where a user may wish to immediately overwrite those with the DAT files that were used to generate their SD card's openMenu. For example, a user upgrading from a previous version of openMenu Virtual Folder Bundle will likely already have custom artwork.\n\n" +
-                    "While such users can easily copy the DAT files from their previous version of GD MENU Card Manager's \"tools/openMenu/menu_data\" folder into the current version's \"menu_data\" folder, the tool here can perform this automatically using the SD card itself as the source.";
+                // Special case for MacOS overwriting
+                TextOverwriteInstructions.Text = GetString("StringOverwriteInstructions").Replace("\"tools\\openMenu\\menu_data\"", datFolder);
             }
         }
 
@@ -115,7 +111,7 @@ namespace GDMENUCardManager
         private string TruncatePath(string path)
         {
             if (string.IsNullOrEmpty(path))
-                return "[no folder selected]";
+                return GetString("StringNoFolderSelected");
 
             if (path.Length <= MaxPathDisplayLength)
                 return path;
@@ -131,7 +127,7 @@ namespace GDMENUCardManager
         {
             var dialog = new OpenFolderDialog
             {
-                Title = "Select DAT import folder"
+                Title = GetString("StringSelectImportFolderTitle")
             };
 
             var result = await dialog.ShowAsync(this);
@@ -143,7 +139,7 @@ namespace GDMENUCardManager
 
                 if (!File.Exists(boxPath) && !File.Exists(metaPath))
                 {
-                    await ShowError("Invalid Folder", "Selected folder does not contain BOX.DAT or META.DAT.");
+                    await ShowError(GetString("StringInvalidFolder"), GetString("StringInvalidFolderMsg"));
                     return;
                 }
 
@@ -162,19 +158,19 @@ namespace GDMENUCardManager
             // Confirmation dialog
             var confirmResult = await MessageBoxManager.GetMessageBoxCustomWindow(new MessageBox.Avalonia.DTO.MessageBoxCustomParams
             {
-                ContentTitle = "Confirm Import",
-                ContentMessage = "This will backup current DAT files and merge entries from the selected folder.\n\nContinue?",
+                ContentTitle = GetString("StringConfirmImportTitle"),
+                ContentMessage = GetString("StringConfirmImportMsg"),
                 Icon = MessageBox.Avalonia.Enums.Icon.Warning,
                 ShowInCenter = true,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 ButtonDefinitions = new ButtonDefinition[]
                 {
-                    new ButtonDefinition { Name = "Continue" },
-                    new ButtonDefinition { Name = "Cancel" }
+                    new ButtonDefinition { Name = GetString("StringContinue") },
+                    new ButtonDefinition { Name = GetString("StringCancel") }
                 }
             }).ShowDialog(this);
 
-            if (confirmResult != "Continue")
+            if (confirmResult != GetString("StringContinue"))
                 return;
 
             bool overwriteExisting = RadioImportAll?.IsChecked == true;
@@ -185,8 +181,8 @@ namespace GDMENUCardManager
 
             // Show progress window
             var progressWindow = new ProgressWindow();
-            progressWindow.Title = "Importing DAT Entries";
-            progressWindow.TextContent = "Importing...";
+            progressWindow.Title = GetString("StringImportDatEntriesTitle");
+            progressWindow.TextContent = GetString("StringImporting");
             progressWindow.TotalItems = 100;
             progressWindow.ProcessedItems = 0;
 
@@ -210,17 +206,20 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    await ShowError("Import Failed", result.errorMessage);
+                    await ShowError(GetString("StringImportFailed"), result.errorMessage);
                     return;
                 }
 
                 // Show success message first
-                var message = $"Import completed successfully.\n\nBOX.DAT entries merged: {result.boxEntriesMerged}\nMETA.DAT entries merged: {result.metaEntriesMerged}";
+                var message = GetString("StringImportSuccessMsg") + "\n\n" + 
+                              string.Format(GetString("StringBoxEntriesMerged"), result.boxEntriesMerged) + "\n" +
+                              string.Format(GetString("StringMetaEntriesMerged"), result.metaEntriesMerged);
+                
                 if (result.boxEntriesMerged > 0)
                 {
-                    message += "\n\nICON.DAT was automatically regenerated using the updated contents of BOX.DAT.";
+                    message += "\n\n" + GetString("StringIconRegenerated");
                 }
-                await ShowInfo("Import Complete", message);
+                await ShowInfo(GetString("StringImportCompleteTitle"), message);
 
                 // Close this window and reload
                 this.Close();
@@ -234,7 +233,7 @@ namespace GDMENUCardManager
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                await ShowError("Import Failed", $"An error occurred: {ex.Message}");
+                await ShowError(GetString("StringImportFailed"), $"{GetString("StringError")}: {ex.Message}");
             }
         }
 
@@ -246,7 +245,7 @@ namespace GDMENUCardManager
         {
             var dialog = new OpenFolderDialog
             {
-                Title = "Select PNG export folder"
+                Title = GetString("StringSelectExportFolderTitle")
             };
 
             var result = await dialog.ShowAsync(this);
@@ -266,8 +265,8 @@ namespace GDMENUCardManager
 
             // Show progress window
             var progressWindow = new ProgressWindow();
-            progressWindow.Title = "Exporting Artwork";
-            progressWindow.TextContent = "Exporting...";
+            progressWindow.Title = GetString("StringExportingArtworkTitle");
+            progressWindow.TextContent = GetString("StringExporting");
             progressWindow.TotalItems = 100;
             progressWindow.ProcessedItems = 0;
 
@@ -291,18 +290,18 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    await ShowError("Export Failed", result.errorMessage);
+                    await ShowError(GetString("StringExportFailed"), result.errorMessage);
                     return;
                 }
 
                 // Keep window open, just show success
-                await ShowInfo("Export Complete", $"Exported {result.exportedCount} artwork file(s) to PNG.");
+                await ShowInfo(GetString("StringExportCompleteTitle"), string.Format(GetString("StringExportSuccessMsg"), result.exportedCount));
             }
             catch (Exception ex)
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                await ShowError("Export Failed", $"An error occurred: {ex.Message}");
+                await ShowError(GetString("StringExportFailed"), $"{GetString("StringError")}: {ex.Message}");
             }
         }
 
@@ -315,19 +314,19 @@ namespace GDMENUCardManager
             // Confirmation dialog
             var confirmResult = await MessageBoxManager.GetMessageBoxCustomWindow(new MessageBox.Avalonia.DTO.MessageBoxCustomParams
             {
-                ContentTitle = "Confirm Clear",
-                ContentMessage = "This will backup current DAT files and then clear ALL artwork and metadata entries.\n\nThis action cannot be undone. Continue?",
+                ContentTitle = GetString("StringConfirmClearTitle"),
+                ContentMessage = GetString("StringConfirmClearMsg"),
                 Icon = MessageBox.Avalonia.Enums.Icon.Warning,
                 ShowInCenter = true,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 ButtonDefinitions = new ButtonDefinition[]
                 {
-                    new ButtonDefinition { Name = "Clear All" },
-                    new ButtonDefinition { Name = "Cancel" }
+                    new ButtonDefinition { Name = GetString("StringClearAll") },
+                    new ButtonDefinition { Name = GetString("StringCancel") }
                 }
             }).ShowDialog(this);
 
-            if (confirmResult != "Clear All")
+            if (confirmResult != GetString("StringClearAll"))
                 return;
 
             // Check DAT files are writable before proceeding
@@ -336,8 +335,8 @@ namespace GDMENUCardManager
 
             // Show progress window
             var progressWindow = new ProgressWindow();
-            progressWindow.Title = "Clearing DAT Files";
-            progressWindow.TextContent = "Clearing...";
+            progressWindow.Title = GetString("StringClearingDatFilesTitle");
+            progressWindow.TextContent = GetString("StringClearing");
             progressWindow.TotalItems = 100;
             progressWindow.ProcessedItems = 50; // Show some progress for indeterminate
 
@@ -352,12 +351,12 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    await ShowError("Clear Failed", result.errorMessage);
+                    await ShowError(GetString("StringClearFailed"), result.errorMessage);
                     return;
                 }
 
                 // Show success message first
-                await ShowInfo("Clear Complete", "All DAT entries have been cleared.");
+                await ShowInfo(GetString("StringClearCompleteTitle"), GetString("StringClearSuccessMsg"));
 
                 // Close this window and reload
                 this.Close();
@@ -371,7 +370,7 @@ namespace GDMENUCardManager
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                await ShowError("Clear Failed", $"An error occurred: {ex.Message}");
+                await ShowError(GetString("StringClearFailed"), $"{GetString("StringError")}: {ex.Message}");
             }
         }
 
@@ -384,19 +383,19 @@ namespace GDMENUCardManager
             // Confirmation dialog
             var confirmResult = await MessageBoxManager.GetMessageBoxCustomWindow(new MessageBox.Avalonia.DTO.MessageBoxCustomParams
             {
-                ContentTitle = "Confirm Overwrite",
-                ContentMessage = "This will backup current DAT files and overwrite them with those from the SD card's openMenu disc image.\n\nContinue?",
+                ContentTitle = GetString("StringConfirmOverwriteTitle"),
+                ContentMessage = GetString("StringConfirmOverwriteMsg"),
                 Icon = MessageBox.Avalonia.Enums.Icon.Warning,
                 ShowInCenter = true,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 ButtonDefinitions = new ButtonDefinition[]
                 {
-                    new ButtonDefinition { Name = "Continue" },
-                    new ButtonDefinition { Name = "Cancel" }
+                    new ButtonDefinition { Name = GetString("StringContinue") },
+                    new ButtonDefinition { Name = GetString("StringCancel") }
                 }
             }).ShowDialog(this);
 
-            if (confirmResult != "Continue")
+            if (confirmResult != GetString("StringContinue"))
                 return;
 
             // Check DAT files are writable before proceeding
@@ -405,8 +404,8 @@ namespace GDMENUCardManager
 
             // Show progress window
             var progressWindow = new ProgressWindow();
-            progressWindow.Title = "Overwriting DAT Files";
-            progressWindow.TextContent = "Extracting DATs from SD card...";
+            progressWindow.Title = GetString("StringOverwritingDatFilesTitle");
+            progressWindow.TextContent = GetString("StringExtractingDats");
             progressWindow.TotalItems = 100;
             progressWindow.ProcessedItems = 50;
 
@@ -421,11 +420,11 @@ namespace GDMENUCardManager
 
                 if (!result.success)
                 {
-                    await ShowError("Overwrite Failed", result.errorMessage);
+                    await ShowError(GetString("StringOverwriteFailed"), result.errorMessage);
                     return;
                 }
 
-                await ShowInfo("Overwrite Complete", "DAT files have been successfully overwritten with those from the SD card.");
+                await ShowInfo(GetString("StringOverwriteCompleteTitle"), GetString("StringOverwriteSuccessMsg"));
 
                 // Close this window and reload
                 this.Close();
@@ -439,7 +438,7 @@ namespace GDMENUCardManager
             {
                 progressWindow.AllowClose();
                 progressWindow.Close();
-                await ShowError("Overwrite Failed", $"An error occurred: {ex.Message}");
+                await ShowError(GetString("StringOverwriteFailed"), $"{GetString("StringError")}: {ex.Message}");
             }
         }
 

@@ -7,6 +7,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Avalonia;
 
 namespace GDMENUCardManager
 {
@@ -21,12 +22,22 @@ namespace GDMENUCardManager
             InitializeComponent();
         }
 
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
         public UpdateAvailableDialog(string latestTag, string latestVersion)
         {
             InitializeComponent();
             LatestTag = latestTag;
             LatestVersion = latestVersion;
-            this.FindControl<TextBlock>("VersionText").Text = latestVersion;
+
+            var msgText = this.FindControl<TextBlock>("UpdateMessageText");
+            if (msgText != null)
+                msgText.Text = string.Format(GetString("StringNewVersionAvailable"), latestVersion);
 
             this.KeyDown += (s, e) =>
             {

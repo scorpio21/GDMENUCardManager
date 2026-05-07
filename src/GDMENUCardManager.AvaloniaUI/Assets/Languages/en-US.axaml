@@ -61,4 +61,232 @@
   <x:String x:Key="StringUndoTooltip">Undo last change</x:String>
   <x:String x:Key="StringRedo">Redo</x:String>
   <x:String x:Key="StringRedoTooltip">Redo last change</x:String>
+
+  <x:String x:Key="StringNoArtworkAssigned">No artwork assigned</x:String>
+  <x:String x:Key="StringArtworkWarning">Artwork changes aren't written to DAT files until clicking Save Changes in the main window.</x:String>
+  <x:String x:Key="StringBrowseForImage">Browse for Image</x:String>
+  <x:String x:Key="StringDeleteEntry">Delete Entry</x:String>
+  <x:String x:Key="StringSave">Save</x:String>
+
+  <!-- About Window -->
+  <x:String x:Key="StringAboutTitle">About</x:String>
+  <x:String x:Key="StringAboutDescription">A tool to manage a GDEMU SD card and its contents</x:String>
+  <x:String x:Key="StringSupportedFormats">Supported Formats</x:String>
+  <x:String x:Key="StringImage">Image</x:String>
+  <x:String x:Key="StringCompressed">Compressed</x:String>
+  <x:String x:Key="StringKeyboardShortcuts">Keyboard Shortcuts</x:String>
+  <x:String x:Key="StringDelete">Delete</x:String>
+  <x:String x:Key="StringRemoveItems">Remove selected item(s)</x:String>
+  <x:String x:Key="StringEscape">Escape</x:String>
+  <x:String x:Key="StringCloseWindow">Close window</x:String>
+  <x:String x:Key="StringF2">F2</x:String>
+  <x:String x:Key="StringRenameSelected">Rename selected item</x:String>
+  <x:String x:Key="StringUndoRedo">Undo/Redo</x:String>
+  <x:String x:Key="StringManagingGames">Managing Games</x:String>
+  <x:String x:Key="StringAdd">Add</x:String>
+  <x:String x:Key="StringDragDrop">[+] or drag and drop</x:String>
+  <x:String x:Key="StringRemove">Remove</x:String>
+  <x:String x:Key="StringRemoveKey">[-] or Delete key</x:String>
+  <x:String x:Key="StringReorder">Reorder</x:String>
+  <x:String x:Key="StringUpDownButtons">Up/Down buttons</x:String>
+  <x:String x:Key="StringSort">Sort</x:String>
+  <x:String x:Key="StringSortListButton">[Sort List] button</x:String>
+  <x:String x:Key="StringSingleBulkRenaming">Single or Bulk Renaming</x:String>
+  <x:String x:Key="StringManual">Manual</x:String>
+  <x:String x:Key="StringRenamingManualDesc">Double-click, F2, or context menu</x:String>
+  <x:String x:Key="StringAuto">Auto</x:String>
+  <x:String x:Key="StringRenamingAutoDesc">Context menu → Auto Rename</x:String>
+  <x:String x:Key="StringCase">Case</x:String>
+  <x:String x:Key="StringRenamingCaseDesc">Title / Upper / Lower case</x:String>
+  <x:String x:Key="StringFolderPathsOpenMenu">Folder Paths (openMenu mode)</x:String>
+  <x:String x:Key="StringFolderPathsDesc">Context menu → Assign Folder Path to organize one or more games into a folder. Assign Additional Folder Paths to place a single game in up to five additional folders.</x:String>
+  <x:String x:Key="StringArtworkOpenMenu">Artwork (openMenu mode)</x:String>
+  <x:String x:Key="StringArtworkDesc">Click Assign/Manage button in the Art column to set box art.</x:String>
+  <x:String x:Key="StringDatToolsOpenMenu">DAT Tools (openMenu mode)</x:String>
+  <x:String x:Key="StringImportDatEntriesDesc">Import DAT Entries from external folder</x:String>
+  <x:String x:Key="StringExportArtwork">Export Artwork to PNG files</x:String>
+  <x:String x:Key="StringClearDatEntries">Clear All DAT Entries</x:String>
+  <x:String x:Key="StringOverwriteDatsDesc">Overwrite DATs with SD card's DAT files</x:String>
+  <x:String x:Key="StringDiscImageOptions">Disc Image Options</x:String>
+  <x:String x:Key="StringVgaPatch">VGA Patch</x:String>
+  <x:String x:Key="StringForceVga">Force VGA output</x:String>
+  <x:String x:Key="StringRegionFree">Region-Free</x:String>
+  <x:String x:Key="StringBootOutOfRegion">Boot out-of-region games</x:String>
+  <x:String x:Key="StringFileFolderLockCheck">File/Folder Lock Check</x:String>
+  <x:String x:Key="StringLockCheckDesc">When enabled, checks all files and folders before saving to ensure nothing is locked by another process (e.g., file browser, antivirus). Disable if experiencing slow save times on large SD cards.</x:String>
+  <x:String x:Key="StringCredits">Credits</x:String>
+  <x:String x:Key="StringCheckForUpdates">Check for Updates</x:String>
+
+  <!-- Info Window -->
+  <x:String x:Key="StringInfo">Info</x:String>
+  <x:String x:Key="StringIpBinInfo">IP.BIN Info</x:String>
+
+  <x:String x:Key="StringFolderColon">Folder:</x:String>
+  <x:String x:Key="StringFileColon">File:</x:String>
+  <x:String x:Key="StringTitleColon">Title:</x:String>
+  <x:String x:Key="StringVersionColon">Version:</x:String>
+  <x:String x:Key="StringDiscColon">Disc:</x:String>
+  <x:String x:Key="StringVgaColon">VGA:</x:String>
+  <x:String x:Key="StringSerialColon">Serial:</x:String>
+  <x:String x:Key="StringRegionColon">Region:</x:String>
+  <x:String x:Key="StringYes">Yes</x:String>
+  <x:String x:Key="StringNo">No</x:String>
+  <x:String x:Key="StringCompressedFile">Compressed file</x:String>
+  <x:String x:Key="StringCantLoadCompressed">Can't load from compressed files.</x:String>
+  <x:String x:Key="StringDetectedAsColon">Detected as:</x:String>
+  <x:String x:Key="StringCouldNotReadIpBin">Could not read IP.BIN</x:String>
+  <x:String x:Key="StringUnableToRead">Unable to find or read file</x:String>
+  <x:String x:Key="StringError">Error</x:String>
+
+  <!-- DAT Tools Window -->
+  <x:String x:Key="StringImportDatEntries">Import DAT Entries</x:String>
+  <x:String x:Key="StringImportMergeBold">Import entries to merge into the current DAT files</x:String>
+  <x:String x:Key="StringImportInstructions">Before this process is initiated, the DATs that currently reside in the "tools\openMenu\menu_data" will be backed up to the "dat_backups" folder.&#x0a;&#x0a;Use "Choose DAT Folder" to select a folder containing either BOX.DAT or META.DAT (or both), as ICON.DAT will be automatically generated from BOX.DAT.&#x0a;&#x0a;Decide if only entries missing from the current DATs should be imported, or if all entries should be imported, overwriting anything currently existing. Then, click "Begin Import" to perform this operation.&#x0a;&#x0a;Please note that any unsaved artwork changes from this session will also be included.</x:String>
+  <x:String x:Key="StringImportOnlyMissing">Import only missing entries</x:String>
+  <x:String x:Key="StringImportAllOverwrite">Import all entries (overwrite existing)</x:String>
+  <x:String x:Key="StringSourceColon">Source:</x:String>
+  <x:String x:Key="StringNoFolderSelected">[no folder selected]</x:String>
+  <x:String x:Key="StringChooseDatFolder">Choose DAT Folder</x:String>
+  <x:String x:Key="StringBeginImport">Begin Import</x:String>
+  <x:String x:Key="StringExportArtworkPngs">Export Artwork to PNGs</x:String>
+  <x:String x:Key="StringExportArtworkBold">Export all assigned artwork, including any in-flight updates from this session, to PNG image files</x:String>
+  <x:String x:Key="StringExportArtworkSyntax">Image files will use the following file name syntax: "Title [Serial].png"&#x0a;&#x0a;Select a target output folder, then click "Begin Export" to perform this operation.</x:String>
+  <x:String x:Key="StringTargetColon">Target:</x:String>
+  <x:String x:Key="StringChooseTargetFolder">Choose Target Folder</x:String>
+  <x:String x:Key="StringBeginExport">Begin Export</x:String>
+  <x:String x:Key="StringClearAllDatEntries">Clear All DAT Entries</x:String>
+  <x:String x:Key="StringClearArtworkMetadataBold">Clear all artwork and metadata from BOX.DAT, ICON.DAT, and META.DAT</x:String>
+  <x:String x:Key="StringClearInstructions">Doing so will discard any unsaved artwork changes from Games List, as well as remove all saved entries.&#x0a;&#x0a;Before this process is initiated, the DATs that currently reside in the "tools\openMenu\menu_data" will be backed up to the "dat_backups" folder.&#x0a;&#x0a;Click "Clear DATs" to perform this operation.</x:String>
+  <x:String x:Key="StringClearDats">Clear DATs</x:String>
+  <x:String x:Key="StringOverwriteDatsWithSd">Overwrite DATs With SD Card</x:String>
+  <x:String x:Key="StringOverwriteLocalDatsBold">Overwrite GD MENU Card Manager's local DAT files with those already on the openMenu SD card</x:String>
+  <x:String x:Key="StringOverwriteInstructions">The DAT files in the "tools\openMenu\menu_data" folder are used each time openMenu is rebuilt and saved to the GDEMU SD card.&#x0a;&#x0a;However, there are several scenarios where a user may wish to immediately overwrite those with the DAT files that were used to generate their SD card's openMenu. For example, a user upgrading from a previous version of openMenu Virtual Folder Bundle will likely already have custom artwork.&#x0a;&#x0a;While such users can easily copy the DAT files from their previous version of GD MENU Card Manager's "tools\openMenu\menu_data" folder into the current version's "menu_data" folder, the tool here can perform this automatically using the SD card itself as the source.</x:String>
+  <x:String x:Key="StringOverwriteDats">Overwrite DATs</x:String>
+
+  <!-- Disc Image Options Window -->
+  <x:String x:Key="StringApplyToNewlyAdded">Apply to newly added games</x:String>
+  <x:String x:Key="StringApplyToExisting">Apply to existing games</x:String>
+  <x:String x:Key="StringRegionFreePatch">Region-Free Patch</x:String>
+  <x:String x:Key="StringRegionFreePatchDesc">Boot out-of-region games after "Exit to BIOS" from openMenu</x:String>
+
+  <!-- DAT Tools Dialogs & Progress -->
+  <x:String x:Key="StringImportDatEntriesTitle">Importing DAT Entries</x:String>
+  <x:String x:Key="StringImporting">Importing...</x:String>
+  <x:String x:Key="StringImportFailed">Import Failed</x:String>
+  <x:String x:Key="StringImportCompleteTitle">Import Complete</x:String>
+  <x:String x:Key="StringImportSuccessMsg">Import completed successfully.</x:String>
+  <x:String x:Key="StringIconRegenerated">ICON.DAT was automatically regenerated using the updated contents of BOX.DAT.</x:String>
+  <x:String x:Key="StringBoxEntriesMerged">BOX.DAT entries merged: {0}</x:String>
+  <x:String x:Key="StringMetaEntriesMerged">META.DAT entries merged: {0}</x:String>
+  <x:String x:Key="StringConfirmImportTitle">Confirm Import</x:String>
+  <x:String x:Key="StringConfirmImportMsg">This will backup current DAT files and merge entries from the selected folder.&#x0a;&#x0a;Continue?</x:String>
+  <x:String x:Key="StringContinue">Continue</x:String>
+  <x:String x:Key="StringExportingArtworkTitle">Exporting Artwork</x:String>
+  <x:String x:Key="StringExporting">Exporting...</x:String>
+  <x:String x:Key="StringExportFailed">Export Failed</x:String>
+  <x:String x:Key="StringExportCompleteTitle">Export Complete</x:String>
+  <x:String x:Key="StringExportSuccessMsg">Exported {0} artwork file(s) to PNG.</x:String>
+  <x:String x:Key="StringConfirmClearTitle">Confirm Clear</x:String>
+  <x:String x:Key="StringConfirmClearMsg">This will backup current DAT files and then clear ALL artwork and metadata entries.&#x0a;&#x0a;This action cannot be undone. Continue?</x:String>
+  <x:String x:Key="StringClearAll">Clear All</x:String>
+  <x:String x:Key="StringClearingDatFilesTitle">Clearing DAT Files</x:String>
+  <x:String x:Key="StringClearing">Clearing...</x:String>
+  <x:String x:Key="StringClearFailed">Clear Failed</x:String>
+  <x:String x:Key="StringClearCompleteTitle">Clear Complete</x:String>
+  <x:String x:Key="StringClearSuccessMsg">All DAT entries have been cleared.</x:String>
+  <x:String x:Key="StringConfirmOverwriteTitle">Confirm Overwrite</x:String>
+  <x:String x:Key="StringConfirmOverwriteMsg">This will backup current DAT files and overwrite them with those from the SD card's openMenu disc image.&#x0a;&#x0a;Continue?</x:String>
+  <x:String x:Key="StringOverwritingDatFilesTitle">Overwriting DAT Files</x:String>
+  <x:String x:Key="StringExtractingDats">Extracting DATs from SD card...</x:String>
+  <x:String x:Key="StringOverwriteFailed">Overwrite Failed</x:String>
+  <x:String x:Key="StringOverwriteCompleteTitle">Overwrite Complete</x:String>
+  <x:String x:Key="StringOverwriteSuccessMsg">DAT files have been successfully overwritten with those from the SD card.</x:String>
+  <x:String x:Key="StringInvalidFolder">Invalid Folder</x:String>
+  <x:String x:Key="StringInvalidFolderMsg">Selected folder does not contain BOX.DAT or META.DAT.</x:String>
+  <x:String x:Key="StringSelectImportFolderTitle">Select DAT import folder</x:String>
+  <x:String x:Key="StringSelectExportFolderTitle">Select PNG export folder</x:String>
+
+  <!-- Batch Folder Rename Window -->
+  <x:String x:Key="StringBatchFolderRename">Batch Folder Move and Rename</x:String>
+  <x:String x:Key="StringFolderHierarchy">Folder Hierarchy</x:String>
+  <x:String x:Key="StringFolderHierarchyDesc">Double-click to rename folders. Drag folders to reparent them. Changes apply when you click Save.</x:String>
+  <x:String x:Key="StringUndoLastChange">Undo Last Change</x:String>
+
+  <!-- Copy Name Window (Batch Rename Titles) -->
+  <x:String x:Key="StringBatchRenameTitles">Batch Rename Titles</x:String>
+  <x:String x:Key="StringRenameAllGamesOn">Rename all games located on</x:String>
+  <x:String x:Key="StringSdCard">SD Card</x:String>
+  <x:String x:Key="StringOther">Other</x:String>
+  <x:String x:Key="StringCopyNameFrom">Copy name from</x:String>
+  <x:String x:Key="StringSpecialParsing">Special parsing</x:String>
+  <x:String x:Key="StringReadTosecNaming">Read TOSEC naming</x:String>
+  <x:String x:Key="StringDone">Done</x:String>
+  <x:String x:Key="StringItemsRenamed">{0} item(s) renamed</x:String>
+
+  <!-- Assign Folder Windows -->
+  <x:String x:Key="StringFolderPathColon">Folder Path:</x:String>
+  <x:String x:Key="StringWatermarkFolderPath">e.g., Games\Action\US</x:String>
+  <x:String x:Key="StringAddFolderPath">+ Add Folder Path</x:String>
+  <x:String x:Key="StringPathNumbered">Path {0}</x:String>
+
+  <!-- Locked Files Dialog -->
+  <x:String x:Key="StringFilesInUse">Files In Use</x:String>
+  <x:String x:Key="StringLockedFilesHeader">The following files or folders are currently in use and cannot be modified.</x:String>
+  <x:String x:Key="StringLockedFilesDesc">Please close any programs that may be using these files (e.g., file explorer, media players) and click Retry.</x:String>
+  <x:String x:Key="StringRetry">Retry</x:String>
+
+  <!-- Metadata Scan Dialog -->
+  <x:String x:Key="StringMetadataCacheRequired">Metadata Cache Required</x:String>
+  <x:String x:Key="StringMetadataScanMsg1">Your SD card contains games that were added by an older version of this application (or another tool). These games are missing cached metadata files that are required for proper operation.</x:String>
+  <x:String x:Key="StringMetadataScanMsg2">A one-time scan of all disc images will now be performed to:</x:String>
+  <x:String x:Key="StringMetadataScanBullet1">• Read game properties from each disc image</x:String>
+  <x:String x:Key="StringMetadataScanBullet2">• Cache metadata for faster loading in the future</x:String>
+  <x:String x:Key="StringMetadataScanBullet3">• Ensure serial IDs display correctly for artwork matching</x:String>
+  <x:String x:Key="StringMetadataScanFinal">This process cannot be skipped. Depending on the number of games and your drive speed, this may take a few minutes.</x:String>
+  <x:String x:Key="StringGamesRequiringScan">Games requiring scan: </x:String>
+  <x:String x:Key="StringQuit">Quit</x:String>
+  <x:String x:Key="StringStartScan">Start Scan</x:String>
+  <x:String x:Key="StringOk">OK</x:String>
+  <x:String x:Key="StringAssignFolderPathToCount">Assign folder path to {0} selected item(s)</x:String>
+  <x:String x:Key="StringAssignAltFoldersHeader">Assign additional folder paths for selected item</x:String>
+  <x:String x:Key="StringDuplicateFolderPath">Duplicate Folder Path</x:String>
+  <x:String x:Key="StringDuplicateFolderMsg">This folder path is already assigned to this disc image.</x:String>
+  <x:String x:Key="StringRoot">(Root)</x:String>
+  <x:String x:Key="StringInvalidNameRename">PLEASE RENAME</x:String>
+
+  <!-- Sort List Dialog -->
+  <x:String x:Key="StringSortListTitle">Sort List</x:String>
+  <x:String x:Key="StringSortDescriptionGDMenu">Your disc images will be automatically sorted in alphanumeric order based on Title.&#x0a;&#x0a;Do you want to continue?</x:String>
+  <x:String x:Key="StringSortDescriptionOpenMenu">Your disc images will be automatically sorted in alphanumeric order based on a combination of Folder and Title.&#x0a;&#x0a;Do you want to continue?</x:String>
+
+  <!-- Serial Translation Dialog -->
+  <x:String x:Key="StringSerialCompatibilityTitle">Serial Compatibility Settings</x:String>
+  <x:String x:Key="StringSerialAdjustedMsg">The following serial numbers were adjusted for openMenu compatibility.</x:String>
+  <x:String x:Key="StringSerialExplanation1">Please note that openMenu has always performed these serial translations automatically, regardless of user settings. As a result, artwork searches and IDs used for Virtual VMU devices expect the adjusted versions of these serial numbers.</x:String>
+  <x:String x:Key="StringSerialExplanation2">It is strongly recommended to allow these serial numbers to also be translated here in GD MENU Card Manager for compatibility with artwork searches and Virtual VMU devices.</x:String>
+  <x:String x:Key="StringSerialUncheckRevert">Uncheck any you wish to revert to the original serial.</x:String>
+
+  <!-- Update Dialogs -->
+  <x:String x:Key="StringManualUpdateRequired">Manual Update Required</x:String>
+  <x:String x:Key="StringUpgradeDownloadMsg">To upgrade, please download the release package from the GitHub repository:</x:String>
+  <x:String x:Key="StringSkipVersion">Skip This Version</x:String>
+  <x:String x:Key="StringUpdateAvailable">Update Available</x:String>
+  <x:String x:Key="StringNewVersionAvailable">A new version of GD MENU Card Manager ({0}) is available.</x:String>
+  <x:String x:Key="StringViewChangelog">View Changelog</x:String>
+  <x:String x:Key="StringUpdateWizardMsg">Would you like to update now? An update wizard will guide you through options to preserve your current files.</x:String>
+  <x:String x:Key="StringRemindMeLater">Remind Me Later</x:String>
+  <x:String x:Key="StringUpdateNow">Update Now</x:String>
+  <x:String x:Key="StringUpdateWizard">Update Wizard</x:String>
+  <x:String x:Key="StringChoosePreserve">Choose which of your current files to preserve during the update. Checked items will NOT be overwritten.</x:String>
+  <x:String x:Key="StringPreserveArtwork">Preserve custom artwork and metadata</x:String>
+  <x:String x:Key="StringPreserveThemes">Preserve openMenu themes</x:String>
+  <x:String x:Key="StringPreserveCheats">Preserve cheats</x:String>
+  <x:String x:Key="StringPreserveSettings">Preserve settings (new settings from update will still be added)</x:String>
+  <x:String x:Key="StringNext">Next</x:String>
+  <x:String x:Key="StringInstallNow">Install Now</x:String>
+  <x:String x:Key="StringCancel">Cancel</x:String>
+
+  <!-- Update Reasons -->
+  <x:String x:Key="StringUpdateNotSupportedPlatform">A new version of GD MENU Card Manager ({0}) is available. Automatic update is not supported on this platform.</x:String>
+  <x:String x:Key="StringUpdateNotSupportedRelease">A new version of GD MENU Card Manager ({0}) is available, but this release cannot be automatically updated.</x:String>
 </ResourceDictionary>

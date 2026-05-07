@@ -61,4 +61,233 @@
   <x:String x:Key="StringUndoTooltip">Deshacer último cambio</x:String>
   <x:String x:Key="StringRedo">Rehacer</x:String>
   <x:String x:Key="StringRedoTooltip">Rehacer último cambio</x:String>
+
+  <x:String x:Key="StringNoArtworkAssigned">Sin carátula asignada</x:String>
+  <x:String x:Key="StringArtworkWarning">Los cambios en carátulas no se guardan en los DAT hasta que hagas clic en Guardar cambios en la ventana principal.</x:String>
+  <x:String x:Key="StringBrowseForImage">Buscar imagen</x:String>
+  <x:String x:Key="StringDeleteEntry">Borrar entrada</x:String>
+  <x:String x:Key="StringSave">Guardar</x:String>
+
+  <!-- About Window -->
+  <x:String x:Key="StringAboutTitle">Acerca de</x:String>
+  <x:String x:Key="StringAboutDescription">Una herramienta para gestionar una tarjeta SD de GDEMU y sus contenidos</x:String>
+  <x:String x:Key="StringSupportedFormats">Formatos Soportados</x:String>
+  <x:String x:Key="StringImage">Imagen</x:String>
+  <x:String x:Key="StringCompressed">Comprimido</x:String>
+  <x:String x:Key="StringKeyboardShortcuts">Atajos de Teclado</x:String>
+  <x:String x:Key="StringDelete">Suprimir</x:String>
+  <x:String x:Key="StringRemoveItems">Eliminar elementos seleccionados</x:String>
+  <x:String x:Key="StringEscape">Esc</x:String>
+  <x:String x:Key="StringCloseWindow">Cerrar ventana</x:String>
+  <x:String x:Key="StringF2">F2</x:String>
+  <x:String x:Key="StringRenameSelected">Renombrar elemento seleccionado</x:String>
+  <x:String x:Key="StringUndoRedo">Deshacer/Rehacer</x:String>
+  <x:String x:Key="StringManagingGames">Gestionando Juegos</x:String>
+  <x:String x:Key="StringAdd">Añadir</x:String>
+  <x:String x:Key="StringDragDrop">[+] o arrastrar y soltar</x:String>
+  <x:String x:Key="StringRemove">Eliminar</x:String>
+  <x:String x:Key="StringRemoveKey">[-] o tecla Supr</x:String>
+  <x:String x:Key="StringReorder">Reordenar</x:String>
+  <x:String x:Key="StringUpDownButtons">Botones Arriba/Abajo</x:String>
+  <x:String x:Key="StringSort">Ordenar</x:String>
+  <x:String x:Key="StringSortListButton">Botón [Ordenar lista]</x:String>
+  <x:String x:Key="StringSingleBulkRenaming">Renombrado Individual o Masivo</x:String>
+  <x:String x:Key="StringManual">Manual</x:String>
+  <x:String x:Key="StringRenamingManualDesc">Doble clic, F2, o menú contextual</x:String>
+  <x:String x:Key="StringAuto">Auto</x:String>
+  <x:String x:Key="StringRenamingAutoDesc">Menú contextual → Renombrado automático</x:String>
+  <x:String x:Key="StringCase">Mayús/Minús</x:String>
+  <x:String x:Key="StringRenamingCaseDesc">Título / Mayúsculas / Minúsculas</x:String>
+  <x:String x:Key="StringFolderPathsOpenMenu">Rutas de Carpeta (modo openMenu)</x:String>
+  <x:String x:Key="StringFolderPathsDesc">Menú contextual → Asignar ruta de carpeta para organizar uno o más juegos en una carpeta. Asignar rutas de carpeta adicionales para colocar un solo juego en hasta cinco carpetas adicionales.</x:String>
+  <x:String x:Key="StringArtworkOpenMenu">Carátulas (modo openMenu)</x:String>
+  <x:String x:Key="StringArtworkDesc">Haz clic en el botón Asignar/Gestionar en la columna Carátula para configurar la carátula.</x:String>
+  <x:String x:Key="StringDatToolsOpenMenu">Herramientas DAT (modo openMenu)</x:String>
+  <x:String x:Key="StringImportDatEntriesDesc">Importar entradas DAT desde carpeta externa</x:String>
+  <x:String x:Key="StringExportArtwork">Exportar carátulas a archivos PNG</x:String>
+  <x:String x:Key="StringClearDatEntries">Limpiar todas las entradas DAT</x:String>
+  <x:String x:Key="StringOverwriteDatsDesc">Sobrescribir DATs con los archivos DAT de la tarjeta SD</x:String>
+  <x:String x:Key="StringDiscImageOptions">Opciones de Imagen de Disco</x:String>
+  <x:String x:Key="StringVgaPatch">Parche VGA</x:String>
+  <x:String x:Key="StringForceVga">Forzar salida VGA</x:String>
+  <x:String x:Key="StringRegionFree">Región Libre</x:String>
+  <x:String x:Key="StringBootOutOfRegion">Arrancar juegos de otras regiones</x:String>
+  <x:String x:Key="StringFileFolderLockCheck">Comprobación de Bloqueo de Archivos/Carpetas</x:String>
+  <x:String x:Key="StringLockCheckDesc">Cuando está activado, comprueba todos los archivos y carpetas antes de guardar para asegurar que nada esté bloqueado por otro proceso (ej. explorador de archivos, antivirus). Desactívalo si experimentas tiempos de guardado lentos en tarjetas SD grandes.</x:String>
+  <x:String x:Key="StringCredits">Créditos</x:String>
+  <x:String x:Key="StringCheckForUpdates">Buscar actualizaciones</x:String>
+
+  <!-- Info Window -->
+  <x:String x:Key="StringInfo">Información</x:String>
+  <x:String x:Key="StringIpBinInfo">Información IP.BIN</x:String>
+
+  <x:String x:Key="StringFolderColon">Carpeta:</x:String>
+  <x:String x:Key="StringFileColon">Archivo:</x:String>
+  <x:String x:Key="StringTitleColon">Título:</x:String>
+  <x:String x:Key="StringVersionColon">Versión:</x:String>
+  <x:String x:Key="StringDiscColon">Disco:</x:String>
+  <x:String x:Key="StringVgaColon">VGA:</x:String>
+  <x:String x:Key="StringSerialColon">Serie:</x:String>
+  <x:String x:Key="StringRegionColon">Región:</x:String>
+  <x:String x:Key="StringYes">Sí</x:String>
+  <x:String x:Key="StringNo">No</x:String>
+  <x:String x:Key="StringCompressedFile">Archivo comprimido</x:String>
+  <x:String x:Key="StringCantLoadCompressed">No se puede cargar desde archivos comprimidos.</x:String>
+  <x:String x:Key="StringDetectedAsColon">Detectado como:</x:String>
+  <x:String x:Key="StringCouldNotReadIpBin">No se pudo leer IP.BIN</x:String>
+  <x:String x:Key="StringUnableToRead">No se puede encontrar o leer el archivo</x:String>
+  <x:String x:Key="StringError">Error</x:String>
+
+  <!-- DAT Tools Window -->
+  <x:String x:Key="StringImportDatEntries">Importar entradas DAT</x:String>
+  <x:String x:Key="StringImportMergeBold">Importar entradas para combinar con los archivos DAT actuales</x:String>
+  <x:String x:Key="StringImportInstructions">Antes de iniciar este proceso, los archivos DAT que se encuentran actualmente en "tools\openMenu\menu_data" se copiarán a la carpeta "dat_backups".&#x0a;&#x0a;Usa "Seleccionar carpeta DAT" para elegir una carpeta que contenga BOX.DAT o META.DAT (o ambos), ya que ICON.DAT se generará automáticamente a partir de BOX.DAT.&#x0a;&#x0a;Decide si solo se deben importar las entradas que faltan en los DAT actuales, o si se deben importar todas las entradas, sobrescribiendo cualquier cosa existente. Luego, haz clic en "Iniciar importación" para realizar esta operación.&#x0a;&#x0a;Ten en cuenta que también se incluirán los cambios de carátulas no guardados de esta sesión.</x:String>
+  <x:String x:Key="StringImportOnlyMissing">Importar solo las entradas que falten</x:String>
+  <x:String x:Key="StringImportAllOverwrite">Importar todas las entradas (sobrescribir existentes)</x:String>
+  <x:String x:Key="StringSourceColon">Origen:</x:String>
+  <x:String x:Key="StringNoFolderSelected">[ninguna carpeta seleccionada]</x:String>
+  <x:String x:Key="StringChooseDatFolder">Seleccionar carpeta DAT</x:String>
+  <x:String x:Key="StringBeginImport">Iniciar importación</x:String>
+  <x:String x:Key="StringExportArtworkPngs">Exportar carátulas a PNG</x:String>
+  <x:String x:Key="StringExportArtworkBold">Exportar todas las carátulas asignadas, incluyendo actualizaciones de esta sesión, a archivos de imagen PNG</x:String>
+  <x:String x:Key="StringExportArtworkSyntax">Los archivos de imagen usarán la siguiente sintaxis: "Título [Serie].png"&#x0a;&#x0a;Selecciona una carpeta de destino y haz clic en "Iniciar exportación".</x:String>
+  <x:String x:Key="StringTargetColon">Destino:</x:String>
+  <x:String x:Key="StringChooseTargetFolder">Seleccionar carpeta de destino</x:String>
+  <x:String x:Key="StringBeginExport">Iniciar exportación</x:String>
+  <x:String x:Key="StringClearAllDatEntries">Limpiar todas las entradas DAT</x:String>
+  <x:String x:Key="StringClearArtworkMetadataBold">Limpiar todas las carátulas y metadatos de BOX.DAT, ICON.DAT y META.DAT</x:String>
+  <x:String x:Key="StringClearInstructions">Al hacerlo, se descartarán todos los cambios de carátula no guardados de la lista de juegos, y se eliminarán todas las entradas guardadas.&#x0a;&#x0a;Antes de iniciar este proceso, los DAT actuales en "tools\openMenu\menu_data" se copiarán a la carpeta "dat_backups".&#x0a;&#x0a;Haz clic en "Limpiar DATs" para realizar esta operación.</x:String>
+  <x:String x:Key="StringClearDats">Limpiar DATs</x:String>
+  <x:String x:Key="StringOverwriteDatsWithSd">Sobrescribir DATs con los de la SD</x:String>
+  <x:String x:Key="StringOverwriteLocalDatsBold">Sobrescribir los archivos DAT locales con los que ya están en la tarjeta SD de openMenu</x:String>
+  <x:String x:Key="StringOverwriteInstructions">Los archivos DAT en la carpeta "tools\openMenu\menu_data" se usan cada vez que se reconstruye openMenu y se guarda en la tarjeta SD.&#x0a;&#x0a;Sin embargo, hay escenarios donde un usuario puede querer sobrescribirlos inmediatamente con los archivos DAT que se usaron para generar el openMenu de su tarjeta SD. Por ejemplo, un usuario que actualiza desde una versión anterior probablemente ya tenga carátulas personalizadas.&#x0a;&#x0a;Aunque se pueden copiar manualmente, esta herramienta puede hacerlo automáticamente usando la propia tarjeta SD como origen.</x:String>
+  <x:String x:Key="StringOverwriteDats">Sobrescribir DATs</x:String>
+
+  <!-- Disc Image Options Window -->
+  <x:String x:Key="StringVgaPatchDesc">Forzar bandera VGA tras "Salir al BIOS" desde openMenu</x:String>
+  <x:String x:Key="StringApplyToNewlyAdded">Aplicar a juegos recién añadidos</x:String>
+  <x:String x:Key="StringApplyToExisting">Aplicar a juegos existentes</x:String>
+  <x:String x:Key="StringRegionFreePatch">Parche Región Libre</x:String>
+  <x:String x:Key="StringRegionFreePatchDesc">Arrancar juegos de otra región tras "Salir al BIOS" desde openMenu</x:String>
+  <x:String x:Key="StringCancel">Cancelar</x:String>
+
+  <!-- DAT Tools Dialogs & Progress -->
+  <x:String x:Key="StringImportDatEntriesTitle">Importando entradas DAT</x:String>
+  <x:String x:Key="StringImporting">Importando...</x:String>
+  <x:String x:Key="StringImportFailed">Fallo en la importación</x:String>
+  <x:String x:Key="StringImportCompleteTitle">Importación completada</x:String>
+  <x:String x:Key="StringImportSuccessMsg">La importación se ha completado con éxito.</x:String>
+  <x:String x:Key="StringIconRegenerated">ICON.DAT se ha regenerado automáticamente usando los contenidos actualizados de BOX.DAT.</x:String>
+  <x:String x:Key="StringBoxEntriesMerged">Entradas de BOX.DAT combinadas: {0}</x:String>
+  <x:String x:Key="StringMetaEntriesMerged">Entradas de META.DAT combinadas: {0}</x:String>
+  <x:String x:Key="StringConfirmImportTitle">Confirmar importación</x:String>
+  <x:String x:Key="StringConfirmImportMsg">Esto hará una copia de seguridad de los archivos DAT actuales y combinará las entradas de la carpeta seleccionada.&#x0a;&#x0a;¿Continuar?</x:String>
+  <x:String x:Key="StringContinue">Continuar</x:String>
+  <x:String x:Key="StringExportingArtworkTitle">Exportando carátulas</x:String>
+  <x:String x:Key="StringExporting">Exportando...</x:String>
+  <x:String x:Key="StringExportFailed">Fallo en la exportación</x:String>
+  <x:String x:Key="StringExportCompleteTitle">Exportación completada</x:String>
+  <x:String x:Key="StringExportSuccessMsg">Se han exportado {0} archivo(s) de carátula a PNG.</x:String>
+  <x:String x:Key="StringConfirmClearTitle">Confirmar limpieza</x:String>
+  <x:String x:Key="StringConfirmClearMsg">Esto hará una copia de seguridad de los archivos DAT actuales y luego borrará TODAS las carátulas y metadatos.&#x0a;&#x0a;Esta acción no se puede deshacer. ¿Continuar?</x:String>
+  <x:String x:Key="StringClearAll">Limpiar todo</x:String>
+  <x:String x:Key="StringClearingDatFilesTitle">Limpiando archivos DAT</x:String>
+  <x:String x:Key="StringClearing">Limpiando...</x:String>
+  <x:String x:Key="StringClearFailed">Fallo en la limpieza</x:String>
+  <x:String x:Key="StringClearCompleteTitle">Limpieza completada</x:String>
+  <x:String x:Key="StringClearSuccessMsg">Se han borrado todas las entradas DAT.</x:String>
+  <x:String x:Key="StringConfirmOverwriteTitle">Confirmar sobrescritura</x:String>
+  <x:String x:Key="StringConfirmOverwriteMsg">Esto hará una copia de seguridad de los archivos DAT actuales y los sobrescribirá con los de la imagen de disco openMenu de la tarjeta SD.&#x0a;&#x0a;¿Continuar?</x:String>
+  <x:String x:Key="StringOverwritingDatFilesTitle">Sobrescribiendo archivos DAT</x:String>
+  <x:String x:Key="StringExtractingDats">Extrayendo DATs de la tarjeta SD...</x:String>
+  <x:String x:Key="StringOverwriteFailed">Fallo en la sobrescritura</x:String>
+  <x:String x:Key="StringOverwriteCompleteTitle">Sobrescritura completada</x:String>
+  <x:String x:Key="StringOverwriteSuccessMsg">Los archivos DAT se han sobrescrito con éxito con los de la tarjeta SD.</x:String>
+  <x:String x:Key="StringInvalidFolder">Carpeta no válida</x:String>
+  <x:String x:Key="StringInvalidFolderMsg">La carpeta seleccionada no contiene BOX.DAT ni META.DAT.</x:String>
+  <x:String x:Key="StringSelectImportFolderTitle">Seleccionar carpeta de importación DAT</x:String>
+  <x:String x:Key="StringSelectExportFolderTitle">Seleccionar carpeta de exportación PNG</x:String>
+
+  <!-- Batch Folder Rename Window -->
+  <x:String x:Key="StringBatchFolderRename">Mover y renombrar carpetas en masa</x:String>
+  <x:String x:Key="StringFolderHierarchy">Jerarquía de carpetas</x:String>
+  <x:String x:Key="StringFolderHierarchyDesc">Doble clic para renombrar carpetas. Arrastra carpetas para cambiar su jerarquía. Los cambios se aplican al hacer clic en Guardar.</x:String>
+  <x:String x:Key="StringUndoLastChange">Deshacer último cambio</x:String>
+
+  <!-- Copy Name Window (Batch Rename Titles) -->
+  <x:String x:Key="StringBatchRenameTitles">Renombrado masivo de títulos</x:String>
+  <x:String x:Key="StringRenameAllGamesOn">Renombrar todos los juegos ubicados en</x:String>
+  <x:String x:Key="StringSdCard">Tarjeta SD</x:String>
+  <x:String x:Key="StringOther">Otro</x:String>
+  <x:String x:Key="StringCopyNameFrom">Copiar nombre de</x:String>
+  <x:String x:Key="StringSpecialParsing">Parseo especial</x:String>
+  <x:String x:Key="StringReadTosecNaming">Leer nomenclatura TOSEC</x:String>
+  <x:String x:Key="StringDone">Hecho</x:String>
+  <x:String x:Key="StringItemsRenamed">{0} elemento(s) renombrado(s)</x:String>
+
+  <!-- Assign Folder Windows -->
+  <x:String x:Key="StringFolderPathColon">Ruta de carpeta:</x:String>
+  <x:String x:Key="StringWatermarkFolderPath">ej., Juegos\Accion\ES</x:String>
+  <x:String x:Key="StringAddFolderPath">+ Añadir ruta de carpeta</x:String>
+  <x:String x:Key="StringPathNumbered">Ruta {0}</x:String>
+
+  <!-- Locked Files Dialog -->
+  <x:String x:Key="StringFilesInUse">Archivos en uso</x:String>
+  <x:String x:Key="StringLockedFilesHeader">Los siguientes archivos o carpetas están actualmente en uso y no se pueden modificar.</x:String>
+  <x:String x:Key="StringLockedFilesDesc">Por favor, cierra cualquier programa que pueda estar usando estos archivos (ej. explorador de archivos, reproductores) y haz clic en Reintentar.</x:String>
+  <x:String x:Key="StringRetry">Reintentar</x:String>
+
+  <!-- Metadata Scan Dialog -->
+  <x:String x:Key="StringMetadataCacheRequired">Caché de metadatos necesaria</x:String>
+  <x:String x:Key="StringMetadataScanMsg1">Tu tarjeta SD contiene juegos que fueron añadidos por una versión antigua de esta aplicación (o por otra herramienta). Estos juegos no tienen archivos de metadatos en caché, los cuales son necesarios para el funcionamiento correcto.</x:String>
+  <x:String x:Key="StringMetadataScanMsg2">Se realizará un escaneo de una sola vez de todas las imágenes de disco para:</x:String>
+  <x:String x:Key="StringMetadataScanBullet1">• Leer las propiedades del juego de cada imagen de disco</x:String>
+  <x:String x:Key="StringMetadataScanBullet2">• Almacenar metadatos en caché para una carga más rápida en el futuro</x:String>
+  <x:String x:Key="StringMetadataScanBullet3">• Asegurar que los IDs de serie se muestren correctamente para las carátulas</x:String>
+  <x:String x:Key="StringMetadataScanFinal">Este proceso no se puede omitir. Dependiendo del número de juegos y la velocidad de tu unidad, esto puede tardar unos minutos.</x:String>
+  <x:String x:Key="StringGamesRequiringScan">Juegos que requieren escaneo: </x:String>
+  <x:String x:Key="StringQuit">Salir</x:String>
+  <x:String x:Key="StringStartScan">Iniciar escaneo</x:String>
+  <x:String x:Key="StringOk">Aceptar</x:String>
+  <x:String x:Key="StringAssignFolderPathToCount">Asignar ruta de carpeta a {0} elemento(s) seleccionado(s)</x:String>
+  <x:String x:Key="StringAssignAltFoldersHeader">Asignar rutas de carpeta adicionales para el elemento seleccionado</x:String>
+  <x:String x:Key="StringDuplicateFolderPath">Ruta de carpeta duplicada</x:String>
+  <x:String x:Key="StringDuplicateFolderMsg">Esta ruta de carpeta ya está asignada a esta imagen de disco.</x:String>
+  <x:String x:Key="StringRoot">(Raíz)</x:String>
+  <x:String x:Key="StringInvalidNameRename">NOMBRE NO VÁLIDO</x:String>
+
+  <!-- Sort List Dialog -->
+  <x:String x:Key="StringSortListTitle">Ordenar lista</x:String>
+  <x:String x:Key="StringSortDescriptionGDMenu">Las imágenes de disco se ordenarán automáticamente en orden alfanumérico basado en el Título.&#x0a;&#x0a;¿Quieres continuar?</x:String>
+  <x:String x:Key="StringSortDescriptionOpenMenu">Las imágenes de disco se ordenarán automáticamente en orden alfanumérico basado en una combinación de Carpeta y Título.&#x0a;&#x0a;¿Quieres continuar?</x:String>
+
+  <!-- Serial Translation Dialog -->
+  <x:String x:Key="StringSerialCompatibilityTitle">Ajustes de compatibilidad de serie</x:String>
+  <x:String x:Key="StringSerialAdjustedMsg">Los siguientes números de serie fueron ajustados para la compatibilidad con openMenu.</x:String>
+  <x:String x:Key="StringSerialExplanation1">Ten en cuenta que openMenu siempre ha realizado estas traducciones de serie automáticamente, independientemente de los ajustes del usuario. Como resultado, las búsquedas de carátulas y los IDs usados para los dispositivos VMU virtuales esperan las versiones ajustadas de estos números de serie.</x:String>
+  <x:String x:Key="StringSerialExplanation2">Se recomienda encarecidamente permitir que estos números de serie también se traduzcan aquí en GD MENU Card Manager para la compatibilidad con las búsquedas de carátulas y los dispositivos VMU virtuales.</x:String>
+  <x:String x:Key="StringSerialUncheckRevert">Desmarca cualquiera que quieras revertir al número de serie original.</x:String>
+
+  <!-- Update Dialogs -->
+  <x:String x:Key="StringManualUpdateRequired">Actualización manual requerida</x:String>
+  <x:String x:Key="StringUpgradeDownloadMsg">Para actualizar, descarga el paquete de la versión desde el repositorio de GitHub:</x:String>
+  <x:String x:Key="StringSkipVersion">Omitir esta versión</x:String>
+  <x:String x:Key="StringUpdateAvailable">Actualización disponible</x:String>
+  <x:String x:Key="StringNewVersionAvailable">Una nueva versión de GD MENU Card Manager ({0}) está disponible.</x:String>
+  <x:String x:Key="StringViewChangelog">Ver historial de cambios</x:String>
+  <x:String x:Key="StringUpdateWizardMsg">¿Te gustaría actualizar ahora? Un asistente de actualización te guiará por las opciones para conservar tus archivos actuales.</x:String>
+  <x:String x:Key="StringRemindMeLater">Recordármelo más tarde</x:String>
+  <x:String x:Key="StringUpdateNow">Actualizar ahora</x:String>
+  <x:String x:Key="StringUpdateWizard">Asistente de actualización</x:String>
+  <x:String x:Key="StringChoosePreserve">Elige cuáles de tus archivos actuales quieres conservar durante la actualización. Los elementos marcados NO se sobrescribirán.</x:String>
+  <x:String x:Key="StringPreserveArtwork">Conservar carátulas y metadatos personalizados</x:String>
+  <x:String x:Key="StringPreserveThemes">Conservar temas de openMenu</x:String>
+  <x:String x:Key="StringPreserveCheats">Conservar trucos</x:String>
+  <x:String x:Key="StringPreserveSettings">Conservar ajustes (los nuevos ajustes de la actualización se añadirán igualmente)</x:String>
+  <x:String x:Key="StringNext">Siguiente</x:String>
+  <x:String x:Key="StringInstallNow">Instalar ahora</x:String>
+
+  <!-- Update Reasons -->
+  <x:String x:Key="StringUpdateNotSupportedPlatform">Una nueva versión de GD MENU Card Manager ({0}) está disponible. La actualización automática no es compatible con esta plataforma.</x:String>
+  <x:String x:Key="StringUpdateNotSupportedRelease">Una nueva versión de GD MENU Card Manager ({0}) está disponible, pero esta versión no se puede actualizar automáticamente.</x:String>
 </ResourceDictionary>

@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="680" d:DesignHeight="400"
         x:Class="GDMENUCardManager.AboutWindow"
-        Title="About" SizeToContent="Height" Width="680" CanResize="False"
+        Title="{DynamicResource StringAboutTitle}" SizeToContent="Height" Width="680" CanResize="False"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <Viewbox x:Key="ViewOpenInNew" Width="12" Height="12">
@@ -17,7 +17,7 @@
         <StackPanel>
             <!-- Header -->
             <TextBlock FontWeight="Bold" FontSize="16">GD MENU Card Manager - by Sonik (scorpio21 version)</TextBlock>
-            <TextBlock Margin="0,2,0,0">A tool to manage a GDEMU SD card and its contents</TextBlock>
+            <TextBlock Margin="0,2,0,0" Text="{DynamicResource StringAboutDescription}" />
             <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
                 <TextBlock>https://github.com/DerekPascarella/openMenu-Virtual-Folder-Bundle</TextBlock>
                 <Button Margin="5,0,0,0" ToolTip.Tip="Open Link" Padding="2" Background="Transparent" BorderBrush="Transparent" Click="ButtonLink_Click">
@@ -41,7 +41,7 @@
                 <!-- Left Column -->
                 <StackPanel Grid.Column="0">
                     <!-- Supported Formats -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">Supported Formats</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringSupportedFormats}" />
                     <Grid Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
@@ -51,16 +51,16 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold">Image</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringImage}" />
                         <TextBlock Grid.Row="0" Grid.Column="1">GDI, CDI, CCD, MDS, CUE/BIN</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold">Compressed</TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringCompressed}" />
                         <TextBlock Grid.Row="1" Grid.Column="1">7Z, CHD, RAR, ZIP</TextBlock>
                     </Grid>
 
                     <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
                     <!-- Keyboard Shortcuts -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">Keyboard Shortcuts</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringKeyboardShortcuts}" />
                     <Grid Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
@@ -72,20 +72,20 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold">Delete</TextBlock>
-                        <TextBlock Grid.Row="0" Grid.Column="1">Remove selected item(s)</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold">Escape</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="1">Close window</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="SemiBold">F2</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="1">Rename selected item</TextBlock>
-                        <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="SemiBold">Ctrl+Z/Y</TextBlock>
-                        <TextBlock Grid.Row="3" Grid.Column="1">Undo/Redo</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringDelete}" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{DynamicResource StringRemoveItems}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringEscape}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{DynamicResource StringCloseWindow}" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringF2}" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{DynamicResource StringRenameSelected}" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringUndoRedo}" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{DynamicResource StringUndoRedo}" />
                     </Grid>
 
                     <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
                     <!-- Managing Games -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">Managing Games</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringManagingGames}" />
                     <Grid Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
@@ -97,20 +97,20 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold">Add</TextBlock>
-                        <TextBlock Grid.Row="0" Grid.Column="1">[+] or drag and drop</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold">Remove</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="1">[-] or Delete key</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="SemiBold">Reorder</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="1">Up/Down buttons</TextBlock>
-                        <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="SemiBold">Sort</TextBlock>
-                        <TextBlock Grid.Row="3" Grid.Column="1">[Sort List] button</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringAdd}" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{DynamicResource StringDragDrop}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringRemove}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{DynamicResource StringRemoveKey}" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringReorder}" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{DynamicResource StringUpDownButtons}" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringSort}" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{DynamicResource StringSortListButton}" />
                     </Grid>
 
                     <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
                     <!-- Renaming -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">Single or Bulk Renaming</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringSingleBulkRenaming}" />
                     <Grid Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
@@ -121,12 +121,12 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold">Manual</TextBlock>
-                        <TextBlock Grid.Row="0" Grid.Column="1">Double-click, F2, or context menu</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold">Auto</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="1">Context menu → Auto Rename</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="SemiBold">Case</TextBlock>
-                        <TextBlock Grid.Row="2" Grid.Column="1">Title / Upper / Lower case</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringManual}" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{DynamicResource StringRenamingManualDesc}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringAuto}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{DynamicResource StringRenamingAutoDesc}" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringCase}" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{DynamicResource StringRenamingCaseDesc}" />
                     </Grid>
 
                 </StackPanel>
@@ -134,28 +134,28 @@
                 <!-- Right Column -->
                 <StackPanel Grid.Column="2">
                     <!-- Folder Paths -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">Folder Paths (openMenu mode)</TextBlock>
-                    <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">Context menu → Assign Folder Path to organize one or more games into a folder. Assign Additional Folder Paths to place a single game in up to five additional folders.</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringFolderPathsOpenMenu}" />
+                    <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Text="{DynamicResource StringFolderPathsDesc}" />
 
                     <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
                     <!-- Artwork -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">Artwork (openMenu mode)</TextBlock>
-                    <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">Click Assign/Manage button in the Art column to set box art.</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringArtworkOpenMenu}" />
+                    <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Text="{DynamicResource StringArtworkDesc}" />
 
                     <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
                     <!-- DAT Tools -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">DAT Tools (openMenu mode)</TextBlock>
-                    <TextBlock Margin="0,4,0,0">Import DAT Entries from external folder</TextBlock>
-                    <TextBlock>Export Artwork to PNG files</TextBlock>
-                    <TextBlock>Clear All DAT Entries</TextBlock>
-                    <TextBlock>Overwrite DATs with SD card's DAT files</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringDatToolsOpenMenu}" />
+                    <TextBlock Margin="0,4,0,0" Text="{DynamicResource StringImportDatEntriesDesc}" />
+                    <TextBlock Text="{DynamicResource StringExportArtwork}" />
+                    <TextBlock Text="{DynamicResource StringClearDatEntries}" />
+                    <TextBlock Text="{DynamicResource StringOverwriteDatsDesc}" />
 
                     <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
                     <!-- Disc Image Options -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">Disc Image Options</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringDiscImageOptions}" />
                     <Grid Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="110"/>
@@ -165,30 +165,32 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold">VGA Patch</TextBlock>
-                        <TextBlock Grid.Row="0" Grid.Column="1">Force VGA output</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold">Region-Free</TextBlock>
-                        <TextBlock Grid.Row="1" Grid.Column="1">Boot out-of-region games</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringVgaPatch}" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{DynamicResource StringForceVga}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" Text="{DynamicResource StringRegionFree}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{DynamicResource StringBootOutOfRegion}" />
                     </Grid>
 
                     <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
                     <!-- File/Folder Lock Check -->
-                    <TextBlock FontWeight="Bold" TextWrapping="Wrap">File/Folder Lock Check</TextBlock>
-                    <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">When enabled, checks all files and folders before saving to ensure nothing is locked by another process (e.g., file browser, antivirus). Disable if experiencing slow save times on large SD cards.</TextBlock>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringFileFolderLockCheck}" />
+                    <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Text="{DynamicResource StringLockCheckDesc}" />
                 </StackPanel>
             </Grid>
 
             <Rectangle Fill="Gray" Height="1" Margin="0,12"/>
 
             <!-- Credits -->
-            <TextBlock FontWeight="Bold" TextWrapping="Wrap">Credits</TextBlock>
+            <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{DynamicResource StringCredits}" />
             <TextBlock Margin="0,4,0,0" TextWrapping="Wrap">GDEMU - Deunan; gdMenu - neuroacid; openMenu - mrneo240; Virtual Folders - Derek Pascarella; GdiBuilder - Paul Kratt; Aaru - Natalia Portillo; PuyoTools - Nick Woronekin; Redump2CDI - darc; gdidrop - feyris-tan; libchdr - Romain Tisserand; ImageSharp - SixLabors; ClosedXML - Jan Havlíček; SharpCompress - Adam Hathcock</TextBlock>
         </StackPanel>
 
         <!-- Check for Updates button (top-right, rendered after StackPanel so it's on top for clicks) -->
-        <Button Content="Check for Updates" Click="CheckForUpdatesButton_Click"
+        <Button Click="CheckForUpdatesButton_Click"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
-                Height="28" Padding="12 0"/>
+                Height="28" Padding="12 0">
+            <TextBlock Text="{DynamicResource StringCheckForUpdates}" />
+        </Button>
     </Grid>
 </Window>

@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -18,6 +19,13 @@ namespace GDMENUCardManager
             InitializeComponent();
         }
 
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
         public ManualUpdateDialog(string latestTag, string latestVersion, ManualUpdateReason reason)
         {
             InitializeComponent();
@@ -25,9 +33,9 @@ namespace GDMENUCardManager
 
             var reasonText = this.FindControl<TextBlock>("ReasonText");
             if (reason == ManualUpdateReason.UnsupportedPlatform)
-                reasonText.Text = $"A new version of GD MENU Card Manager ({latestVersion}) is available. Auto-update is not supported on this platform.";
+                reasonText.Text = string.Format(GetString("StringUpdateNotSupportedPlatform"), latestVersion);
             else
-                reasonText.Text = $"A new version of GD MENU Card Manager ({latestVersion}) is available, but this release cannot be auto-updated.";
+                reasonText.Text = string.Format(GetString("StringUpdateNotSupportedRelease"), latestVersion);
 
             this.KeyDown += (s, e) =>
             {

@@ -39,6 +39,13 @@ namespace GDMENUCardManager
             public abstract void Undo();
         }
 
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
         private class MoveOperation : UndoOperation
         {
             public FolderTreeNode Node { get; set; }
@@ -160,7 +167,7 @@ namespace GDMENUCardManager
 
             var rootNode = new FolderTreeNode
             {
-                Name = "(Root)",
+                Name = GetString("StringRoot"),
                 IsRootNode = true,
                 IsExpanded = true,
                 FullPath = "",
@@ -240,7 +247,7 @@ namespace GDMENUCardManager
             {
                 // In Avalonia we don't have MessageBox.Show directly, but we can use our helper if available
                 // For now just revert or set to a safe name
-                node.Name = "PLEASE RENAME";
+                node.Name = GetString("StringInvalidNameRename");
                 _editingOriginalName = null;
                 return;
             }
