@@ -226,7 +226,8 @@
           </Button>
         </DockPanel>
         
-        <DataGrid Name="dg1" Items="{Binding Manager.ItemList, Mode=OneTime}" IsEnabled="{Binding Path=!IsBusy, Mode=OneWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" KeyDown="GridOnKeyDown" BeginningEdit="DataGrid_BeginningEdit" CellEditEnding="DataGrid_CellEditEnding" SelectionChanged="DataGrid_SelectionChanged" RowBackground="{DynamicResource ThemeBackgroundBrush}" AlternatingRowBackground="{DynamicResource ThemeBackgroundBrush}" GridLinesVisibility="All" BorderBrush="Black" BorderThickness="1" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray">
+        <DataGrid Name="dg1" Items="{Binding Manager.ItemList, Mode=OneTime}" IsEnabled="{Binding Path=!IsBusy, Mode=OneWay}" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" KeyDown="GridOnKeyDown" BeginningEdit="DataGrid_BeginningEdit" CellEditEnding="DataGrid_CellEditEnding" SelectionChanged="DataGrid_SelectionChanged" RowBackground="{DynamicResource ThemeBackgroundBrush}" AlternatingRowBackground="{DynamicResource ThemeBackgroundBrush}" GridLinesVisibility="All" BorderBrush="Black" BorderThickness="1" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray"
+                  DragDrop.AllowDrop="True">
           <DataGrid.Styles>
             <Style Selector="DataGridRow">
               <Setter Property="ContextMenu" Value="{DynamicResource rowmenu}"/>

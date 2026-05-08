@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -318,24 +319,37 @@ namespace GDMENUCardManager
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            this.AddHandler(DragDrop.DropEvent, WindowDrop);
             dg1 = this.FindControl<DataGrid>("dg1");
             ButtonSort = this.FindControl<Button>("ButtonSort");
 
-            // Add tunneling handler to intercept right-clicks before context menu opens
+            // Drag and Drop handlers
+            dg1.AddHandler(DragDrop.DragOverEvent, DataGrid_DragOver);
+            dg1.AddHandler(DragDrop.DropEvent, DataGrid_Drop);
+
+            // Add tunneling handler to intercept pointer events for context menu and dragging
             dg1.AddHandler(Avalonia.Input.InputElement.PointerPressedEvent, DataGrid_PointerPressed, Avalonia.Interactivity.RoutingStrategies.Tunnel);
             dg1.AddHandler(Avalonia.Input.InputElement.PointerReleasedEvent, DataGrid_PointerReleased, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+            dg1.AddHandler(Avalonia.Input.InputElement.PointerMovedEvent, DataGrid_PointerMoved, Avalonia.Interactivity.RoutingStrategies.Tunnel);
         }
 
         // Track if we should block context menu for current right-click
         private bool _blockContextMenu = false;
+        private Point? _dragStartPos;
 
         private void DataGrid_PointerPressed(object sender, Avalonia.Input.PointerPressedEventArgs e)
         {
             _blockContextMenu = false;
+            _dragStartPos = null;
 
-            // Only handle right-clicks
-            if (!e.GetCurrentPoint(dg1).Properties.IsRightButtonPressed)
+            var pointerProperties = e.GetCurrentPoint(dg1).Properties;
+
+            if (pointerProperties.IsLeftButtonPressed)
+            {
+                _dragStartPos = e.GetPosition(this);
+            }
+
+            // Only handle right-clicks for context menu
+            if (!pointerProperties.IsRightButtonPressed)
                 return;
 
             // Find the DataGridRow under the pointer
@@ -1396,56 +1410,96 @@ namespace GDMENUCardManager
             catch { }
         }
 
-        private async void WindowDrop(object sender, DragEventArgs e)
+        private void DataGrid_DragOver(object sender, DragEventArgs e)
         {
-            if (IsFilterActive)
+            if (IsFilterActive || IsBusy || Manager.sdPath == null)
+            {
+                e.DragEffects = DragDropEffects.None;
                 return;
-            if (Manager.sdPath == null)
-                return;
+            }
 
             if (e.Data.Contains(DataFormats.FileNames))
             {
-                IsBusy = true;
-                var invalid = new List<string>();
-                var addedItems = new List<(GdItem Item, int Index)>();
+                e.DragEffects = DragDropEffects.Copy;
+            }
+            else if (e.Data.Contains("GDMENU_GdItems"))
+            {
+                e.DragEffects = DragDropEffects.Move;
+            }
+            else
+            {
+                e.DragEffects = DragDropEffects.None;
+            }
+        }
 
-                try
+        private async void DataGrid_Drop(object sender, DragEventArgs e)
+        {
+            if (IsFilterActive || IsBusy || Manager.sdPath == null)
+                return;
+
+            IsBusy = true;
+            try
+            {
+                var dropResult = await DragDropHandler.ExecuteDrop(dg1, e, Manager, this, GetString);
+                if (dropResult == null) return;
+
+                if (dropResult.IsAdd && (dropResult.AddedItems.Any() || dropResult.RemovedItems.Any()))
                 {
-                    foreach (var o in e.Data.GetFileNames())
+                    // Record undo for additions and replacements
+                    if (dropResult.RemovedItems.Any())
                     {
-                        try
-                        {
-                            var gdItem = await ImageHelper.CreateGdItemAsync(o);
-                            int index = Manager.ItemList.Count;
-                            Manager.ItemList.Add(gdItem);
-                            addedItems.Add((gdItem, index));
-                        }
-                        catch (Exception ex)
-                        {
-                            invalid.Add($"{o} - {ex.Message}");
-                        }
+                        var removeOp = new MultiItemRemoveOperation { ItemList = Manager.ItemList };
+                        foreach (var item in dropResult.RemovedItems)
+                            removeOp.Items.Add(item);
+                        Manager.UndoManager.RecordChange(removeOp);
                     }
 
-                    // Record undo operation if any items were added
-                    if (addedItems.Count > 0)
+                    if (dropResult.AddedItems.Any())
                     {
-                        var undoOp = new MultiItemAddOperation { ItemList = Manager.ItemList };
-                        undoOp.Items.AddRange(addedItems);
-                        Manager.UndoManager.RecordChange(undoOp);
-
-                        // Show serial translation dialog if any items were translated
-                        await ShowSerialTranslationDialogIfNeeded();
+                        var addOp = new MultiItemAddOperation { ItemList = Manager.ItemList };
+                        foreach (var item in dropResult.AddedItems)
+                            addOp.Items.Add(item);
+                        Manager.UndoManager.RecordChange(addOp);
                     }
 
-                    if (invalid.Any())
-                        await MessageBoxManager.GetMessageBoxStandardWindow("Ignored folders/files", string.Join(Environment.NewLine, invalid), icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
+                    await ShowSerialTranslationDialogIfNeeded();
                 }
-                catch (Exception)
+                else if (dropResult.IsReorder && dropResult.OldOrder != null && dropResult.NewOrder != null)
                 {
+                    Manager.UndoManager.RecordChange(new ListReorderOperation("Manual Reorder")
+                    {
+                        ItemList = Manager.ItemList,
+                        OldOrder = dropResult.OldOrder,
+                        NewOrder = dropResult.NewOrder
+                    });
                 }
-                finally
+            }
+            catch (Exception ex)
+            {
+                await MessageBoxManager.GetMessageBoxStandardWindow("Error", ex.Message, icon: MessageBox.Avalonia.Enums.Icon.Error).ShowDialog(this);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async void DataGrid_PointerMoved(object sender, PointerEventArgs e)
+        {
+            if (_dragStartPos != null && !IsBusy && !IsFilterActive)
+            {
+                var currentPos = e.GetPosition(this);
+                var delta = _dragStartPos.Value - currentPos;
+                if (Math.Abs(delta.X) > 5 || Math.Abs(delta.Y) > 5)
                 {
-                    IsBusy = false;
+                    _dragStartPos = null;
+                    var selectedItems = dg1.SelectedItems.Cast<GdItem>().ToList();
+                    if (selectedItems.Any() && !selectedItems.Any(x => x.IsMenuItem))
+                    {
+                        var data = new DataObject();
+                        data.Set("GDMENU_GdItems", selectedItems);
+                        await DragDrop.DoDragDrop(e, data, DragDropEffects.Move);
+                    }
                 }
             }
         }

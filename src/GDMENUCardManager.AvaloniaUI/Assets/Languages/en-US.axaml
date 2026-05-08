@@ -289,4 +289,6 @@
   <!-- Update Reasons -->
   <x:String x:Key="StringUpdateNotSupportedPlatform">A new version of GD MENU Card Manager ({0}) is available. Automatic update is not supported on this platform.</x:String>
   <x:String x:Key="StringUpdateNotSupportedRelease">A new version of GD MENU Card Manager ({0}) is available, but this release cannot be automatically updated.</x:String>
+  <x:String x:Key="StringReplaceGameTitle">Duplicate Game Detected</x:String>
+  <x:String x:Key="StringReplaceGameMessage">The game "{0}" ({1}) already exists in the list.&#x0a;&#x0a;Do you want to replace it?</x:String>
 </ResourceDictionary>
