@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MessageBox.Avalonia;
 
-namespace GDMENUCardManager.AvaloniaUI
+namespace GDMENUCardManager
 {
     internal class DropResult
     {
@@ -61,7 +61,7 @@ namespace GDMENUCardManager.AvaloniaUI
             while (v != null)
             {
                 if (v is T t) return t;
-                v = v.GetVisualParent();
+                v = v.GetVisualParent() as Avalonia.Visual;
             }
             return null;
         }
