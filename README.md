@@ -17,6 +17,7 @@ This program will save the files the proper way so you console will boot super f
 * **Improved GDI Shrinking**: Now supports shrinking games inside compressed archives (.7z/.rar/etc.) and GD-ROM CUE/BIN images.
 * **Undo/Redo System**: Undo or redo any changes made to the list or metadata.
 * **Advanced Search & Filter**: Quickly find titles or serials, or filter the entire list.
+* **SD Card Health Check**: Built-in diagnostics to check for fake cards, benchmark speeds, and verify integrity.
 * Add/delete/rename items
 * Sort alphabetically or manually by drag and drop
 * **Region & VGA Patching**: Apply patches directly to disc images.
@@ -46,8 +47,6 @@ Grab the DAT files from mrneo240's repos: [imagedb](https://github.com/mrneo240/
 
 ### Limitations
 On Linux version it's not possible to use drag-and-drop.
-
-**If you can't run it on OSX please check issue #4 for a workaround**
 
 ### Building
 - Linux x64 via CLI
