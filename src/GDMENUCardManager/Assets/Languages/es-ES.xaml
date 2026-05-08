@@ -47,7 +47,7 @@
   <sys:String x:Key="StringBrowseSdToolTip">Buscar carpeta personalizada de tarjeta SD</sys:String>
   <sys:String x:Key="StringResetTempTooltip">Restablecer a valores predeterminados del sistema</sys:String>
   <sys:String x:Key="StringMenuType">Tipo de menú</sys:String>
-  <sys:String x:Key="StringSearchFilter">Buscar/Filtrar</sys:String>
+  <sys:String x:Key="StringSearchFilter">Buscar</sys:String>
   <sys:String x:Key="StringSearchTooltip">Buscar por título o serie (navegar al siguiente resultado)</sys:String>
   <sys:String x:Key="StringSearchToolTip">Buscar por título o serie (ir al siguiente resultado)</sys:String>
   <sys:String x:Key="StringFilterTooltip">Filtrar por título o serie</sys:String>

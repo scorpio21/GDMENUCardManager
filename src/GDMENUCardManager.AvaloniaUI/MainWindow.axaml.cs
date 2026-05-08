@@ -1738,6 +1738,12 @@ namespace GDMENUCardManager
             await window.ShowDialog(this);
         }
 
+        private async void ButtonSdHealth_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new SdHealthWindow(Manager.sdPath);
+            await window.ShowDialog(this);
+        }
+
         private async void ButtonDatTools_Click(object sender, RoutedEventArgs e)
         {
             var window = new DatToolsWindow(Manager, async () => await LoadItemsFromCard());

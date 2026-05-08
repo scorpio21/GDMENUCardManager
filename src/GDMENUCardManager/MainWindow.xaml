@@ -8,7 +8,7 @@
         xmlns:core="clr-namespace:GDMENUCardManager.Core;assembly=GDMENUCardManager.Core"
         xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
-        Title="GD MENU Card Manager" Height="800" Width="960" MinHeight="400" MinWidth="960"
+        Title="GD MENU Card Manager" Height="800" Width="1100" MinHeight="400" MinWidth="1100"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -179,27 +179,6 @@
             </GroupBox.Header>
             <DockPanel>
                 <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
-                    <Grid DockPanel.Dock="Left" HorizontalAlignment="Left">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label VerticalAlignment="Center" Content="{DynamicResource StringSearchFilter}"/>
-                        <TextBox Grid.Column="1" x:Name="tbFilter" Width="200" Margin="10 0 0 0" MaxLength="256" VerticalContentAlignment="Center" Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Width="30" ToolTip="{DynamicResource StringSearchToolTip}" IsDefault="{Binding Path=IsFocused, ElementName=tbFilter, Mode=OneWay}" Click="ButtonSearch_Click">
-                            <ContentControl Content="{StaticResource ViewMagnify}" />
-                        </Button>
-                        <Button Grid.Column="3" Width="30" ToolTip="{DynamicResource StringFilterToolTip}" Click="ButtonFilter_Click">
-                            <ContentControl Content="{StaticResource ViewFilter}" />
-                        </Button>
-                        <Button Grid.Column="4" Width="30" ToolTip="{DynamicResource StringClearFilterToolTip}" Click="ButtonFilterReset_Click"
-                                IsEnabled="{Binding IsFilterActive, Mode=OneWay}">
-                            <ContentControl Content="{StaticResource ViewRefresh}" />
-                        </Button>
-                    </Grid>
                     <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Padding="10 5" Margin="10 0 0 0" Click="ButtonBatchFolderRename_Click"
                             Visibility="{Binding MenuKindSelected, Converter={StaticResource IsOpenMenuMode}}" ToolTip="{DynamicResource StringBatchFolderRenameToolTip}">
                         <Button.IsEnabled>
@@ -228,6 +207,27 @@
                         </Button.IsEnabled>
                         <TextBlock Text="{DynamicResource StringSortListButton}"/>
                     </Button>
+                    <Grid HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label VerticalAlignment="Center" Content="{DynamicResource StringSearchFilter}"/>
+                        <TextBox Grid.Column="1" x:Name="tbFilter" Width="200" Margin="10 0 0 0" MaxLength="256" VerticalContentAlignment="Center" Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="2" Width="30" ToolTip="{DynamicResource StringSearchToolTip}" IsDefault="{Binding Path=IsFocused, ElementName=tbFilter, Mode=OneWay}" Click="ButtonSearch_Click">
+                            <ContentControl Content="{StaticResource ViewMagnify}" />
+                        </Button>
+                        <Button Grid.Column="3" Width="30" ToolTip="{DynamicResource StringFilterToolTip}" Click="ButtonFilter_Click">
+                            <ContentControl Content="{StaticResource ViewFilter}" />
+                        </Button>
+                        <Button Grid.Column="4" Width="30" ToolTip="{DynamicResource StringClearFilterToolTip}" Click="ButtonFilterReset_Click"
+                                IsEnabled="{Binding IsFilterActive, Mode=OneWay}">
+                            <ContentControl Content="{StaticResource ViewRefresh}" />
+                        </Button>
+                    </Grid>
                 </DockPanel>
 
                 <DataGrid x:Name="dg1" ItemsSource="{Binding Manager.ItemList, Mode=OneTime}" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToInverseBool}}" dd:DragDrop.DropHandler="{Binding Path=., Mode=OneWay}" dd:DragDrop.IsDragSource="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToInverseBool}}" dd:DragDrop.IsDropTarget="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToInverseBool}}" PreviewKeyDown="DataGrid_PreviewKeyDown" BeginningEdit="DataGrid_BeginningEdit" CellEditEnding="DataGrid_CellEditEnding" Margin="0,0,0,8">
