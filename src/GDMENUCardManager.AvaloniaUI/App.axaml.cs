@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using System.Configuration;
 
 namespace GDMENUCardManager
 {
@@ -13,10 +14,11 @@ namespace GDMENUCardManager
 
         public override void OnFrameworkInitializationCompleted()
         {
+            string lang = ConfigurationManager.AppSettings["Language"] ?? "en-US";
+            ChangeLanguage(lang);
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
                 desktop.MainWindow = new MainWindow();
-
-            ChangeLanguage("en-US"); // Default language
 
             base.OnFrameworkInitializationCompleted();
         }

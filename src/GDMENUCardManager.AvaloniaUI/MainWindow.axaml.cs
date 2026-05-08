@@ -17,6 +17,8 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using GDMENUCardManager.Core;
 using System.Configuration;
+using Avalonia.Media;
+using Avalonia.Platform;
 
 namespace GDMENUCardManager
 {
@@ -314,6 +316,16 @@ namespace GDMENUCardManager
             //showAllDrives = true;
 
             DataContext = this;
+
+            if (bool.TryParse(ConfigurationManager.AppSettings["PALVersion"], out bool palVersion) && palVersion)
+            {
+                var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
+                this.Icon = new WindowIcon(assets.Open(new Uri("avares://GDMENUCardManager.AvaloniaUI/Assets/GDMENUCardManagerPAL.ico")));
+                if (Application.Current.Resources.TryGetResource("BrandColor", out _))
+                {
+                    Application.Current.Resources["BrandColor"] = Color.FromRgb(1, 32, 255);
+                }
+            }
         }
 
         private void InitializeComponent()
@@ -2629,11 +2641,35 @@ namespace GDMENUCardManager
         private void ButtonLangEn_Click(object sender, RoutedEventArgs e)
         {
             App.ChangeLanguage("en-US");
+            SaveLanguageConfig("en-US");
+            RefreshDataGrid();
         }
 
         private void ButtonLangEs_Click(object sender, RoutedEventArgs e)
         {
             App.ChangeLanguage("es-ES");
+            SaveLanguageConfig("es-ES");
+            RefreshDataGrid();
+        }
+
+        private void SaveLanguageConfig(string lang)
+        {
+            if (Core.Manager.ConfigReadOnly) return;
+            try
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
+                SetOrAddSetting(config, "Language", lang);
+                config.Save(System.Configuration.ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+            catch { }
+        }
+
+        private void RefreshDataGrid()
+        {
+            var currentItems = dg1.Items;
+            dg1.Items = null;
+            dg1.Items = currentItems;
         }
 
         private async void ButtonBatchFolderRename_Click(object sender, RoutedEventArgs e)

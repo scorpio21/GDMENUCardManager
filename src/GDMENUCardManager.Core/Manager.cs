@@ -1889,113 +1889,109 @@ namespace GDMENUCardManager.Core
                 }
 
                 //finally rename disc images, write name text file (skip menu if it's at index 0)
+                var metadataTasks = new List<Task>();
                 foreach (var item in ItemList.Skip(menuCurrentlyAtIndexZero ? 1 : 0))
                 {
-                    //rename image file
-                    if (Path.GetFileNameWithoutExtension(item.ImageFile) != Constants.DefaultImageFileName)
+                    metadataTasks.Add(Task.Run(async () =>
                     {
-                        var originalExt = Path.GetExtension(item.ImageFile).ToLower();
+                        //rename image file
+                        if (Path.GetFileNameWithoutExtension(item.ImageFile) != Constants.DefaultImageFileName)
+                        {
+                            var originalExt = Path.GetExtension(item.ImageFile).ToLower();
 
-                        if (originalExt == ".gdi")
-                        {
-                            var newImageFile = Constants.DefaultImageFileName + originalExt;
-                            await Helper.MoveFileAsync(Path.Combine(item.FullFolderPath, item.ImageFile), Path.Combine(item.FullFolderPath, newImageFile));
-                            item.ImageFiles[0] = newImageFile;
-                        }
-                        else
-                        {
-                            for (int i = 0; i < item.ImageFiles.Count; i++)
+                            if (originalExt == ".gdi")
                             {
-                                var oldFileName = item.ImageFiles[i];
-                                var newfilename = Constants.DefaultImageFileName + Path.GetExtension(oldFileName);
-                                await Helper.MoveFileAsync(Path.Combine(item.FullFolderPath, oldFileName), Path.Combine(item.FullFolderPath, newfilename));
-                                item.ImageFiles[i] = newfilename;
+                                var newImageFile = Constants.DefaultImageFileName + originalExt;
+                                await Helper.MoveFileAsync(Path.Combine(item.FullFolderPath, item.ImageFile), Path.Combine(item.FullFolderPath, newImageFile));
+                                item.ImageFiles[0] = newImageFile;
+                            }
+                            else
+                            {
+                                for (int i = 0; i < item.ImageFiles.Count; i++)
+                                {
+                                    var oldFileName = item.ImageFiles[i];
+                                    var newfilename = Constants.DefaultImageFileName + Path.GetExtension(oldFileName);
+                                    await Helper.MoveFileAsync(Path.Combine(item.FullFolderPath, oldFileName), Path.Combine(item.FullFolderPath, newfilename));
+                                    item.ImageFiles[i] = newfilename;
+                                }
                             }
                         }
-                    }
 
-                    //write text name into folder
-                    var itemNamePath = Path.Combine(item.FullFolderPath, Constants.NameTextFile);
-                    if (!await Helper.FileExistsAsync(itemNamePath) || (await Helper.ReadAllTextAsync(itemNamePath)).Trim() != item.Name)
-                        await Helper.WriteTextFileAsync(itemNamePath, item.Name);
+                        //write text name into folder
+                        var itemNamePath = Path.Combine(item.FullFolderPath, Constants.NameTextFile);
+                        if (!await Helper.FileExistsAsync(itemNamePath) || (await Helper.ReadAllTextAsync(itemNamePath)).Trim() != item.Name)
+                            await Helper.WriteTextFileAsync(itemNamePath, item.Name);
 
-                    //write serial number into folder
-                    var itemSerialPath = Path.Combine(item.FullFolderPath, Constants.SerialTextFile);
-                    if (!await Helper.FileExistsAsync(itemSerialPath) || (await Helper.ReadAllTextAsync(itemSerialPath)).Trim() != item.ProductNumber)
-                        await Helper.WriteTextFileAsync(itemSerialPath, item.ProductNumber.Trim());
+                        //write serial number into folder
+                        var itemSerialPath = Path.Combine(item.FullFolderPath, Constants.SerialTextFile);
+                        if (!await Helper.FileExistsAsync(itemSerialPath) || (await Helper.ReadAllTextAsync(itemSerialPath)).Trim() != item.ProductNumber)
+                            await Helper.WriteTextFileAsync(itemSerialPath, item.ProductNumber.Trim());
 
-                    //write folder path into folder
-                    var itemFolderPath = Path.Combine(item.FullFolderPath, Constants.FolderTextFile);
-                    var folderValue = item.Folder ?? string.Empty;
-                    if (!await Helper.FileExistsAsync(itemFolderPath) || (await Helper.ReadAllTextAsync(itemFolderPath)).Trim() != folderValue)
-                        await Helper.WriteTextFileAsync(itemFolderPath, folderValue);
+                        //write folder path into folder
+                        var itemFolderPath = Path.Combine(item.FullFolderPath, Constants.FolderTextFile);
+                        var folderValue = item.Folder ?? string.Empty;
+                        if (!await Helper.FileExistsAsync(itemFolderPath) || (await Helper.ReadAllTextAsync(itemFolderPath)).Trim() != folderValue)
+                            await Helper.WriteTextFileAsync(itemFolderPath, folderValue);
 
-                    //write alt folder paths
-                    for (int altIdx = 0; altIdx < Constants.FolderAltTextFiles.Length; altIdx++)
-                    {
-                        var altFilePath = Path.Combine(item.FullFolderPath, Constants.FolderAltTextFiles[altIdx]);
-                        var altValue = (altIdx < item.AlternativeFolders.Count) ? item.AlternativeFolders[altIdx] : string.Empty;
-
-                        if (string.IsNullOrEmpty(altValue))
+                        //write alt folder paths
+                        for (int altIdx = 0; altIdx < Constants.FolderAltTextFiles.Length; altIdx++)
                         {
-                            if (await Helper.FileExistsAsync(altFilePath))
-                                await Helper.DeleteFileAsync(altFilePath);
+                            var altFilePath = Path.Combine(item.FullFolderPath, Constants.FolderAltTextFiles[altIdx]);
+                            var altValue = (altIdx < item.AlternativeFolders.Count) ? item.AlternativeFolders[altIdx] : string.Empty;
+
+                            if (string.IsNullOrEmpty(altValue))
+                            {
+                                if (await Helper.FileExistsAsync(altFilePath))
+                                    await Helper.DeleteFileAsync(altFilePath);
+                            }
+                            else
+                            {
+                                if (!await Helper.FileExistsAsync(altFilePath) || (await Helper.ReadAllTextAsync(altFilePath)).Trim() != altValue)
+                                    await Helper.WriteTextFileAsync(altFilePath, altValue);
+                            }
                         }
-                        else
+
+                        //write disc type into folder (openMenu only)
+                        if (MenuKindSelected == MenuKind.openMenu)
                         {
-                            if (!await Helper.FileExistsAsync(altFilePath) || (await Helper.ReadAllTextAsync(altFilePath)).Trim() != altValue)
-                                await Helper.WriteTextFileAsync(altFilePath, altValue);
+                            var itemTypePath = Path.Combine(item.FullFolderPath, Constants.TypeTextFile);
+                            var typeValue = item.GetDiscTypeFileValue();
+                            if (!await Helper.FileExistsAsync(itemTypePath) || (await Helper.ReadAllTextAsync(itemTypePath)).Trim() != typeValue)
+                                await Helper.WriteTextFileAsync(itemTypePath, typeValue);
+
+                            //write disc number into folder
+                            var itemDiscPath = Path.Combine(item.FullFolderPath, Constants.DiscTextFile);
+                            var discValue = item.Ip?.Disc ?? "1/1";
+                            if (!await Helper.FileExistsAsync(itemDiscPath) || (await Helper.ReadAllTextAsync(itemDiscPath)).Trim() != discValue)
+                                await Helper.WriteTextFileAsync(itemDiscPath, discValue);
+
+                            //write vga into folder
+                            var itemVgaPath = Path.Combine(item.FullFolderPath, Constants.VgaTextFile);
+                            var vgaValue = (item.Ip?.Vga ?? false) ? "1" : "0";
+                            if (!await Helper.FileExistsAsync(itemVgaPath) || (await Helper.ReadAllTextAsync(itemVgaPath)).Trim() != vgaValue)
+                                await Helper.WriteTextFileAsync(itemVgaPath, vgaValue);
+
+                            //write version into folder
+                            var itemVersionPath = Path.Combine(item.FullFolderPath, Constants.VersionTextFile);
+                            var versionValue = item.Ip?.Version ?? string.Empty;
+                            if (!await Helper.FileExistsAsync(itemVersionPath) || (await Helper.ReadAllTextAsync(itemVersionPath)).Trim() != versionValue)
+                                await Helper.WriteTextFileAsync(itemVersionPath, versionValue);
+
+                            //write date into folder
+                            var itemDatePath = Path.Combine(item.FullFolderPath, Constants.DateTextFile);
+                            var dateValue = item.Ip?.ReleaseDate ?? string.Empty;
+                            if (!await Helper.FileExistsAsync(itemDatePath) || (await Helper.ReadAllTextAsync(itemDatePath)).Trim() != dateValue)
+                                await Helper.WriteTextFileAsync(itemDatePath, dateValue);
+
+                            //write region into folder
+                            var itemRegionPath = Path.Combine(item.FullFolderPath, Constants.RegionTextFile);
+                            var regionValue = item.Ip?.Region ?? string.Empty;
+                            if (!await Helper.FileExistsAsync(itemRegionPath) || (await Helper.ReadAllTextAsync(itemRegionPath)).Trim() != regionValue)
+                                await Helper.WriteTextFileAsync(itemRegionPath, regionValue);
                         }
-                    }
-
-                    //write disc type into folder (openMenu only)
-                    if (MenuKindSelected == MenuKind.openMenu)
-                    {
-                        var itemTypePath = Path.Combine(item.FullFolderPath, Constants.TypeTextFile);
-                        var typeValue = item.GetDiscTypeFileValue();
-                        if (!await Helper.FileExistsAsync(itemTypePath) || (await Helper.ReadAllTextAsync(itemTypePath)).Trim() != typeValue)
-                            await Helper.WriteTextFileAsync(itemTypePath, typeValue);
-
-                        //write disc number into folder
-                        var itemDiscPath = Path.Combine(item.FullFolderPath, Constants.DiscTextFile);
-                        var discValue = item.Ip?.Disc ?? "1/1";
-                        if (!await Helper.FileExistsAsync(itemDiscPath) || (await Helper.ReadAllTextAsync(itemDiscPath)).Trim() != discValue)
-                            await Helper.WriteTextFileAsync(itemDiscPath, discValue);
-
-                        //write vga into folder
-                        var itemVgaPath = Path.Combine(item.FullFolderPath, Constants.VgaTextFile);
-                        var vgaValue = (item.Ip?.Vga ?? false) ? "1" : "0";
-                        if (!await Helper.FileExistsAsync(itemVgaPath) || (await Helper.ReadAllTextAsync(itemVgaPath)).Trim() != vgaValue)
-                            await Helper.WriteTextFileAsync(itemVgaPath, vgaValue);
-
-                        //write version into folder
-                        var itemVersionPath = Path.Combine(item.FullFolderPath, Constants.VersionTextFile);
-                        var versionValue = item.Ip?.Version ?? string.Empty;
-                        if (!await Helper.FileExistsAsync(itemVersionPath) || (await Helper.ReadAllTextAsync(itemVersionPath)).Trim() != versionValue)
-                            await Helper.WriteTextFileAsync(itemVersionPath, versionValue);
-
-                        //write date into folder
-                        var itemDatePath = Path.Combine(item.FullFolderPath, Constants.DateTextFile);
-                        var dateValue = item.Ip?.ReleaseDate ?? string.Empty;
-                        if (!await Helper.FileExistsAsync(itemDatePath) || (await Helper.ReadAllTextAsync(itemDatePath)).Trim() != dateValue)
-                            await Helper.WriteTextFileAsync(itemDatePath, dateValue);
-
-                        //write region into folder
-                        var itemRegionPath = Path.Combine(item.FullFolderPath, Constants.RegionTextFile);
-                        var regionValue = item.Ip?.Region ?? string.Empty;
-                        if (!await Helper.FileExistsAsync(itemRegionPath) || (await Helper.ReadAllTextAsync(itemRegionPath)).Trim() != regionValue)
-                            await Helper.WriteTextFileAsync(itemRegionPath, regionValue);
-                    }
-
-                    //write info text into folder for cdi files
-                    //var itemInfoPath = Path.Combine(item.FullFolderPath, infotextfile);
-                    //if (item.CdiTarget > 0)
-                    //{
-                    //    var newTarget = $"target|{item.CdiTarget}";
-                    //    if (!await Helper.FileExistsAsync(itemInfoPath) || (await Helper.ReadAllTextAsync(itemInfoPath)).Trim() != newTarget)
-                    //        await Helper.WriteTextFileAsync(itemInfoPath, newTarget);
-                    //}
+                    }));
                 }
+                await Task.WhenAll(metadataTasks);
 
                 if (containsCompressedFile)
                 {

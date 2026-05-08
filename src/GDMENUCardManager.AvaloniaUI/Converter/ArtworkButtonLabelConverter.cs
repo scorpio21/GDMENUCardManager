@@ -11,10 +11,10 @@ namespace GDMENUCardManager.Converter
             if (value is bool hasArtwork)
             {
                 if (parameter is string param && param == "tooltip")
-                    return hasArtwork ? "Edit currently assigned artwork" : "Assign artwork";
-                return hasArtwork ? "Manage" : "Assign";
+                    return hasArtwork ? MainWindow.GetString("StringEditArtworkTooltip") : MainWindow.GetString("StringAssignArtworkTooltip");
+                return hasArtwork ? MainWindow.GetString("StringManage") : MainWindow.GetString("StringAssign");
             }
-            return "Assign";
+            return MainWindow.GetString("StringAssign");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

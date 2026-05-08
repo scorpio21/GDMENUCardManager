@@ -145,12 +145,27 @@
         </Grid>
 
         <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0 0 0">
-          <Button Width="30" ToolTip.Tip="English" Click="ButtonLangEn_Click" Padding="2" Margin="0 0 5 0">
-              <Image Source="avares://GDMENUCardManager.AvaloniaUI/Assets/banderas/gb.png" Stretch="Uniform"/>
-          </Button>
-          <Button Width="30" ToolTip.Tip="Español" Click="ButtonLangEs_Click" Padding="2" Margin="0 0 5 0">
-              <Image Source="avares://GDMENUCardManager.AvaloniaUI/Assets/banderas/es.png" Stretch="Uniform"/>
-          </Button>
+          <Menu Background="Transparent" Padding="0" VerticalAlignment="Center" Margin="0 0 10 0">
+            <MenuItem Header="{DynamicResource StringLanguage}" Padding="5">
+              <MenuItem.Icon>
+                <Viewbox Width="18" Height="18">
+                  <Canvas Width="24" Height="24">
+                    <Path Data="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,14.5 5.14,16.74 6.94,18.24L7.5,15.65C7.2,14.65 7.14,13.65 7.14,13.31L7.14,12.12C7.14,10.74 7.6,9.5 8.31,8.5L8.31,8.34L9.4,7.14L10.3,6.31L11.14,5.91L12,5.5L12.86,5.91L13.7,6.31L14.6,7.14L15.69,8.34L15.69,8.5C16.4,9.5 16.86,10.74 16.86,12.12L16.86,13.31C16.86,13.65 16.8,14.65 16.5,15.65L17.06,18.24C18.86,16.74 20,14.5 20,12A8,8 0 0,0 12,4M12,14.31L11,15.31L12,16.31L13,15.31L12,14.31Z" Fill="{DynamicResource ThemeForegroundBrush}" />
+                  </Canvas>
+                </Viewbox>
+              </MenuItem.Icon>
+              <MenuItem Header="English" Click="ButtonLangEn_Click">
+                <MenuItem.Icon>
+                  <Image Source="avares://GDMENUCardManager.AvaloniaUI/Assets/banderas/gb.png" Width="16" Height="11"/>
+                </MenuItem.Icon>
+              </MenuItem>
+              <MenuItem Header="Español" Click="ButtonLangEs_Click">
+                <MenuItem.Icon>
+                  <Image Source="avares://GDMENUCardManager.AvaloniaUI/Assets/banderas/es.png" Width="16" Height="11"/>
+                </MenuItem.Icon>
+              </MenuItem>
+            </MenuItem>
+          </Menu>
           <Button Width="30" ToolTip.Tip="{DynamicResource StringAbout}" Click="ButtonAbout_Click">
             <Viewbox Width="18" Height="18">
               <Canvas Width="24" Height="24">
@@ -309,7 +324,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Width="1*" IsVisible="False">
+            <DataGridTemplateColumn Width="1*" IsVisible="True">
               <DataGridTemplateColumn.Header>
                 <TextBlock Text="{DynamicResource StringFolder}" />
               </DataGridTemplateColumn.Header>
@@ -339,7 +354,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Width="70" IsVisible="False">
+            <DataGridTemplateColumn Width="70" IsVisible="True">
               <DataGridTemplateColumn.Header>
                 <TextBlock Text="{DynamicResource StringArt}" />
               </DataGridTemplateColumn.Header>
@@ -375,7 +390,7 @@
                 </DataTemplate>
               </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Width="80" IsVisible="False">
+            <DataGridTemplateColumn Width="80" IsVisible="True">
               <DataGridTemplateColumn.Header>
                 <TextBlock Text="{DynamicResource StringType}" />
               </DataGridTemplateColumn.Header>
@@ -450,9 +465,9 @@
                 IsEnabled="{Binding Manager.UndoManager.CanRedo}">
           <TextBlock Text="{DynamicResource StringRedo}" />
         </Button>
-        <Button Grid.Column="8" Margin="10 0" Padding="10 10" ToolTip.Tip="Load info from files that are already on sd card" Click="ButtonPreload_Click" IsVisible="False">Preload</Button>
-        <Button Grid.Column="9" Margin="10 0" Padding="10 10" Click="ButtonSort_Click" IsVisible="False">Sort List</Button>
-        <Button Grid.Column="10" Margin="10 0" Padding="10 10" Click="ButtonBatchRename_Click" IsVisible="False">Batch Rename</Button>
+        <Button Grid.Column="8" Margin="10 0" Padding="10 10" ToolTip.Tip="Load info from files that are already on sd card" Click="ButtonPreload_Click" IsVisible="True">Preload</Button>
+        <Button Grid.Column="9" Margin="10 0" Padding="10 10" Click="ButtonSort_Click" IsVisible="True">Sort List</Button>
+        <Button Grid.Column="10" Margin="10 0" Padding="10 10" Click="ButtonBatchRename_Click" IsVisible="True">Batch Rename</Button>
       </Grid>
     </Grid>
 
