@@ -220,6 +220,39 @@ namespace GDMENUCardManager.Core
         }
 
         /// <summary>
+        /// Merges entries from another BoxDatManager into this one.
+        /// </summary>
+        public void Merge(BoxDatManager other, bool overwriteExisting = false)
+        {
+            if (other == null || !other.IsLoaded)
+                return;
+
+            foreach (var otherEntry in other._entries)
+            {
+                var existingEntry = _entries.FirstOrDefault(e => e.Name.Equals(otherEntry.Name, StringComparison.OrdinalIgnoreCase));
+                if (existingEntry == null)
+                {
+                    // Add new entry
+                    var newEntry = new BoxDatEntry
+                    {
+                        Name = otherEntry.Name,
+                        Data = (byte[])otherEntry.Data.Clone(),
+                        FileNumber = 0 // Will be assigned during save
+                    };
+                    _entries.Add(newEntry);
+                    _serialsWithArtwork.Add(newEntry.Name);
+                    HasUnsavedChanges = true;
+                }
+                else if (overwriteExisting)
+                {
+                    // Update existing entry
+                    existingEntry.Data = (byte[])otherEntry.Data.Clone();
+                    HasUnsavedChanges = true;
+                }
+            }
+        }
+
+        /// <summary>
         /// Delete artwork entry for the given serial.
         /// Applies Table 2 artwork translation before deletion.
         /// </summary>

@@ -50,6 +50,7 @@ namespace GDMENUCardManager.Core.Interface
         public void ExtractArchive(string archivePath, string extractTo);
         public Dictionary<string, long> GetArchiveFiles(string archivePath);
         public string GetString(string key);
+        public string GetFormattedString(string key, params object[] args);
     }
 
     public interface IProgressWindow
@@ -64,5 +65,6 @@ namespace GDMENUCardManager.Core.Interface
         public int TotalItems { get; set; }
         public int ProcessedItems { get; set; }
         public string TextContent { get; set; }
+        public string Title { get; set; }
     }
 }

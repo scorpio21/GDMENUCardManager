@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GDMENUCardManager"
         mc:Ignorable="d"
-        Title="{DynamicResource StringProgressWindow}" Height="100" Width="600" MinHeight="100" MinWidth="600"
+        Title="{Binding Title}" Height="100" Width="600" MinHeight="100" MinWidth="600"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>

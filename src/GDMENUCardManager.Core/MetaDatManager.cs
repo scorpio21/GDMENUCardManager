@@ -282,6 +282,41 @@ namespace GDMENUCardManager.Core
         }
 
         /// <summary>
+        /// Merges entries from another MetaDatManager into this one.
+        /// </summary>
+        public void Merge(MetaDatManager other, bool overwriteExisting = false)
+        {
+            if (other == null || !other.IsLoaded)
+                return;
+
+            foreach (var otherEntry in other._entries)
+            {
+                var existingEntry = _entries.FirstOrDefault(e => e.Name.Equals(otherEntry.Name, StringComparison.OrdinalIgnoreCase));
+                if (existingEntry == null)
+                {
+                    // Add new entry
+                    var newEntry = new MetaDatEntry
+                    {
+                        Name = otherEntry.Name,
+                        RawData = (byte[])otherEntry.RawData.Clone(),
+                        FileNumber = 0 // Will be assigned during save
+                    };
+                    ParseEntryData(newEntry);
+                    _entries.Add(newEntry);
+                    _serialsWithMetadata.Add(newEntry.Name);
+                    HasUnsavedChanges = true;
+                }
+                else if (overwriteExisting)
+                {
+                    // Update existing entry
+                    existingEntry.RawData = (byte[])otherEntry.RawData.Clone();
+                    ParseEntryData(existingEntry);
+                    HasUnsavedChanges = true;
+                }
+            }
+        }
+
+        /// <summary>
         /// Delete metadata entry for the given serial.
         /// </summary>
         public void DeleteEntryForSerial(string serial)

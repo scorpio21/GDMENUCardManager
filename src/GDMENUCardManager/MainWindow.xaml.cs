@@ -549,12 +549,8 @@ namespace GDMENUCardManager
                 case DatFileStatus.BothMissing:
                     {
                         var result = MessageBox.Show(
-                            "BOX.DAT and ICON.DAT were not found in the expected location.\n\n" +
-                            "These files are required for artwork display in openMenu.\n\n" +
-                            "Click Yes to create empty DAT files.\n\n" +
-                            "Click No to close and add files manually.\n\n" +
-                            "Click Cancel to proceed without artwork features.",
-                            "DAT Files Missing",
+                            GetString("StringDatFilesMissingMsg"),
+                            GetString("StringDatFilesMissing"),
                             MessageBoxButton.YesNoCancel,
                             MessageBoxImage.Warning);
 
@@ -564,7 +560,7 @@ namespace GDMENUCardManager
                             var (success, error) = Manager.CreateEmptyDatFiles();
                             if (!success)
                             {
-                                MessageBox.Show($"Failed to create DAT files: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show(GetString("StringDatErrorOccurred") + error, GetString("StringError"), MessageBoxButton.OK, MessageBoxImage.Error);
                                 Manager.ArtworkDisabled = true;
                             }
                         }
@@ -584,12 +580,8 @@ namespace GDMENUCardManager
                 case DatFileStatus.BoxMissingIconExists:
                     {
                         var result = MessageBox.Show(
-                            "BOX.DAT was not found but ICON.DAT exists.\n\n" +
-                            "BOX.DAT is required for artwork management.\n\n" +
-                            "Click Yes to create an empty BOX.DAT file.\n\n" +
-                            "Click No to close and add BOX.DAT manually.\n\n" +
-                            "Click Cancel to proceed without artwork features.",
-                            "BOX.DAT Missing",
+                            GetString("StringBoxMissingIconExistsMsg"),
+                            GetString("StringBoxMissingIconExistsTitle"),
                             MessageBoxButton.YesNoCancel,
                             MessageBoxImage.Warning);
 
@@ -599,7 +591,7 @@ namespace GDMENUCardManager
                             var (success, error) = Manager.CreateEmptyBoxDat();
                             if (!success)
                             {
-                                MessageBox.Show($"Failed to create BOX.DAT: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show(GetString("StringDatErrorOccurred") + error, GetString("StringError"), MessageBoxButton.OK, MessageBoxImage.Error);
                                 Manager.ArtworkDisabled = true;
                             }
                         }
@@ -617,12 +609,8 @@ namespace GDMENUCardManager
                 case DatFileStatus.BoxExistsIconMissing:
                     {
                         var result = MessageBox.Show(
-                            "ICON.DAT was not found but BOX.DAT exists.\n\n" +
-                            "ICON.DAT can be generated from BOX.DAT by downscaling the artwork.\n\n" +
-                            "Click Yes to generate ICON.DAT from BOX.DAT (recommended).\n\n" +
-                            "Click No to close and add ICON.DAT manually.\n\n" +
-                            "Click Cancel to proceed without artwork features.",
-                            "ICON.DAT Missing",
+                            GetString("StringBoxExistsIconMissingMsg"),
+                            GetString("StringBoxExistsIconMissingTitle"),
                             MessageBoxButton.YesNoCancel,
                             MessageBoxImage.Question);
 
@@ -632,7 +620,7 @@ namespace GDMENUCardManager
                             var (success, error) = Manager.GenerateIconDatFromBox();
                             if (!success)
                             {
-                                MessageBox.Show($"Failed to generate ICON.DAT: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show(GetString("StringDatErrorOccurred") + error, GetString("StringError"), MessageBoxButton.OK, MessageBoxImage.Error);
                                 Manager.ArtworkDisabled = true;
                             }
                         }
@@ -650,12 +638,8 @@ namespace GDMENUCardManager
                 case DatFileStatus.SerialsMismatch:
                     {
                         var result = MessageBox.Show(
-                            "ICON.DAT entries don't match BOX.DAT entries.\n\n" +
-                            "This can happen if the files were modified independently.\n\n" +
-                            "Click Yes to regenerate ICON.DAT from BOX.DAT (recommended).\n\n" +
-                            "Click No to proceed with mismatched files (some icons may be missing).\n\n" +
-                            "Click Cancel to proceed without artwork features.",
-                            "DAT File Mismatch",
+                            GetString("StringSerialsMismatchMsg"),
+                            GetString("StringSerialsMismatchTitle"),
                             MessageBoxButton.YesNoCancel,
                             MessageBoxImage.Warning);
 
@@ -665,7 +649,7 @@ namespace GDMENUCardManager
                             var (success, error) = Manager.GenerateIconDatFromBox();
                             if (!success)
                             {
-                                MessageBox.Show($"Failed to regenerate ICON.DAT: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show(GetString("StringDatErrorOccurred") + error, GetString("StringError"), MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
                         else if (result == MessageBoxResult.Cancel)
@@ -1222,59 +1206,6 @@ namespace GDMENUCardManager
                 MessageBox.Show(ex.Message, "Error Loading data", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             IsBusy = false;
-        }
-
-        private async void ButtonBatchRename_Click(object sender, RoutedEventArgs e)
-        {
-            if (Manager.ItemList.Count == 0)
-                return;
-
-            IsBusy = true;
-            try
-            {
-                var w = new CopyNameWindow();
-                w.Owner = this;
-
-                if (!w.ShowDialog().GetValueOrDefault())
-                    return;
-
-                // Capture old names before batch rename
-                var oldNames = Manager.ItemList.ToDictionary(i => i, i => i.Name);
-
-                var count = await Manager.BatchRenameItems(w.NotOnCard, w.OnCard, w.FolderName, w.ParseTosec);
-
-                // Record undo for items whose names actually changed
-                if (count > 0)
-                {
-                    var undoOp = new MultiPropertyEditOperation("Batch Rename")
-                    {
-                        PropertyName = nameof(GdItem.Name)
-                    };
-
-                    foreach (var item in Manager.ItemList)
-                    {
-                        if (oldNames.TryGetValue(item, out var oldName) && item.Name != oldName)
-                        {
-                            undoOp.Edits.Add((item, oldName, item.Name));
-                        }
-                    }
-
-                    if (undoOp.Edits.Count > 0)
-                    {
-                        Manager.UndoManager.RecordChange(undoOp);
-                    }
-                }
-
-                MessageBox.Show($"{count} item(s) renamed", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         private void ButtonDiscImageOptions_Click(object sender, RoutedEventArgs e)

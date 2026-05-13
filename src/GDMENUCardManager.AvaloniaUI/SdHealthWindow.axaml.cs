@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Diagnostics;
 using GDMENUCardManager.Core;
 using System;
 using System.Threading;

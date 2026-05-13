@@ -23,6 +23,7 @@ This program will save the files the proper way so you console will boot super f
 * **Region & VGA Patching**: Apply patches directly to disc images.
 * **Custom Folder Support**: Assign custom folder paths and additional paths for openMenu.
 * Automatically rename based on folder name, file name or internal name (IP.BIN)
+* **Automatic Artwork Recovery**: If you re-install or re-compile the app, it will automatically recover and merge your box art and metadata from any SD card you load.
 * Show cover image (0GDTEX.PVR) and manage Box Art/Icons for openMenu.
 * If using a CodeBreaker image it can detect if it's the correct one.
 * Saves name.txt on each folder to keep compatibility with other managers.

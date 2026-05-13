@@ -48,6 +48,14 @@ namespace GDMENUCardManager
             set { _TextContent = value; RaisePropertyChanged(); }
         }
 
+        private string _Title;
+        public new string Title
+        {
+            get { return _Title; }
+            set { _Title = value; RaisePropertyChanged(); }
+        }
+
+        public bool IsVisible => base.IsVisible;
 
         public ProgressWindow()
         {

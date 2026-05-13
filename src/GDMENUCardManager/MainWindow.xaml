@@ -401,14 +401,13 @@
                 <Button Grid.Column="0" Width="50" Margin="10 0" ToolTip="{DynamicResource StringAddGamesToolTip}" Click="ButtonAddGames_Click" Content="{StaticResource ViewAdd}" IsEnabled="{Binding IsNotFilterActive, Mode=OneWay}"/>
                 <Button Grid.Column="1" Width="50" Margin="0 0 10 0" ToolTip="{DynamicResource StringRemoveGameToolTip}" Click="ButtonRemoveGame_Click" Content="{StaticResource ViewRemove}"/>
                 <CheckBox Grid.Column="2" x:Name="cbLockCheck" VerticalAlignment="Center" Margin="10 0" IsChecked="{Binding EnableLockCheck, Mode=TwoWay}" ToolTip="{DynamicResource StringLockCheckToolTip}"><TextBlock Text="{DynamicResource StringLockCheck}"/></CheckBox>
-                <Button Grid.Column="3" Margin="10 0" Padding="0 10" Click="ButtonSaveChanges_Click" FontWeight="Bold" ToolTip="{DynamicResource StringSaveChangesToolTip}" IsEnabled="{Binding IsNotFilterActive, Mode=OneWay}"><TextBlock Text="{DynamicResource StringSaveChanges}"/></Button>
+                <Button Grid.Column="3" Margin="10 0" Padding="0 10" Click="ButtonSaveChanges_Click" FontWeight="Bold" ToolTip="{DynamicResource StringSaveChangesToolTip}" IsEnabled="{Binding IsNotFilterActive, Mode=OneWay}" Content="{DynamicResource StringSaveChanges}"/>
                 <Button Grid.Column="4" Margin="0 0 5 0" Padding="10 10" Click="ButtonUndo_Click" ToolTip="{DynamicResource StringUndoToolTip}"
                         IsEnabled="{Binding Manager.UndoManager.CanUndo, Mode=OneWay}"><TextBlock Text="{DynamicResource StringUndo}"/></Button>
                 <Button Grid.Column="5" Margin="5 0 10 0" Padding="10 10" Click="ButtonRedo_Click" ToolTip="{DynamicResource StringRedoToolTip}"
                         IsEnabled="{Binding Manager.UndoManager.CanRedo, Mode=OneWay}"><TextBlock Text="{DynamicResource StringRedo}"/></Button>
                 <Button Grid.Column="6" Margin="10 0" Padding="10 10" ToolTip="Load info from files that are already on sd card" Click="ButtonPreload_Click" Visibility="Collapsed">Preload</Button>
                 <Button Grid.Column="7" Margin="10 0" Padding="10 10" Click="ButtonSort_Click" Visibility="Collapsed">Sort List</Button>
-                <Button Grid.Column="8" Margin="10 0" Padding="10 10" Click="ButtonBatchRename_Click" Visibility="Collapsed">Batch Rename</Button>
             </Grid>
         </Grid>
 
