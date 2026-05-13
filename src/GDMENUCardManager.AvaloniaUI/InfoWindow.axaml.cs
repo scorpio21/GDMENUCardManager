@@ -15,14 +15,14 @@ namespace GDMENUCardManager
     {
         public string FileInfo { get; }
 
-        private string _IpInfo = "Loading...";
+        private string _IpInfo;
         public string IpInfo
         {
             get { return _IpInfo; }
             private set { _IpInfo = value; RaisePropertyChanged(); }
         }
 
-        private string _LabelText = "Loading...";
+        private string _LabelText;
         public string LabelText
         {
             get { return _LabelText; }
@@ -59,6 +59,8 @@ namespace GDMENUCardManager
             this.Opened += InfoWindow_Opened;
 
             this.item = item;
+            _IpInfo = GetString("StringLoading");
+            _LabelText = GetString("StringLoading");
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"{GetString("StringFolderColon")} {Path.GetFileName(item.FullFolderPath)}");

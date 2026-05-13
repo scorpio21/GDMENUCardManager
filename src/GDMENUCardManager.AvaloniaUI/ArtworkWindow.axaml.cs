@@ -42,12 +42,20 @@ namespace GDMENUCardManager
             get => _serial;
             private set { _serial = value; RaisePropertyChanged(); }
         }
-        public string WindowTitle => $"Artwork - {_item.Name}";
+        public string WindowTitle => $"{GetString("StringArtworkTitle")} - {_item.Name}";
 
         public bool CanNavigatePrev => _navigableItems != null && _currentIndex > 0;
         public bool CanNavigateNext => _navigableItems != null && _currentIndex >= 0 && _currentIndex < _navigableItems.Count - 1;
 
-        private Bitmap _previewImage;
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
+        public ArtworkWindow()
+
         public Bitmap PreviewImage
         {
             get => _previewImage;
@@ -167,23 +175,23 @@ namespace GDMENUCardManager
 
             var result = await MessageBoxManager.GetMessageBoxCustomWindow(new MessageBox.Avalonia.DTO.MessageBoxCustomParams
             {
-                ContentTitle = "Unsaved Changes",
-                ContentMessage = "You have unsaved changes. Save before navigating?",
+                ContentTitle = GetString("StringUnsavedChanges"),
+                ContentMessage = GetString("StringUnsavedChangesNav"),
                 Icon = MessageBox.Avalonia.Enums.Icon.Warning,
                 ShowInCenter = true,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 ButtonDefinitions = new ButtonDefinition[]
                 {
-                    new ButtonDefinition { Name = "Save" },
-                    new ButtonDefinition { Name = "Discard" },
-                    new ButtonDefinition { Name = "Cancel" }
+                    new ButtonDefinition { Name = GetString("StringSave") },
+                    new ButtonDefinition { Name = GetString("StringDiscard") },
+                    new ButtonDefinition { Name = GetString("StringCancel") }
                 }
             }).ShowDialog(this);
 
-            if (result == "Cancel")
+            if (result == GetString("StringCancel"))
                 return false;
 
-            if (result == "Save")
+            if (result == GetString("StringSave"))
                 SaveChanges();
 
             return true;
@@ -257,13 +265,13 @@ namespace GDMENUCardManager
         {
             var fileDialog = new OpenFileDialog
             {
-                Title = "Select Image",
+                Title = GetString("StringSelectImage"),
                 AllowMultiple = false,
                 Filters = new List<FileDialogFilter>
                 {
                     new FileDialogFilter
                     {
-                        Name = "Image Files",
+                        Name = GetString("StringImageFiles"),
                         Extensions = new List<string> { "png", "jpg", "jpeg", "gif", "webp", "bmp", "tiff", "tga" }
                     }
                 }
@@ -305,19 +313,19 @@ namespace GDMENUCardManager
         {
             var result = await MessageBoxManager.GetMessageBoxCustomWindow(new MessageBox.Avalonia.DTO.MessageBoxCustomParams
             {
-                ContentTitle = "Confirm Delete",
-                ContentMessage = $"Delete artwork entry for serial '{Serial}'?",
+                ContentTitle = GetString("StringConfirmDelete"),
+                ContentMessage = string.Format(GetString("StringConfirmDeleteArtwork"), Serial),
                 Icon = MessageBox.Avalonia.Enums.Icon.Warning,
                 ShowInCenter = true,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 ButtonDefinitions = new ButtonDefinition[]
                 {
-                    new ButtonDefinition { Name = "Delete" },
-                    new ButtonDefinition { Name = "Cancel" }
+                    new ButtonDefinition { Name = GetString("StringDelete") },
+                    new ButtonDefinition { Name = GetString("StringCancel") }
                 }
             }).ShowDialog(this);
 
-            if (result == "Delete")
+            if (result == GetString("StringDelete"))
             {
                 try
                 {
@@ -426,19 +434,19 @@ namespace GDMENUCardManager
 
                 var result = await MessageBoxManager.GetMessageBoxCustomWindow(new MessageBox.Avalonia.DTO.MessageBoxCustomParams
                 {
-                    ContentTitle = "Unsaved Changes",
-                    ContentMessage = "You have unsaved changes. Discard them?",
+                    ContentTitle = GetString("StringUnsavedChanges"),
+                    ContentMessage = GetString("StringUnsavedChangesDiscard"),
                     Icon = MessageBox.Avalonia.Enums.Icon.Warning,
                     ShowInCenter = true,
                     WindowStartupLocation = WindowStartupLocation.CenterOwner,
                     ButtonDefinitions = new ButtonDefinition[]
                     {
-                        new ButtonDefinition { Name = "Discard" },
-                        new ButtonDefinition { Name = "Cancel" }
+                        new ButtonDefinition { Name = GetString("StringDiscard") },
+                        new ButtonDefinition { Name = GetString("StringCancel") }
                     }
                 }).ShowDialog(this);
 
-                if (result == "Discard")
+                if (result == GetString("StringDiscard"))
                 {
                     HasUnsavedChanges = false;
                     Close();

@@ -119,11 +119,18 @@ namespace GDMENUCardManager
             catch { }
         }
 
+        private string GetString(string key)
+        {
+            if (Application.Current.TryFindResource(key, out object res) && res is string s)
+                return s;
+            return key;
+        }
+
         private async void CheckForUpdatesButton_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
             btn.IsEnabled = false;
-            btn.Content = "Checking...";
+            btn.Content = GetString("StringChecking");
             try
             {
                 var result = await UpdateManager.CheckForUpdateAsync();
@@ -134,7 +141,7 @@ namespace GDMENUCardManager
                 }
                 else if (result.UpdateAvailable)
                 {
-                    btn.Content = "Check for Updates";
+                    btn.Content = GetString("StringCheckForUpdates");
                     btn.IsEnabled = true;
 
                     var dialog = new UpdateAvailableDialog(result.LatestTag, result.LatestVersion);
@@ -153,21 +160,21 @@ namespace GDMENUCardManager
                 }
                 else
                 {
-                    var msgBox = MessageBoxManager.GetMessageBoxStandardWindow("No Update Available",
-                        "You are running the latest version.", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Info);
+                    var msgBox = MessageBoxManager.GetMessageBoxStandardWindow(GetString("StringNoUpdateAvailable"),
+                        GetString("StringLatestVersionRunning"), MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Info);
                     await msgBox.ShowDialog(this);
                 }
             }
             catch
             {
-                var msgBox = MessageBoxManager.GetMessageBoxStandardWindow("Update Check Failed",
-                    "Could not check for updates. Please check your internet connection.", MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Warning);
+                var msgBox = MessageBoxManager.GetMessageBoxStandardWindow(GetString("StringUpdateCheckFailed"),
+                    GetString("StringUpdateCheckFailedMsg"), MessageBox.Avalonia.Enums.ButtonEnum.Ok, MessageBox.Avalonia.Enums.Icon.Warning);
                 await msgBox.ShowDialog(this);
             }
             finally
             {
                 btn.IsEnabled = true;
-                btn.Content = "Check for Updates";
+                btn.Content = GetString("StringCheckForUpdates");
             }
         }
 
@@ -176,7 +183,7 @@ namespace GDMENUCardManager
             var btn = (Button)sender;
             var oldContent = btn.Content;
             btn.IsEnabled = false;
-            btn.Content = "Checking...";
+            btn.Content = GetString("StringChecking");
             try
             {
                 var token = new CancellationTokenSource(10000).Token;//for time out
@@ -192,7 +199,7 @@ namespace GDMENUCardManager
             }
             catch
             {
-                LatestVersion = "Error";
+                LatestVersion = GetString("StringError");
             }
             finally
             {

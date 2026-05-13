@@ -175,7 +175,7 @@ namespace GDMENUCardManager.Core
         public (bool success, string errorMessage) SaveBoxDat(bool proceedWithoutBackupOnFailure = false)
         {
             if (BoxDat == null)
-                return (false, "BoxDatManager not initialized");
+                return (false, Helper.DependencyManager.GetString("StringBoxDatNotInitialized"));
 
             var boxDatPath = GetBoxDatPath();
             var backupFolder = GetDatBackupFolder();
@@ -196,7 +196,7 @@ namespace GDMENUCardManager.Core
         public (bool success, string errorMessage) SaveIconDat(bool proceedWithoutBackupOnFailure = false)
         {
             if (IconDat == null)
-                return (false, "IconDatManager not initialized");
+                return (false, Helper.DependencyManager.GetString("StringIconDatNotInitialized"));
 
             var iconDatPath = GetIconDatPath();
             var backupFolder = GetDatBackupFolder();
@@ -245,7 +245,7 @@ namespace GDMENUCardManager.Core
         public (bool success, string errorMessage) SaveMetaDat(bool proceedWithoutBackupOnFailure = false)
         {
             if (MetaDat == null)
-                return (false, "MetaDatManager not initialized");
+                return (false, Helper.DependencyManager.GetString("StringMetaDatNotInitialized"));
 
             var metaDatPath = GetMetaDatPath();
             var backupFolder = GetDatBackupFolder();
@@ -287,7 +287,7 @@ namespace GDMENUCardManager.Core
             }
             catch (Exception ex)
             {
-                return (false, $"Failed to create backup: {ex.Message}");
+                return (false, string.Format(Helper.DependencyManager.GetString("StringFailedToCreateBackup"), ex.Message));
             }
         }
 
@@ -317,29 +317,29 @@ namespace GDMENUCardManager.Core
             try
             {
                 if (!File.Exists(filePath))
-                    return (false, "File not found");
+                    return (false, Helper.DependencyManager.GetString("StringFileNotFound"));
 
                 using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
                 using var reader = new BinaryReader(fs);
 
                 if (fs.Length < 16)
-                    return (false, "File too small for header");
+                    return (false, Helper.DependencyManager.GetString("StringFileTooSmallForHeader"));
 
                 // Check magic
                 byte[] magic = reader.ReadBytes(4);
                 if (magic[0] != 'D' || magic[1] != 'A' || magic[2] != 'T' || magic[3] != 0x01)
-                    return (false, "Invalid magic header (expected DAT\\x01)");
+                    return (false, Helper.DependencyManager.GetString("StringInvalidMagicHeader"));
 
                 // Check entry size
                 uint entrySize = reader.ReadUInt32();
                 if (entrySize != expectedEntrySize)
-                    return (false, $"Unexpected entry size 0x{entrySize:X} (expected 0x{expectedEntrySize:X})");
+                    return (false, string.Format(Helper.DependencyManager.GetString("StringUnexpectedEntrySize"), entrySize, expectedEntrySize));
 
                 return (true, string.Empty);
             }
             catch (Exception ex)
             {
-                return (false, $"Error reading file: {ex.Message}");
+                return (false, string.Format(Helper.DependencyManager.GetString("StringErrorReadingFile"), ex.Message));
             }
         }
 
@@ -369,7 +369,7 @@ namespace GDMENUCardManager.Core
             }
             catch (Exception ex)
             {
-                return (false, $"Failed to clear DAT entries: {ex.Message}");
+                return (false, string.Format(Helper.DependencyManager.GetString("StringFailedToClearDatEntries"), ex.Message));
             }
         }
 
@@ -380,7 +380,7 @@ namespace GDMENUCardManager.Core
             try
             {
                 if (string.IsNullOrEmpty(sdPath) || !Directory.Exists(sdPath))
-                    return (false, "No SD card path is set.");
+                    return (false, Helper.DependencyManager.GetString("StringNoSdPathSet"));
 
                 var gdiPath = Path.Combine(sdPath, "01", "disc.gdi");
                 if (!File.Exists(gdiPath))
@@ -460,7 +460,7 @@ namespace GDMENUCardManager.Core
             }
             catch (Exception ex)
             {
-                return (false, $"Failed to overwrite DATs from SD card: {ex.Message}");
+                return (false, string.Format(Helper.DependencyManager.GetString("StringFailedToOverwriteDats"), ex.Message));
             }
         }
 
@@ -494,7 +494,7 @@ namespace GDMENUCardManager.Core
                 bool hasSourceMeta = File.Exists(sourceMetaPath);
 
                 if (!hasSourceBox && !hasSourceMeta)
-                    return (false, "Selected folder does not contain BOX.DAT or META.DAT", 0, 0);
+                    return (false, Helper.DependencyManager.GetString("StringSourceFolderNoDats"), 0, 0);
 
                 // Validate source files
                 if (hasSourceBox)
