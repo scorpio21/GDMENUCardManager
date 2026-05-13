@@ -54,8 +54,7 @@ namespace GDMENUCardManager
             return key;
         }
 
-        public ArtworkWindow()
-
+        private Bitmap _previewImage;
         public Bitmap PreviewImage
         {
             get => _previewImage;
